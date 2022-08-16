@@ -1,9 +1,12 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\StaterkitController;
+use App\Http\Controllers\Admin\DepartamentoController;
 use App\Http\Controllers\Admin\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +32,12 @@ Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name(
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('admin')->group(function () {
 
+        Route::group(['prefix' => 'departamento'], function () {
+            Route::get('/', [DepartamentoController::class, 'index'])->name('departamento.index');
+            Route::get('/create', [DepartamentoController::class, 'create'])->name('departamento.create');
+        });
+
+
         Route::group(['prefix' => 'administradores'], function () {
             Route::get('/', [UserController::class, 'index'])->name('user.index');
             Route::post('/', [UserController::class, 'search'])->name('user.search');
@@ -38,5 +47,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/{user}', [UserController::class, 'update'])->name('user.update');
             Route::delete('/{user}', [UserController::class, 'destroy'])->name('user.delete');
         });
+
+
     });
 });
