@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\StaterkitController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,23 +19,24 @@ use App\Http\Controllers\LanguageController;
 Route::get('/', [StaterkitController::class, 'home'])->name('home');
 Route::get('home', [StaterkitController::class, 'home'])->name('home');
 
-// Route Layout Exemples 
+// Route Layout Exemples
 Route::get('layouts/collapsed-menu', [StaterkitController::class, 'collapsed_menu'])->name('collapsed-menu');
 Route::get('layouts/full', [StaterkitController::class, 'layout_full'])->name('layout-full');
 Route::get('layouts/without-menu', [StaterkitController::class, 'without_menu'])->name('without-menu');
 Route::get('layouts/empty', [StaterkitController::class, 'layout_empty'])->name('layout-empty');
 Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name('layout-blank');
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::prefix('admin')->group(function () {
 
-// locale Route
-Route::get('lang/{locale}', [LanguageController::class, 'swap']);
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+        Route::group(['prefix' => 'administradores'], function () {
+            Route::get('/', [UserController::class, 'index'])->name('user.index');
+            Route::post('/', [UserController::class, 'search'])->name('user.search');
+            Route::get('/show/{user}', [UserController::class, 'show'])->name('user.show');
+            Route::post('/store', [UserController::class, 'store'])->name('user.store');
+            Route::get('/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
+            Route::post('/{user}', [UserController::class, 'update'])->name('user.update');
+            Route::delete('/{user}', [UserController::class, 'destroy'])->name('user.delete');
+        });
+    });
 });
