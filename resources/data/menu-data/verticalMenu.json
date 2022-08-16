@@ -2,48 +2,166 @@
   "menu": [
     {
       "url": "home",
-      "name": "Home",
-      "icon": "home",
-      "slug": "home"
+      "name": "Dashboard",
+      "icon": "layers",
+      "slug": "dashboard"
     },
     {
-      "name": "Page Layouts",
-      "icon": "mail",
-      "slug": "",
-      "badge": "5",
-      "badgeClass": "badge rounded-pill badge-light-danger ms-auto me-1",
-      "submenu": [
-        {
-          "url": "layouts/collapsed-menu",
-          "name": "Collapsed Menu",
-          "icon": "circle",
-          "slug": "collapsed-menu"
-        },
-        {
-          "url": "layouts/full",
-          "name": "Layout Full",
-          "icon": "circle",
-          "slug": "layout-full"
-        },
-        {
-          "url": "layouts/without-menu",
-          "name": "Without Menu",
-          "icon": "circle",
-          "slug": "without-menu"
-        },
-        {
-          "url": "layouts/empty",
-          "name": "Layout Empty",
-          "icon": "circle",
-          "slug": "layout-empty"
-        },
-        {
-          "url": "layouts/blank",
-          "name": "Layout Blank",
-          "icon": "circle",
-          "slug": "layout-blank"
-        }
-      ]
+        "name": "E-commerce",
+        "icon": "shopping-cart",
+        "slug": "",
+        "submenu": [
+          {
+            "url": "admin/departamentos",
+            "name": "Departamentos",
+            "icon": "circle",
+            "slug": "collapsed-menu"
+          },
+          {
+            "url": "admin/categorias",
+            "name": "Categorias",
+            "icon": "circle",
+            "slug": "categorias"
+          },
+          {
+            "url": "admin/produtos",
+            "name": "Produtos",
+            "icon": "circle",
+            "slug": "produtos"
+          }
+        ]
+    },
+    {
+        "name": "Marketing",
+        "icon": "target",
+        "slug": "",
+        "submenu": [
+          {
+            "url": "admin/cupons",
+            "name": "Cupons",
+            "icon": "circle",
+            "slug": "cupons"
+          },
+          {
+            "url": "admin/promocoes",
+            "name": "Promoções",
+            "icon": "circle",
+            "slug": "promoções"
+          }
+        ]
+    },
+    {
+        "name": "Vendas",
+        "icon": "dollar-sign",
+        "slug": "",
+        "submenu": [
+          {
+            "url": "admin/clientes",
+            "name": "Clientes",
+            "icon": "user",
+            "slug": "clientes"
+          },
+          {
+            "url": "admin/pedidos",
+            "name": "Pedidos",
+            "icon": "circle",
+            "slug": "pedidos"
+          }
+        ]
+    },
+    {
+        "name": "Relatórios",
+        "icon": "clipboard",
+        "slug": "",
+        "submenu": [
+          {
+            "url": "admin/newsletter",
+            "name": "Newsletter",
+            "icon": "mail",
+            "slug": "newsletter"
+          }
+        ]
+    },
+    {
+        "name": "Páginas",
+        "icon": "file",
+        "slug": "",
+        "submenu": [
+          {
+            "url": "admin/paginas/home",
+            "name": "Home Page",
+            "icon": "circle",
+            "slug": "home-page"
+          },
+          {
+            "url": "admin/paginas/sobre",
+            "name": "Sobre",
+            "icon": "circle",
+            "slug": "sobre"
+          },
+          {
+            "url": "admin/paginas/faq",
+            "name": "Perguntas Frequentes",
+            "icon": "circle",
+            "slug": "faq"
+          },
+          {
+            "url": "admin/paginas/politica-de-privacidade",
+            "name": "Política de Privacidade",
+            "icon": "circle",
+            "slug": "politica-de-privacidade"
+          }
+        ]
+    },
+    {
+        "name": "Blog",
+        "icon": "bold",
+        "slug": "",
+        "submenu": [
+          {
+            "url": "admin/categorias",
+            "name": "Categorias",
+            "icon": "circle",
+            "slug": "categorias"
+          },
+          {
+            "url": "admin/post",
+            "name": "Post",
+            "icon": "circle",
+            "slug": "post"
+          }
+        ]
+    },
+    {
+        "name": "Configurações",
+        "icon": "settings",
+        "slug": "",
+        "submenu": [
+            {
+            "url": "admin/administradores",
+            "name": "administradores",
+            "icon": "user",
+            "slug": "administradores"
+            },
+          {
+            "url": "admin/informacoes-da-loja",
+            "name": "Informações da Loja",
+            "icon": "info",
+            "slug": "informacoes-da-loja"
+          },
+          {
+            "url": "admin/informacoes-de-contato",
+            "name": "Informações de Contato",
+            "icon": "info",
+            "slug": "informacoes-de-contato"
+          },
+          {
+            "url": "admin/emails",
+            "name": "E-mails",
+            "icon": "circle",
+            "slug": "mail"
+          }
+        ]
     }
   ]
 }
