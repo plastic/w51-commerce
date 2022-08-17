@@ -32,7 +32,7 @@ Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name(
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('admin')->group(function () {
 
-        Route::group(['prefix' => 'departamento'], function () {
+        Route::group(['prefix' => 'departamentos'], function () {
             Route::get('/', [DepartamentoController::class, 'index'])->name('departamento.index');
             Route::get('/create', [DepartamentoController::class, 'create'])->name('departamento.create');
             Route::post('/store', [DepartamentoController::class, 'store'])->name('departamento.store');
