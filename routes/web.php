@@ -35,6 +35,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::group(['prefix' => 'departamento'], function () {
             Route::get('/', [DepartamentoController::class, 'index'])->name('departamento.index');
             Route::get('/create', [DepartamentoController::class, 'create'])->name('departamento.create');
+            Route::post('/store', [DepartamentoController::class, 'store'])->name('departamento.store');
         });
 
 

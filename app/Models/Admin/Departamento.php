@@ -12,6 +12,8 @@ class Departamento extends Model
     protected $table = 'co_departamento';
     protected $primaryKey = 'id_departamento';
 
+    public $timestamps = false;
+    
     protected $fillable = [
         'tx_departamento',
         'tx_banner',

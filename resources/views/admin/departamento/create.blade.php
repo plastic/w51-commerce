@@ -13,8 +13,8 @@
 
 @section('content')
     <!-- Kick start -->
-    {{-- <form class="add-new-record modal-content pt-0" method="POST" action="" enctype="multipart/form-data">
-        @csrf --}}
+    <form  method="POST" action="{{route('departamento.store')}}" enctype="multipart/form-data">
+        @csrf
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -59,9 +59,9 @@
                             <p class="card-text">
                               Esse banner sera exibido na página do departamento <code>500x500 | jpg.png</code>
                             </p>
-                            <form action="#" class="dropzone dropzone-area" id="dpz-single-file">
+                            {{-- <form action="#" class="dropzone dropzone-area" id="dpz-single-file">
                                 <div class="dz-message">Clique aqui ou arraste o banner.</div>
-                              </form>
+                              </form> --}}
                           </div>
                         </div>
                       </div>
@@ -80,7 +80,7 @@
         </div>
 
 
-    {{-- </form> --}}
+    </form>
     <!--/ Kick start -->
 
 
