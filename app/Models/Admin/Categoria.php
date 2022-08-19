@@ -21,4 +21,30 @@ class Categoria extends Model
         'st_publicado',
         'dh_cadastro',
     ];
+
+    public function departamento()
+    {
+        return $this->hasOne(Departamento::class, 'id_departamento');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'id_categoria_pai');
+    }
+
+    public function categorias()
+    {
+        return $this->hasMany(Categoria::class);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'id_categoria_pai');
+
+    }
+
+    public function childrenRecursive()
+    {
+    return $this->children()->with('childrenRecursive');
+    }
 }

@@ -20,15 +20,15 @@
         </div>
     @endif
 
-    @if($errors->any())
-    <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
-        <div class="alert-body d-flex align-items-center">
-            @foreach($errors->all() as $error)
-            <i data-feather="info" class="me-50"></i>
-            <span>{{ $error }} | </span>
-            @endforeach
+    @if ($errors->any())
+        <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
+            <div class="alert-body d-flex align-items-center">
+                @foreach ($errors->all() as $error)
+                    <i data-feather="info" class="me-50"></i>
+                    <span>{{ $error }} | </span>
+                @endforeach
+            </div>
         </div>
-    </div>
     @endif
 
     <div class="card">
@@ -37,7 +37,8 @@
 
                 <div class=" col-md-3">
                     <div class="d-grid">
-                        <a class="btn btn-outline-primary waves-effect p-1" data-bs-toggle="modal" data-bs-target="#modals-slide-in"> Novo</a>
+                        <a class="btn btn-outline-primary waves-effect p-1" data-bs-toggle="modal"
+                            data-bs-target="#modals-slide-in"> Novo</a>
                     </div>
                 </div>
 
@@ -84,7 +85,8 @@
                                                 <div class="row">
                                                     <div class="d-flex gap-1 col-actions">
 
-                                                        <form action="{{ route('user.show', ['user' => $user]) }}" method="GET">
+                                                        <form action="{{ route('user.show', ['user' => $user]) }}"
+                                                            method="GET">
                                                             <button type="submit"
                                                                 class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
                                                                 <i data-feather='eye'></i></button>
@@ -97,11 +99,14 @@
                                                                 <i data-feather='edit'></i></button>
                                                         </form>
 
-                                                        <!-- <form action="{{ route('user.delete', ['user' => $user]) }}" method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                    <button type="submit" class="btn btn-icon rounded-circle btn-outline-primary waves-effect"><i data-feather='trash-2'></i></button>
-                                                </form> -->
+                                                        <form action="{{ route('user.delete', ['user' => $user]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit"
+                                                                class="btn btn-icon rounded-circle btn-outline-primary waves-effect"><i
+                                                                    data-feather='trash-2'></i></button>
+                                                        </form>
 
                                                     </div>
                                                 </div>
@@ -124,48 +129,48 @@
     </div>
     <div class="modal modal-slide-in fade" id="modals-slide-in">
         <div class="modal-dialog sidebar-lg">
-          <form class="add-new-record modal-content pt-0" method="POST" action="{{route('user.store')}}" enctype="multipart/form-data">
-            @csrf
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
-            <div class="modal-header mb-1">
-              <h5 class="modal-title" id="exampleModalLabel">Novo Usúario</h5>
-            </div>
-            <div class="modal-body flex-grow-1">
-                <div class="mb-1">
-                    <label class="form-label">Nome</label>
-                    <input type="text" class="form-control" name="name" placeholder="Nome" required/>
+            <form class="add-new-record modal-content pt-0" method="POST" action="{{ route('user.store') }}"
+                enctype="multipart/form-data">
+                @csrf
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title" id="exampleModalLabel">Novo Usúario</h5>
                 </div>
-                <div class="mb-1">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email" placeholder="Digite seu e-mail" required />
-                </div>
+                <div class="modal-body flex-grow-1">
+                    <div class="mb-1">
+                        <label class="form-label">Nome</label>
+                        <input type="text" class="form-control" name="name" placeholder="Nome" required />
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" placeholder="Digite seu e-mail"
+                            required />
+                    </div>
 
-                <div class="mb-1">
-                    <label class="form-label">Senha</label>
-                    <div class="input-group input-group-merge form-password-toggle">
-                        <input type="password" class="form-control form-control-merge"
-                            name="password"
-                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                             tabindex="2" required />
-                             <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                    <div class="mb-1">
+                        <label class="form-label">Senha</label>
+                        <div class="input-group input-group-merge form-password-toggle">
+                            <input type="password" class="form-control form-control-merge" name="password"
+                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                tabindex="2" required />
+                            <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                        </div>
                     </div>
-                </div>
-                <div class="mb-4">
-                    <label class="form-label">Confirmar senha</label>
-                    <div class="input-group input-group-merge form-password-toggle">
-                        <input type="password" class="form-control form-control-merge"
-                          name="password_confirmation"
-                          placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                         tabindex="3" required />
-                        <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                    <div class="mb-4">
+                        <label class="form-label">Confirmar senha</label>
+                        <div class="input-group input-group-merge form-password-toggle">
+                            <input type="password" class="form-control form-control-merge" name="password_confirmation"
+                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                tabindex="3" required />
+                            <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                        </div>
                     </div>
+                    <button type="submit" class="btn btn-primary data-submit me-1">Enviar</button>
+                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
-              <button type="submit" class="btn btn-primary data-submit me-1">Enviar</button>
-              <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-            </div>
-          </form>
+            </form>
         </div>
-      </div>
+    </div>
 @endsection
 
 @section('vendor-script')

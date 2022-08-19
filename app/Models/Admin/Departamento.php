@@ -2,8 +2,9 @@
 
 namespace App\Models\Admin;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Admin\Categoria;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Departamento extends Model
 {
@@ -22,4 +23,11 @@ class Departamento extends Model
         'st_publicado',
         'dh_cadastro',
     ];
+
+    public function categorias()
+    {
+        return $this->hasMany(Categoria::class , 'id_departamento')->with('childrenRecursive')->whereNull('id_categoria_pai');
+    }
+
+
 }

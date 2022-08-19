@@ -41,11 +41,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::group(['prefix' => 'categorias'], function () {
             Route::get('/', [CategoriaController::class, 'index'])->name('categoria.index');
-            Route::get('/show', [CategoriaController::class, 'show'])->name('categoria.index');
+            Route::get('/teste', [CategoriaController::class, 'montaArvoreMenu'])->name('categoria.teste');
+            Route::get('/show', [CategoriaController::class, 'show'])->name('categoria.show');
             Route::get('/create', [CategoriaController::class, 'create'])->name('categoria.create');
             Route::get('/edit', [CategoriaController::class, 'edit'])->name('categoria.edit');
             Route::get('/update{categoria}', [CategoriaController::class, 'update'])->name('categoria.update');
             Route::post('/store', [CategoriaController::class, 'store'])->name('categoria.store');
+            Route::delete('/delete', [CategoriaController::class, 'delete'])->name('categoria.delete');
         });
 
         Route::group(['prefix' => 'administradores'], function () {
