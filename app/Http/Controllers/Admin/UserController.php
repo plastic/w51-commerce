@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $users = User::paginate(15);
 
-        return view('admin.administrators.index', ['users' => $users,]);
+        return view('admin.administradores.index', ['users' => $users,]);
     }
 
     public function search(Request $request)
@@ -27,7 +27,7 @@ class UserController extends Controller
             ->orWhere('email', 'LIKE', '%' . $request->search . '%')
             ->paginate(15);
 
-        return view('admin.administrators.index', ['users' => $users]);
+        return view('admin.administradores.index', ['users' => $users]);
     }
 
     public function store(Request $request)
@@ -50,13 +50,13 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return view('admin.administrators.show', ['user' => $user]);
+        return view('admin.administradores.show', ['user' => $user]);
     }
 
 
     public function edit(User $user)
     {
-        return view('admin.administrators.edit', ['user' => $user]);
+        return view('admin.administradores.edit', ['user' => $user]);
     }
 
 

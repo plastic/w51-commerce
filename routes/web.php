@@ -6,7 +6,9 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\DepartamentoController;
+use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\UserController;
+
 
 
 /*
@@ -44,6 +46,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/store', [DepartamentoController::class, 'store'])->name('departamento.store');
         });
 
+        Route::group(['prefix' => 'categorias'], function () {
+            Route::get('/', [CategoriaController::class, 'index'])->name('categoria.index');
+            Route::get('/show', [CategoriaController::class, 'show'])->name('categoria.index');
+            Route::get('/create', [CategoriaController::class, 'create'])->name('categoria.create');
+            Route::get('/edit', [CategoriaController::class, 'edit'])->name('categoria.edit');
+            Route::get('/update{categoria}', [CategoriaController::class, 'update'])->name('categoria.update');
+            Route::post('/store', [CategoriaController::class, 'store'])->name('categoria.store');
+        });
 
         Route::group(['prefix' => 'administradores'], function () {
             Route::get('/', [UserController::class, 'index'])->name('user.index');
