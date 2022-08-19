@@ -5,10 +5,13 @@
 @section('vendor-style')
     <!-- vendor css files -->
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/file-uploaders/dropzone.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/toastr.min.css')) }}">
 @endsection
 @section('page-style')
     <!-- Page css files -->
     <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-file-uploader.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-toastr.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('css/base/pages/page-departamentos.css')) }}">
 @endsection
 
 @section('content')
@@ -20,11 +23,11 @@
                 <div class="row">
                     <div class="mb-1 col-12">
                         <label class="form-label">Nome</label>
-                        <input type="text" class="form-control" name="tx_departamento" placeholder="Nome" required />
+                        <input  id ="firstname" type="text" class="form-control" name="tx_departamento" placeholder="Nome" required />
                     </div>
                     <div class="mb-1 col-12">
                         <label class="form-label">Descrição</label>
-                        <textarea class="form-control" name="tx_descricao" placeholder="Descrição..." required> </textarea>
+                        <textarea id="lastname" class="form-control" name="tx_descricao" placeholder="Descrição..." required> </textarea>
                     </div>
                     <div class="mb-1 col-6">
                         <div class="d-flex flex-column">
@@ -57,11 +60,30 @@
                           </div>
                           <div class="card-body">
                             <p class="card-text">
-                              Esse banner sera exibido na página do departamento <code>500x500 | jpg.png</code>
+                              Esse banner sera exibido na página do departamento <code>1440x500 | jpg.png</code>
                             </p>
-                            {{-- <form action="#" class="dropzone dropzone-area" id="dpz-single-file">
-                                <div class="dz-message">Clique aqui ou arraste o banner.</div>
-                              </form> --}}
+
+
+                               <div id="actions" class="dropzone dropzone-area">
+                                    <div  id="allImagesWrapper" class="col-lg-12 d-flex actions">
+
+                                    </div>
+                                      <label class="custom-file-label" for="files">
+                                        <div class="dz-message" id="dz-message">Clique aqui ou arraste o banner.</div>
+                                    </label>
+                                    <div class="col-lg-12">
+                                      <div class="input-group">
+                                        <div class="custom-file">
+                                          <input type="file" class="custom-images-input" id="files" name="banner[]"
+                                          hidden width=1440 height=500 filesize=1500>
+
+                                           {{-- <div class="dz-message">Drop files here or click to upload.</div> --}}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <input type="hidden" id="serialized" name="serialized">
                           </div>
                         </div>
                       </div>
@@ -73,7 +95,7 @@
                 <div class="row">
                     <div class="d-flex justify-content-between">
                         <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success data-submit me-1">Enviar</button>
+                        <button type="submit" id="submit-all" class="btn btn-success data-submit me-1">Enviar</button>
                     </div>
                 </div>
             </div>
@@ -81,17 +103,20 @@
 
 
     </form>
-    <!--/ Kick start -->
 
 
-    <!--/ Page layout -->
+
 @endsection
+
 
 @section('vendor-script')
     <!-- vendor files -->
     <script src="{{ asset(mix('vendors/js/file-uploaders/dropzone.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
 @endsection
 @section('page-script')
     <!-- Page js files -->
-    <script src="{{ asset(mix('js/scripts/forms/form-file-uploader.js')) }}"></script>
+    {{-- <script src="{{ asset(mix('js/scripts/forms/form-file-uploader.js')) }}"></script> --}}
+    <script src="{{ asset(mix('js/scripts/sortable/html5sortable.js')) }}"></script>
+    <script src="{{ asset(mix('js/scripts/forms/form-images.js')) }}"></script>
 @endsection

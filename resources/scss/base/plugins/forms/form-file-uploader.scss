@@ -1,6 +1,7 @@
 @import '../../bootstrap-extended/include'; // Bootstrap includes
 @import '../../components/include'; // Components includes
 
+
 .dropzone {
   min-height: 350px;
   border: 2px dashed $primary;
@@ -19,7 +20,22 @@
     justify-content: center;
     align-items: center;
     margin: 0;
+    &.filled{
+        opacity:0;
+    }
   }
+
+  &.hover{
+    border: 2px dashed #28c76f;
+    .dz-message {
+        opacity:0;
+    }
+  }
+
+  div#allImagesWrapper {
+    z-index: 2;
+    position: relative;
+ }
 
   // dropzone message icon
   .dz-message:before {
@@ -50,6 +66,16 @@
 
     .dz-image {
       border-radius: $border-radius;
+      display: flex;
+      justify-content: center;
+      img{
+        object-fit: contain;
+        width: auto;
+        height: 100%;
+      }
+    }
+    .dz-details{
+        pointer-events: none;
     }
     &.dz-image-preview{
       background: transparent !important;

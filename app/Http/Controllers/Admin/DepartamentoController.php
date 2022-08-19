@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Traits\Upload;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Admin\Departamento;
+use App\Models\Admin\File;
 use App\Http\Controllers\Controller;
+use App\Rules\CheckImage;
+use Illuminate\Support\Facades\Validator;
 
 class DepartamentoController extends Controller
 {
+
+    use Upload;
+
     public function index()
     {
         $departamentos = Departamento::paginate(20);
@@ -38,10 +45,24 @@ class DepartamentoController extends Controller
         $departamento->st_menu_principal =  $request->st_menu_principal == 'on' ? true : false;
         $departamento->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
         $departamento->dh_cadastro = Carbon::now()->toDateTimeString();
+
+        if (isset($request->banner[0]) && !empty($request->banner[0])) {
+            $imagevalidator = Validator::make($request->all(), [
+                'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 ', new CheckImage(1440, 500)],
+            ]);
+            if ($imagevalidator->fails()) {
+                return redirect()->back()->with('error', $imagevalidator->messages());
+            }else{
+                $image = $this->upload($request->banner[0], 'departamentos', 'image');
+                if (!$image) {
+                    return response()->json("Ocorreu um erro ao enviar o arquivo", 400);
+                }
+                $departamento->tx_banner = $image;
+            }
+        }
+
         $departamento->save();
 
-        dd($departamento);
-
-        return redirect('/admin/administradores')->with('msg-sucess', 'Cadastro feito sucesso');
+        return redirect('/admin/departamentos')->with('msg-sucess', 'Cadastro feito sucesso');
     }
 }

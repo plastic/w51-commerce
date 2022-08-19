@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\StaterkitController;
+use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\DepartamentoController;
 use App\Http\Controllers\Admin\UserController;
 
@@ -31,6 +32,11 @@ Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name(
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('admin')->group(function () {
+
+        Route::group(['prefix' => 'fileupload'], function () {
+            Route::post('/store', [FileController::class, 'store'])->name('fileupload.store');
+        });
+
 
         Route::group(['prefix' => 'departamentos'], function () {
             Route::get('/', [DepartamentoController::class, 'index'])->name('departamento.index');

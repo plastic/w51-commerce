@@ -1,0 +1,25 @@
+.dropzone div#allImagesWrapper{
+	justify-content: center;
+}
+.dropzone .dz-preview .dz-image {
+    width: 1000px;
+    height: 500px;
+}
+
+@media(max-width:1200px){
+	.dropzone{
+		width: 100%;
+		height: 0;
+		padding-bottom: 50%;
+		min-height: 100%;
+	}
+
+	#allImagesWrapper, .card-newthumb{
+		width: 100%;
+		height: 100%;
+	}
+	.dropzone .dz-preview .dz-image {
+		width: 100%;
+		height: 100%;
+	}
+}
