@@ -50,15 +50,38 @@ holder.ondrop = function(e) {
 }
 
 var _URL = window.URL || window.webkitURL;
-
+let myimages;
+let onRemove = false;
 let imagesWrapper = $('#actions .actions');
+
+
+var inputElement = document.getElementById("files");
+inputElement.onclick  = function(event) {
+    $('.dropzone ').removeClass('hover');
+}
+
 //Images
-$('.custom-images-input').change(function(){
+inputElement.onchange = function(event) {
+
+    if ($(this)[0].files.length  == 0 && !onRemove) {
+        console.log("Suspect Cancel was hit, no files selected.");
+        console.log(myimages);
+        $(this)[0].files = myimages;
+    }
+
 
     if($(this).attr('limit') &&  $(this)[0].files.length > $(this).attr('limit')){
 
+        Swal.fire({
+            icon: 'warning',
+            title: "Aviso!",
+            text: "Você só pode enviar " + $(this).attr('limit') + " arquivos por campo.",
+            type: "error",
+            confirmButtonColor: '#ff9f43',
+            confirmButtonText: "OK"
+        });
 
-        toastr.warning( "Você só pode enviar " + $(this).attr('limit') + " arquivos por campo.","Aviso!",{closeButton:true,tapToDismiss:false})
+        //toastr.warning( "Você só pode enviar " + $(this).attr('limit') + " arquivos por campo.","Aviso!",{closeButton:true,tapToDismiss:false})
 
         const dataTransfer = new DataTransfer;
         for(let i = 0; i < $(this).attr('limit'); i++)
@@ -75,7 +98,14 @@ $('.custom-images-input').change(function(){
     if ((file = this.files[0])) {
 
         if(file.size > maxSize ){
-            toastr.error( "Tamanho de arquivo inválido","Erro!",{closeButton:true,tapToDismiss:false})
+            Swal.fire({
+                icon: 'error',
+                title: "Ops!",
+                text: "Tamanho de arquivo inválido",
+                type: "error",
+                confirmButtonColor: '#d33',
+                confirmButtonText: "OK"
+            });
             $('#files').val('').change();
             $('.dropzone ').removeClass('hover');
             return;
@@ -86,7 +116,14 @@ $('.custom-images-input').change(function(){
         img.onload = function () {
 
             if(this.width > maxWidth || this.height > maxHeight ){
-                toastr.error( "Tamanho de imagem inválido","Erro!",{closeButton:true,tapToDismiss:false})
+                Swal.fire({
+                    icon: 'error',
+                    title: "Ops!",
+                    text: "Tamanho de imagem inválido",
+                    type: "error",
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: "OK"
+                });
                 $('#files').val('').change();
                 $('.dropzone ').removeClass('hover');
                 return;
@@ -95,7 +132,14 @@ $('.custom-images-input').change(function(){
             _URL.revokeObjectURL(objectUrl);
         };
         img.onerror = function() {
-            toastr.error( "Formarto de arquivo inválido.","Erro!",{closeButton:true,tapToDismiss:false})
+            Swal.fire({
+                icon: 'error',
+                title: "Ops!",
+                text: "Formarto de arquivo inválido",
+                type: "error",
+                confirmButtonColor: '#d33',
+                confirmButtonText: "OK"
+            });
             $('#files').val('').change();
             $('.dropzone ').removeClass('hover');
             return;
@@ -114,7 +158,8 @@ $('.custom-images-input').change(function(){
     $('.dz-message').removeClass('filled');
   }
 
-  imgs.forEach(function(img, index){
+  myimages = imgs;
+  Array.from(imgs).forEach(function(img, index){
       var card = document.createElement("span");
       card.classList = 'card-newthumb dz-preview dz-processing dz-image-preview dz-error dz-complete';
       card.dataset.uploadname = img.name;
@@ -177,7 +222,9 @@ $('.custom-images-input').change(function(){
 
   })
   $('.dropzone ').removeClass('hover');
-})
+  onRemove = false;
+}
+
 let fileArray;
 let imagesValue;
 function removeImage(event, image, parent){
@@ -186,13 +233,14 @@ function removeImage(event, image, parent){
   const dt = new DataTransfer()
   const input = document.getElementById('files')
   const { files } = input
-  files.forEach(function(file){
+  Array.from(files).forEach(function(file){
       if (file.name !== image.name && file.lastModified !== image.lastModified)
       dt.items.add(file) // here you exclude the file. thus removing it.
   });
 
   input.files = dt.files // Assign the updates list
   console.log( $('.custom-images-input')[0].files);
+  onRemove = true;
   $('#files').change();
 
  parent.remove();
@@ -256,6 +304,7 @@ function removeThis(event, este){
               console.log(result);
                 if (result) {
                   este.closest('.card-newthumb').remove();
+                  onRemove = true;
                   return true;
                 } else {
                   Swal.fire('Ocorreu um erro', '', 'error');

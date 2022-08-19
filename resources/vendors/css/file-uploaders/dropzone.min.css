@@ -4,3 +4,9 @@
     position: relative;
     z-index: 2;
 }
+
+.dropzone .dz-preview:hover .dz-image img {
+    transform: none;
+    -webkit-filter: none;
+    filter: none;
+}
