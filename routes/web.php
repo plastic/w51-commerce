@@ -4,10 +4,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\StaterkitController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\DepartamentoController;
 use App\Http\Controllers\Admin\CategoriaController;
-use App\Http\Controllers\Admin\UserController;
 
 
 
