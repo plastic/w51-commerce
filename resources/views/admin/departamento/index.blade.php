@@ -43,7 +43,7 @@
                             </button>
                             <input type="text" class="form-control form-control-lg" name="search" id="search"
                                 value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}"
-                                placeholder="Digite o Nome ou E-mail" aria-label="Amount" />
+                                placeholder="Digite o nome do departamento" aria-label="Amount" />
                             <button class="btn btn-outline-primary" type="submit">Buscar</button>
                         </div>
                     </form>
