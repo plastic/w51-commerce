@@ -62,7 +62,7 @@ class DepartamentoController extends Controller
 
         $departamento->save();
 
-        return redirect('/admin/departamentos')->with('msg-sucess', 'Cadastro feito sucesso');
+        return redirect('/admin/departamentos')->with('msg-sucess', 'Cadastro com feito sucesso');
     }
 
     public function show(Departamento $departamento)

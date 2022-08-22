@@ -30,7 +30,7 @@ class CategoriaController extends Controller
     {
 
         $request->validate([
-            'id_departamento' => 'required | ',
+            'id_departamento' => 'required',
             'tx_departamento' => 'required',
             'tx_descricao' => 'required',
         ]);
@@ -53,7 +53,7 @@ class CategoriaController extends Controller
         $categoria->save();
 
 
-        return redirect('/admin/categorias')->with('msg-sucess', 'Cadastro feito sucesso');
+        return redirect('/admin/categorias')->with('msg-sucess', 'Cadastro feito com sucesso');
     }
 
     public function show(Categoria $categoria)
