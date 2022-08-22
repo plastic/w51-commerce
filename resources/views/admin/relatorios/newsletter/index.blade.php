@@ -43,7 +43,7 @@
                                 <i data-feather="search"></i>
                             </button>
                             <input type="text" class="form-control form-control-lg" name="search" id="search"
-                                value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}"
+                                value="{{ isset($search) ? $search : '' }}"
                                 placeholder="Digite o Nome ou E-mail" aria-label="Amount" />
                             <button class="btn btn-outline-primary" type="submit">Buscar</button>
                         </div>
@@ -52,7 +52,7 @@
 
                 <div class=" col-md-3">
                     <div class="d-flex justify-content-end">
-                        <a class="nav-link" href="{{route('newsletter.export')}}">
+                        <a class="nav-link" href="{{route('newsletter.export', ['search' => isset($search) ? $search : ''] ) }}">
                             <div class="btn-export">
                                 <button class="btn btn-primary ag-grid-export-btn d-flex align-items-center">
                                     <i data-feather='pie-chart' class="font-medium-3 me-50"></i>
@@ -83,11 +83,14 @@
                                         <th class="bg-primary text-white">Página</th>
                                         <th class="bg-primary text-white">Nome</th>
                                         <th class="bg-primary text-white">E-mail</th>
-                                        <th class="bg-primary text-white">Optin</th>
                                         <th class="bg-primary text-white">Data de Cadastro</th>
-                                        <th class="bg-primary text-white">Sincronizado</th>
                                         <th class="bg-primary text-white">Status</th>
-                                        <th class="bg-primary text-white rounded-end"></th>
+                                        <th class="bg-primary text-white">Optin
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="O usuário recebeu o e-mail e ativou o cadastro"><i data-feather='alert-circle' ></i></a>
+                                        </th>
+                                        <th class="bg-primary text-white rounded-end">Sync
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Registro sincronziado com o sistema"><i data-feather='alert-circle' ></i></a>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,6 +100,23 @@
                                             <td>{{ $lead->tx_pagina }}</td>
                                             <td>{{ $lead->name }}</td>
                                             <td><a href="mailto:{{ $lead->email }}" class="text-dark">{{ $lead->email }}</a></td>
+                                            <td>{{ date('d/m/Y H:i', strtotime($lead->dh_cadastro));}}</td>
+                                            <td>
+                                                <form action="{{ route('newsletter.active', ['id' => $lead->id, 'status' => $lead->st_ativo]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn">
+                                                @if( $lead->st_ativo == 'ATIVO')
+                                                    <span class="badge rounded-pill badge-light-success" text-capitalized=""> {{ ucfirst(strtolower($lead->st_ativo)) }}</span>
+                                                @elseif( $lead->st_ativo == 'INATIVO')
+                                                    <span class="badge rounded-pill badge-light-warning" text-capitalized=""> {{ ucfirst(strtolower($lead->st_ativo)) }}</span>
+                                                @else
+                                                    <span class="badge rounded-pill badge-light-secondary" text-capitalized=""> {{ ucfirst(strtolower($lead->st_ativo)) }}</span>
+                                                @endif
+
+                                                </button></form>
+
+                                            </td>
                                             <td class="text-center">
                                                 @if($lead->dh_validacao_email == null || $lead->dh_validacao_email == '0000-00-00 00:00:00')
                                                     <div class="avatar avatar-status bg-light-danger"><span class="avatar-content" title="Inativo">
@@ -108,7 +128,6 @@
                                                     </span></div>
                                                 @endif
                                             </td>
-                                            <td>{{ date('d/m/Y H:i', strtotime($lead->dh_cadastro));}}</td>
                                             <td class="text-center">
                                                 @if($lead->sincronizado)
                                                     <div class="avatar avatar-status bg-light-success"><span class="avatar-content" title="Sim">
@@ -119,48 +138,17 @@
                                                         <i data-feather='x-octagon'></i>
                                                     </span></div>
                                                 @endif
-                                            </td>
-                                            <td>
-                                                @if( $lead->st_ativo == 'ATIVO')
-                                                    <span class="badge rounded-pill badge-light-success" text-capitalized=""> {{ ucfirst(strtolower($lead->st_ativo)) }}</span>
-                                                @elseif( $lead->st_ativo == 'INATIVO')
-                                                    <span class="badge rounded-pill badge-light-warning" text-capitalized=""> {{ ucfirst(strtolower($lead->st_ativo)) }}</span>
-                                                @else
-                                                    <span class="badge rounded-pill badge-light-secondary" text-capitalized=""> {{ ucfirst(strtolower($lead->st_ativo)) }}</span>
-                                                @endif
 
                                             </td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 col-actions">
 
 
-                                                        <form action="{{ route('newsletter.active', ['id' => $lead->id]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            <button type="submit"
-                                                                class="btn btn-icon rounded-circle btn-outline-primary waves-effect"><i
-                                                                    data-feather='check'></i></button>
-                                                        </form>
-
-                                                        <form action="{{ route('newsletter.delete', ['id' => $lead->id]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            <button type="submit"
-                                                                class="btn btn-icon rounded-circle btn-outline-primary waves-effect"><i
-                                                                    data-feather='trash-2'></i></button>
-                                                        </form>
-
-                                                    </div>
-                                                </div>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             {{-- PAGINATION --}}
                             <div class="row justify-content-center mx-0 px-0">
-                                {{-- {{ $newsletter->links() }} --}}
+                                {{ $newsletter->links() }}
                             </div>
                         </div>
                     </div>
