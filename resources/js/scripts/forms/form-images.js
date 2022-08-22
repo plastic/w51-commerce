@@ -273,6 +273,12 @@ sortable('#allImagesWrapper')[0].addEventListener('sortupdate', function(e) {
   $('#serialized').val(data);
 });
 
+function removeOne(event){
+    event.preventDefault();
+
+    $('#files').val("").change();
+}
+
 function removeThis(event, este){
   event.preventDefault();
 

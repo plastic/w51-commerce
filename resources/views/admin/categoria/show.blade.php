@@ -13,18 +13,28 @@
                 <tr>
                     <td><strong>Id: </strong>{{$categoria->id_categoria}}</td>
                 </tr>
+                @isset($categoria->tx_categoria)
                 <tr>
                     <td><strong>Nome: </strong>{{$categoria->tx_categoria}}</td>
                 </tr>
+                @endisset
+                @isset($categoria->departamento->tx_departamento)
                 <tr>
                     <td><strong>Departamento: </strong>{{$categoria->departamento->tx_departamento}}</td>
                 </tr>
+                @endisset
                 <tr>
                     <td><strong>Descrição: </strong>{{$categoria->tx_descricao}}</td>
                 </tr>
+                @isset($categoria->tx_banner)
                 <tr>
-                    <td><strong>Banner: </strong></td>
+                    <td><strong>Banner: </strong>
+                       <div class="d-flex justify-content-center">
+                            <img src="{{ url('imagens/categorias/'.$categoria->tx_banner)}}"width="500" height="500" />
+                        </div>
+                    </td>
                 </tr>
+                @endisset
                 <tr>
                     <td><strong>Status: </strong>{{ ucfirst(strtolower($categoria->st_publicado)) }}</td>
                 </tr>

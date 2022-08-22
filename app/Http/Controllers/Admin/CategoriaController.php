@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Traits\Upload;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Admin\Categoria;
 use App\Models\Admin\Departamento;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Rules\CheckImage;
+use Illuminate\Support\Facades\Validator;
 
 class CategoriaController extends Controller
 {
+
+    use Upload;
+
     public function index()
     {
         $categorias = Categoria::paginate(20);
@@ -28,9 +34,10 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
 
+
         $request->validate([
-            'id_departamento' => 'required | ',
-            'tx_departamento' => 'required',
+            'select_dep_cat' => 'required',
+            'tx_categoria' => 'required',
             'tx_descricao' => 'required',
         ]);
 
@@ -41,12 +48,28 @@ class CategoriaController extends Controller
         $categoria->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
 
 
-
         if (strtok($request->select_dep_cat, 1) == 'd') {
             $categoria->id_departamento =  ltrim($request->select_dep_cat, 'd');
         } else {
             $categoria->id_categoria_pai = ltrim($request->select_dep_cat, 'c');
         }
+
+        if (isset($request->banner[0]) && !empty($request->banner[0])) {
+            $imagevalidator = Validator::make($request->all(), [
+                // 'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 ', new CheckImage(1440, 500)],
+                'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 '],
+            ]);
+            if ($imagevalidator->fails()) {
+                return redirect()->back()->with('error', $imagevalidator->messages());
+            } else {
+                $image = $this->upload($request->banner[0], 'categorias', 'image');
+                if (!$image) {
+                    return response()->json("Ocorreu um erro ao enviar o arquivo", 400);
+                }
+                $categoria->tx_banner = $image;
+            }
+        }
+
 
         $categoria->dh_cadastro = Carbon::now()->toDateTimeString();
         $categoria->save();

@@ -6,7 +6,6 @@ use App\Traits\Upload;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Admin\Departamento;
-use App\Models\Admin\File;
 use App\Http\Controllers\Controller;
 use App\Rules\CheckImage;
 use Illuminate\Support\Facades\Validator;

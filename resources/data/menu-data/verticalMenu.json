@@ -119,7 +119,7 @@
         "slug": "",
         "submenu": [
           {
-            "url": "admin/categorias",
+            "url": "admin/blog/categorias",
             "name": "Categorias",
             "icon": "circle",
             "slug": "categorias"
