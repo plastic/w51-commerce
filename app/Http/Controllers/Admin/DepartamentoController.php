@@ -24,9 +24,7 @@ class DepartamentoController extends Controller
 
     public function create()
     {
-        $breadcrumbs = [
-            ['name' => "Criar"]
-        ];
+        $breadcrumbs = [['name' => "Criar"]];
         return view('admin.departamento.create', ['breadcrumbs' => $breadcrumbs]);
     }
 

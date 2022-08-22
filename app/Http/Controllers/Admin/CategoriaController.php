@@ -19,9 +19,7 @@ class CategoriaController extends Controller
 
     public function create()
     {
-        $breadcrumbs = [
-            ['name' => "Criar"]
-        ];
+        $breadcrumbs = [['name' => "Criar"]];
         $departamentos = Departamento::with('categorias')->get();
 
         return view('admin.categoria.create', ['breadcrumbs' => $breadcrumbs, 'departamentos' => $departamentos]);
@@ -44,16 +42,14 @@ class CategoriaController extends Controller
 
 
 
-        if(strtok($request->select_dep_cat, 1) == 'd'){
-            $categoria->id_departamento =  ltrim($request->select_dep_cat, 'd') ;
-
-        }else{
+        if (strtok($request->select_dep_cat, 1) == 'd') {
+            $categoria->id_departamento =  ltrim($request->select_dep_cat, 'd');
+        } else {
             $categoria->id_categoria_pai = ltrim($request->select_dep_cat, 'c');
-
         }
 
         $categoria->dh_cadastro = Carbon::now()->toDateTimeString();
-         $categoria->save();
+        $categoria->save();
 
 
         return redirect('/admin/categorias')->with('msg-sucess', 'Cadastro feito sucesso');
@@ -62,13 +58,16 @@ class CategoriaController extends Controller
     public function show(Categoria $categoria)
     {
         $breadcrumbs = [['name' => "Detalhes"]];
-        return view('admin.categoria.show', ['categoria' => $categoria, 'breadcrumbs' => $breadcrumbs]);
+        return view('admin.categoria.show', ['breadcrumbs' => $breadcrumbs, 'categoria' => $categoria]);
     }
 
 
     public function edit(Categoria $categoria)
     {
-        return view('admin.categoria.edit', ['categoria' => $categoria]);
+        // dd($categoria->departamento->tx_departamento , $categoria->parent);
+        $breadcrumbs = [['name' => "Editar"]];
+        $departamentos = Departamento::with('categorias')->get();
+        return view('admin.categoria.edit', ['breadcrumbs' => $breadcrumbs, 'categoria' => $categoria, 'departamentos' => $departamentos]);
     }
 
     public function delete(Categoria $categoria)
@@ -77,5 +76,4 @@ class CategoriaController extends Controller
         $categoria->save();
         return view('admin.categoria.edit', ['categoria' => $categoria]);
     }
-
 }
