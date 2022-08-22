@@ -30,7 +30,7 @@
                 <tr>
                     <td><strong>Banner: </strong>
                        <div class="d-flex justify-content-center">
-                            <img src="{{ url('imagens/categorias/'.$categoria->tx_banner)}}"width="500" height="500" />
+                            <img class="img-fluid mt-2" src="{{ url('imagens/categorias/'.$categoria->tx_banner)}}"width="500" height="500" />
                         </div>
                     </td>
                 </tr>

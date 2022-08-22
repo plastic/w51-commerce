@@ -45,7 +45,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect('/admin/administradores')->with('msg-sucess', 'Cadastro feito sucesso');
+        return redirect('/admin/administradores')->with('msg-sucess', 'Cadastro com feito sucesso');
     }
 
     public function show(User $user)

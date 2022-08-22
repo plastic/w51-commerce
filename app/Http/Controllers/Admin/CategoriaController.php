@@ -19,8 +19,9 @@ class CategoriaController extends Controller
 
     public function index()
     {
+        $btnCreate = ['name' => 'Novo', 'link' =>  route('categoria.create') ];
         $categorias = Categoria::paginate(20);
-        return view('admin.categoria.index', ['categorias' => $categorias]);
+        return view('admin.categoria.index', ['btnCreate' => $btnCreate, 'categorias' => $categorias]);
     }
 
     public function create()
@@ -38,7 +39,6 @@ class CategoriaController extends Controller
         $request->validate([
             'select_dep_cat' => 'required',
             'tx_categoria' => 'required',
-            'tx_descricao' => 'required',
         ]);
 
         $categoria = new Categoria();
@@ -75,7 +75,7 @@ class CategoriaController extends Controller
         $categoria->save();
 
 
-        return redirect('/admin/categorias')->with('msg-sucess', 'Cadastro feito sucesso');
+        return redirect('/admin/categorias')->with('msg-sucess', 'Cadastro feito com sucesso');
     }
 
     public function show(Categoria $categoria)

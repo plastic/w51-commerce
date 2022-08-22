@@ -17,8 +17,9 @@ class DepartamentoController extends Controller
 
     public function index()
     {
+        $btnCreate = ['name' => 'Novo', 'link' =>  route('departamento.create') ];
         $departamentos = Departamento::paginate(20);
-        return view('admin.departamento.index', ['departamentos' => $departamentos]);
+        return view('admin.departamento.index', ['btnCreate' => $btnCreate,'departamentos' => $departamentos]);
     }
 
     public function create()
@@ -60,7 +61,7 @@ class DepartamentoController extends Controller
 
         $departamento->save();
 
-        return redirect('/admin/departamentos')->with('msg-sucess', 'Cadastro feito sucesso');
+        return redirect('/admin/departamentos')->with('msg-sucess', 'Cadastro com feito sucesso');
     }
 
     public function show(Departamento $departamento)

@@ -104,7 +104,7 @@
             <div class="row">
                 <div class="d-flex justify-content-between">
                     <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success data-submit me-1">Enviar</button>
+                    <button type="submit" class="btn btn-success data-submit me-1">Salvar</button>
                 </div>
             </div>
         </div>

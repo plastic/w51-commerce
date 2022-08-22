@@ -15,6 +15,18 @@
 
 @section('content')
     <!-- Kick start -->
+
+    @if ($errors->any())
+        <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
+            <div class="alert-body d-flex align-items-center">
+                @foreach ($errors->all() as $error)
+                    <i data-feather="info" class="me-50"></i>
+                    <span>{{ $error }} | </span>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
     <form  method="POST" action="{{route('departamento.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="card">

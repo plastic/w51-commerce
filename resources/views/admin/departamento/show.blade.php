@@ -19,9 +19,15 @@
                 <tr>
                     <td><strong>Descrição: </strong>{{$departamento->tx_descricao}}</td>
                 </tr>
+                @isset($departamento->tx_banner)
                 <tr>
-                    <td><strong>Banner: </strong></td>
+                    <td><strong>Banner: </strong>
+                       <div class="d-flex justify-content-center">
+                            <img class="img-fluid mt-2" src="{{ url('imagens/departamentos/'.$departamento->tx_banner)}}" width="1440" height="550" />
+                        </div>
+                    </td>
                 </tr>
+                @endisset
                 <tr>
                     <td><strong>Menu Principal: </strong>{{$departamento->st_menu_principal ? 'sim' : 'nao'}}</td>
                 </tr>
