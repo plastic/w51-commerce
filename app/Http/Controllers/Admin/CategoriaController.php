@@ -61,7 +61,8 @@ class CategoriaController extends Controller
 
     public function show(Categoria $categoria)
     {
-        return view('admin.categoria.show', ['categoria' => $categoria]);
+        $breadcrumbs = [['name' => "Detalhes"]];
+        return view('admin.categoria.show', ['categoria' => $categoria, 'breadcrumbs' => $breadcrumbs]);
     }
 
 
@@ -76,48 +77,5 @@ class CategoriaController extends Controller
         $categoria->save();
         return view('admin.categoria.edit', ['categoria' => $categoria]);
     }
-
-
-
-    public function montaArvoreMenu()
-    {
-    // $departamentos = Departamento::find(2);
-    // dd( $departamentos->categorias->count());
-
-    // $categoria = Categoria::with('allChildren')->whereNull('id_categoria_pai')->get();
-    // dd($categoria);
-
-    // $allCategorias = Categoria::where('id_departamento', null)->where('st_publicado', 'ATIVO')->get();
-    $departamentos = Departamento::where('st_publicado', 'ATIVO')->with('categorias')->get();
-
-    foreach ($departamentos as $departamento) {
-        echo $departamento->tx_departamento;
-        echo '<hr>';
-
-        if ($departamento->categorias->count() != 0) {
-                $this->montaSubCategoria($departamento->categorias);
-        }
-
-    }
-}
-
-public function montaSubCategoria($categorias , $level = 1)
-{
-
-    $espacos = str_repeat('-', $level);
-    foreach ($categorias as $categoria) {
-
-        echo $espacos . $categoria->tx_categoria . '(' . $categoria->allChildren->count() . ')';
-        echo '<hr>';
-
-        if ($categoria->allChildren->count() != 0 ) {
-            $level++;
-            self::montaSubCategoria($categoria->allChildren , $level);
-            $level = 1;
-        }
-
-    }
-}
-
 
 }
