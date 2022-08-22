@@ -85,7 +85,36 @@
                                             <td>{{ $departamento->tx_departamento }}</td>
                                             <td>{{ ucfirst(strtolower($departamento->st_publicado)) }}</td>
                                             <td></td>
-                                            <td></td>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="d-flex gap-1 col-actions">
+
+                                                        <form action="{{ route('departamento.show', ['departamento' => $departamento]) }}"
+                                                            method="GET">
+                                                            <button type="submit"
+                                                                class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
+                                                                <i data-feather='eye'></i></button>
+                                                        </form>
+
+                                                        <form action="{{ route('departamento.edit', ['departamento' => $departamento]) }}"
+                                                            method="GET">
+                                                            <button type="submit"
+                                                                class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
+                                                                <i data-feather='edit'></i></button>
+                                                        </form>
+
+                                                        <form action="{{ route('departamento.delete', ['departamento' => $departamento]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit"
+                                                                class="btn btn-icon rounded-circle btn-outline-primary waves-effect"><i
+                                                                    data-feather='trash-2'></i></button>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

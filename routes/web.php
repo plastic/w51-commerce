@@ -44,6 +44,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/', [DepartamentoController::class, 'index'])->name('departamento.index');
             Route::get('/create', [DepartamentoController::class, 'create'])->name('departamento.create');
             Route::post('/store', [DepartamentoController::class, 'store'])->name('departamento.store');
+            Route::get('/show', [DepartamentoController::class, 'show'])->name('departamento.show');
+            Route::get('/edit', [DepartamentoController::class, 'edit'])->name('departamento.edit');
+            Route::get('/update{departamento}', [DepartamentoController::class, 'update'])->name('departamento.update');
+            Route::delete('/delete', [DepartamentoController::class, 'delete'])->name('departamento.delete');
         });
 
         Route::group(['prefix' => 'categorias'], function () {
