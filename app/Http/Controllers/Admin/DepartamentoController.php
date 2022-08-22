@@ -24,10 +24,8 @@ class DepartamentoController extends Controller
 
     public function create()
     {
-        $breadcrumbs = [
-         ['name' => "Criar"]
-        ];
-        return view('admin.departamento.create',['breadcrumbs' => $breadcrumbs]);
+        $breadcrumbs = [['name' => "Criar"]];
+        return view('admin.departamento.create', ['breadcrumbs' => $breadcrumbs]);
     }
 
     public function store(Request $request)
@@ -39,7 +37,7 @@ class DepartamentoController extends Controller
         ]);
 
 
-        $departamento = New Departamento();
+        $departamento = new Departamento();
         $departamento->tx_departamento = $request->tx_departamento;
         $departamento->tx_descricao = $request->tx_descricao;
         $departamento->st_menu_principal =  $request->st_menu_principal == 'on' ? true : false;
@@ -52,7 +50,7 @@ class DepartamentoController extends Controller
             ]);
             if ($imagevalidator->fails()) {
                 return redirect()->back()->with('error', $imagevalidator->messages());
-            }else{
+            } else {
                 $image = $this->upload($request->banner[0], 'departamentos', 'image');
                 if (!$image) {
                     return response()->json("Ocorreu um erro ao enviar o arquivo", 400);
@@ -64,5 +62,11 @@ class DepartamentoController extends Controller
         $departamento->save();
 
         return redirect('/admin/departamentos')->with('msg-sucess', 'Cadastro feito sucesso');
+    }
+
+    public function show(Departamento $departamento)
+    {
+        $breadcrumbs = [['name' => "Detalhes"]];
+        return view('admin.departamento.show', ['departamento' => $departamento, 'breadcrumbs' => $breadcrumbs]);
     }
 }

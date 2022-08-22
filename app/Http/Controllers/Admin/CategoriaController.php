@@ -19,9 +19,7 @@ class CategoriaController extends Controller
 
     public function create()
     {
-        $breadcrumbs = [
-            ['name' => "Criar"]
-        ];
+        $breadcrumbs = [['name' => "Criar"]];
         $departamentos = Departamento::with('categorias')->get();
 
         return view('admin.categoria.create', ['breadcrumbs' => $breadcrumbs, 'departamentos' => $departamentos]);
@@ -44,16 +42,14 @@ class CategoriaController extends Controller
 
 
 
-        if(strtok($request->select_dep_cat, 1) == 'd'){
-            $categoria->id_departamento =  ltrim($request->select_dep_cat, 'd') ;
-
-        }else{
+        if (strtok($request->select_dep_cat, 1) == 'd') {
+            $categoria->id_departamento =  ltrim($request->select_dep_cat, 'd');
+        } else {
             $categoria->id_categoria_pai = ltrim($request->select_dep_cat, 'c');
-
         }
 
         $categoria->dh_cadastro = Carbon::now()->toDateTimeString();
-         $categoria->save();
+        $categoria->save();
 
 
         return redirect('/admin/categorias')->with('msg-sucess', 'Cadastro feito sucesso');
@@ -61,13 +57,17 @@ class CategoriaController extends Controller
 
     public function show(Categoria $categoria)
     {
-        return view('admin.categoria.show', ['categoria' => $categoria]);
+        $breadcrumbs = [['name' => "Detalhes"]];
+        return view('admin.categoria.show', ['breadcrumbs' => $breadcrumbs, 'categoria' => $categoria]);
     }
 
 
     public function edit(Categoria $categoria)
     {
-        return view('admin.categoria.edit', ['categoria' => $categoria]);
+        // dd($categoria->departamento->tx_departamento , $categoria->parent);
+        $breadcrumbs = [['name' => "Editar"]];
+        $departamentos = Departamento::with('categorias')->get();
+        return view('admin.categoria.edit', ['breadcrumbs' => $breadcrumbs, 'categoria' => $categoria, 'departamentos' => $departamentos]);
     }
 
     public function delete(Categoria $categoria)
@@ -76,48 +76,4 @@ class CategoriaController extends Controller
         $categoria->save();
         return view('admin.categoria.edit', ['categoria' => $categoria]);
     }
-
-
-
-    public function montaArvoreMenu()
-    {
-    // $departamentos = Departamento::find(2);
-    // dd( $departamentos->categorias->count());
-
-    // $categoria = Categoria::with('childrenRecursive')->whereNull('id_categoria_pai')->get();
-    // dd($categoria);
-
-    // $allCategorias = Categoria::where('id_departamento', null)->where('st_publicado', 'ATIVO')->get();
-    $departamentos = Departamento::where('st_publicado', 'ATIVO')->with('categorias')->get();
-
-    foreach ($departamentos as $departamento) {
-        echo $departamento->tx_departamento;
-        echo '<hr>';
-
-        if ($departamento->categorias->count() != 0) {
-                $this->montaSubCategoria($departamento->categorias);
-        }
-
-    }
-}
-
-public function montaSubCategoria($categorias , $level = 1)
-{
-
-    $espacos = str_repeat('-', $level);
-    foreach ($categorias as $categoria) {
-
-        echo $espacos . $categoria->tx_categoria . '(' . $categoria->childrenRecursive->count() . ')';
-        echo '<hr>';
-
-        if ($categoria->childrenRecursive->count() != 0 ) {
-            $level++;
-            self::montaSubCategoria($categoria->childrenRecursive , $level);
-            $level = 1;
-        }
-
-    }
-}
-
-
 }

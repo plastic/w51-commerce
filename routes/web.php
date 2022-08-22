@@ -44,17 +44,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/', [DepartamentoController::class, 'index'])->name('departamento.index');
             Route::get('/create', [DepartamentoController::class, 'create'])->name('departamento.create');
             Route::post('/store', [DepartamentoController::class, 'store'])->name('departamento.store');
+            Route::get('/show/{departamento}', [DepartamentoController::class, 'show'])->name('departamento.show');
+            Route::get('/edit', [DepartamentoController::class, 'edit'])->name('departamento.edit');
+            Route::get('/update{departamento}', [DepartamentoController::class, 'update'])->name('departamento.update');
+            Route::delete('/delete', [DepartamentoController::class, 'delete'])->name('departamento.delete');
         });
 
         Route::group(['prefix' => 'categorias'], function () {
             Route::get('/', [CategoriaController::class, 'index'])->name('categoria.index');
             Route::get('/teste', [CategoriaController::class, 'montaArvoreMenu'])->name('categoria.teste');
-            Route::get('/show', [CategoriaController::class, 'show'])->name('categoria.show');
+            Route::get('/show/{categoria}', [CategoriaController::class, 'show'])->name('categoria.show');
             Route::get('/create', [CategoriaController::class, 'create'])->name('categoria.create');
-            Route::get('/edit', [CategoriaController::class, 'edit'])->name('categoria.edit');
-            Route::get('/update{categoria}', [CategoriaController::class, 'update'])->name('categoria.update');
+            Route::get('/edit/{categoria}', [CategoriaController::class, 'edit'])->name('categoria.edit');
+            Route::get('/update', [CategoriaController::class, 'update'])->name('categoria.update');
             Route::post('/store', [CategoriaController::class, 'store'])->name('categoria.store');
-            Route::delete('/delete', [CategoriaController::class, 'delete'])->name('categoria.delete');
+            Route::delete('/delete/{categoria}', [CategoriaController::class, 'delete'])->name('categoria.delete');
         });
 
         Route::group(['prefix' => 'relatorios'], function () {
@@ -71,8 +75,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/show/{user}', [UserController::class, 'show'])->name('user.show');
             Route::post('/store', [UserController::class, 'store'])->name('user.store');
             Route::get('/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
-            Route::post('/{user}', [UserController::class, 'update'])->name('user.update');
-            Route::delete('/{user}', [UserController::class, 'destroy'])->name('user.delete');
+            Route::post('/update/{user}', [UserController::class, 'update'])->name('user.update');
+            Route::delete('/delete/{user}', [UserController::class, 'destroy'])->name('user.delete');
         });
 
 

@@ -50,7 +50,8 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return view('admin.administradores.show', ['user' => $user]);
+        $breadcrumbs = [['name' => "Detalhes"]];
+        return view('admin.administradores.show', ['user' => $user, 'breadcrumbs' => $breadcrumbs]);
     }
 
 

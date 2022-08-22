@@ -24,7 +24,7 @@ class Categoria extends Model
 
     public function departamento()
     {
-        return $this->hasOne(Departamento::class, 'id_departamento');
+        return $this->belongsTo(Departamento::class, 'id_departamento');
     }
 
     public function parent()
@@ -32,19 +32,13 @@ class Categoria extends Model
         return $this->belongsTo(self::class, 'id_categoria_pai');
     }
 
-    public function categorias()
-    {
-        return $this->hasMany(Categoria::class);
-    }
-
     public function children()
     {
         return $this->hasMany(self::class, 'id_categoria_pai');
-
     }
 
-    public function childrenRecursive()
+    public function allChildren()
     {
-    return $this->children()->with('childrenRecursive');
+    return $this->children()->with('allChildren');
     }
 }
