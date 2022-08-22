@@ -46,8 +46,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/store', [DepartamentoController::class, 'store'])->name('departamento.store');
             Route::get('/show/{departamento}', [DepartamentoController::class, 'show'])->name('departamento.show');
             Route::get('/edit', [DepartamentoController::class, 'edit'])->name('departamento.edit');
-            Route::get('/update{departamento}', [DepartamentoController::class, 'update'])->name('departamento.update');
-            Route::delete('/delete', [DepartamentoController::class, 'delete'])->name('departamento.delete');
+            Route::get('/update/{departamento}', [DepartamentoController::class, 'update'])->name('departamento.update');
+            Route::delete('/delete/{departamento}', [DepartamentoController::class, 'delete'])->name('departamento.delete');
         });
 
         Route::group(['prefix' => 'categorias'], function () {

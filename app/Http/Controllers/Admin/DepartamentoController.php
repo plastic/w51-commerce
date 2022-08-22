@@ -69,4 +69,12 @@ class DepartamentoController extends Controller
         $breadcrumbs = [['name' => "Detalhes"]];
         return view('admin.departamento.show', ['departamento' => $departamento, 'breadcrumbs' => $breadcrumbs]);
     }
+
+    public function delete(Departamento $departamento)
+    {
+        $departamento->st_publicado = 'EXCLUIDO';
+        $departamento->save();
+        return view('admin.departamento.index')->with('msg-sucess', 'Departamento excluido com sucesso');;
+    }
+
 }

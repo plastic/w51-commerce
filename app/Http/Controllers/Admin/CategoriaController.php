@@ -20,7 +20,7 @@ class CategoriaController extends Controller
     public function index()
     {
         $btnCreate = ['name' => 'Novo', 'link' =>  route('categoria.create') ];
-        $categorias = Categoria::paginate(20);
+        $categorias = Categoria::paginate(5);
         return view('admin.categoria.index', ['btnCreate' => $btnCreate, 'categorias' => $categorias]);
     }
 
@@ -97,6 +97,6 @@ class CategoriaController extends Controller
     {
         $categoria->st_publicado = 'EXCLUIDO';
         $categoria->save();
-        return view('admin.categoria.edit', ['categoria' => $categoria]);
+        return redirect('/admin/categorias')->with('msg-sucess', 'Categoria excluida com sucesso');
     }
 }
