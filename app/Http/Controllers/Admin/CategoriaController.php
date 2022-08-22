@@ -84,7 +84,7 @@ class CategoriaController extends Controller
     // $departamentos = Departamento::find(2);
     // dd( $departamentos->categorias->count());
 
-    // $categoria = Categoria::with('childrenRecursive')->whereNull('id_categoria_pai')->get();
+    // $categoria = Categoria::with('allChildren')->whereNull('id_categoria_pai')->get();
     // dd($categoria);
 
     // $allCategorias = Categoria::where('id_departamento', null)->where('st_publicado', 'ATIVO')->get();
@@ -107,12 +107,12 @@ public function montaSubCategoria($categorias , $level = 1)
     $espacos = str_repeat('-', $level);
     foreach ($categorias as $categoria) {
 
-        echo $espacos . $categoria->tx_categoria . '(' . $categoria->childrenRecursive->count() . ')';
+        echo $espacos . $categoria->tx_categoria . '(' . $categoria->allChildren->count() . ')';
         echo '<hr>';
 
-        if ($categoria->childrenRecursive->count() != 0 ) {
+        if ($categoria->allChildren->count() != 0 ) {
             $level++;
-            self::montaSubCategoria($categoria->childrenRecursive , $level);
+            self::montaSubCategoria($categoria->allChildren , $level);
             $level = 1;
         }
 

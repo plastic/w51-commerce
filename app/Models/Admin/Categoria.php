@@ -43,8 +43,8 @@ class Categoria extends Model
 
     }
 
-    public function childrenRecursive()
+    public function allChildren()
     {
-    return $this->children()->with('childrenRecursive');
+    return $this->children()->with('allChildren');
     }
 }

@@ -106,6 +106,8 @@
 
         var json =  <?php echo json_encode($departamentos); ?>;
 
+        console.log(json);
+
         $.each(json, function(i, departamento) {
             $("#select-dep-cat").append('<option value="d'+ departamento.id_departamento +'">'+ departamento.tx_departamento +'</option>');
 
@@ -121,9 +123,9 @@
 
                  $("#select-dep-cat").append('<option value="c'+ categoria.id_categoria +'">' + espacos + categoria.tx_categoria +'</option>');
 
-                 if(categoria.children_recursive.length != 0){
+                 if(categoria.all_children.length != 0){
                     level++;
-                    montaSubCategoria(categoria.children_recursive , level)
+                    montaSubCategoria(categoria.all_children , level)
                     level = 1;
                  }
             });
