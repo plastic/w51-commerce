@@ -1,5 +1,5 @@
 <div class="content-header row">
-  <div class="content-header-left col-md-9 col-12 mb-2">
+  <div class="content-header-left col-md-11 col-12 mb-2">
     <div class="row breadcrumbs-top">
       <div class="col-12">
         <h2 class="content-header-title float-start mb-0">@yield('title')</h2>
@@ -26,9 +26,9 @@
   </div>
 
   @if(@isset($btnCreate))
-  <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
-    <div class="mb-1 breadcrumb-right d-grid">
-        <a class="btn btn-outline-primary btn-round" href="{{$btnCreate['link']}}">{{$btnCreate['name']}}</a>
+  <div class="content-header-right text-md-end col-md-1 col-12 d-md-block d-none">
+    <div class="mb-1 breadcrumb-right d-grid pe-2">
+        <a class="btn btn-primary btn-round " href="{{$btnCreate['link']}}">{{$btnCreate['name']}}</a>
     </div>
   </div>
   @endif
