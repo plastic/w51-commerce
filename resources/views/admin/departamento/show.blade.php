@@ -29,7 +29,7 @@
                     <td><strong>Status: </strong>{{ ucfirst(strtolower($departamento->st_publicado)) }}</td>
                 </tr>
                 <tr>
-                    <td><strong>Data de Criação: </strong>{{$departamento->dh_cadastro}}</td>
+                    <td><strong>Data de Criação: </strong>{{date('d/m/Y H:i', strtotime($departamento->dh_cadastro))}} </td>
                 </tr>
             </table>
         </div>
