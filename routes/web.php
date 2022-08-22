@@ -44,7 +44,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/', [DepartamentoController::class, 'index'])->name('departamento.index');
             Route::get('/create', [DepartamentoController::class, 'create'])->name('departamento.create');
             Route::post('/store', [DepartamentoController::class, 'store'])->name('departamento.store');
-            Route::get('/show', [DepartamentoController::class, 'show'])->name('departamento.show');
+            Route::get('/show/{departamento}', [DepartamentoController::class, 'show'])->name('departamento.show');
             Route::get('/edit', [DepartamentoController::class, 'edit'])->name('departamento.edit');
             Route::get('/update{departamento}', [DepartamentoController::class, 'update'])->name('departamento.update');
             Route::delete('/delete', [DepartamentoController::class, 'delete'])->name('departamento.delete');
@@ -53,7 +53,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::group(['prefix' => 'categorias'], function () {
             Route::get('/', [CategoriaController::class, 'index'])->name('categoria.index');
             Route::get('/teste', [CategoriaController::class, 'montaArvoreMenu'])->name('categoria.teste');
-            Route::get('/show', [CategoriaController::class, 'show'])->name('categoria.show');
+            Route::get('/show/{categoria}', [CategoriaController::class, 'show'])->name('categoria.show');
             Route::get('/create', [CategoriaController::class, 'create'])->name('categoria.create');
             Route::get('/edit', [CategoriaController::class, 'edit'])->name('categoria.edit');
             Route::get('/update{categoria}', [CategoriaController::class, 'update'])->name('categoria.update');
