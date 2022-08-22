@@ -214,9 +214,9 @@ return [
     "Post" => "Post",
 
     "Configurações" => "Configurações",
-    "administradores" => "administradores",
+    "Administradores" => "Administradores",
     "Informações da Loja" => "Informações da Loja",
     "Informações de Contato" => "Informações de Contato",
-    "E-mails " => "E-mails ",
+    "E-mails" => "E-mails",
 
 ];

@@ -15,19 +15,19 @@
             "url": "admin/departamentos",
             "name": "Departamentos",
             "icon": "circle",
-            "slug": "collapsed-menu"
+            "slug": "departamento.index"
           },
           {
             "url": "admin/categorias",
             "name": "Categorias",
             "icon": "circle",
-            "slug": "categorias"
+            "slug": "categoria.index"
           },
           {
             "url": "admin/produtos",
             "name": "Produtos",
             "icon": "circle",
-            "slug": "produtos"
+            "slug": "admin-produtos"
           }
         ]
     },
@@ -75,10 +75,10 @@
         "slug": "",
         "submenu": [
           {
-            "url": "admin/newsletter",
+            "url": "admin/relatorios/newsletter",
             "name": "Newsletter",
             "icon": "mail",
-            "slug": "newsletter"
+            "slug": "relatorios.newsletter"
           }
         ]
     },
@@ -139,9 +139,9 @@
         "submenu": [
             {
             "url": "admin/administradores",
-            "name": "administradores",
+            "name": "Administradores",
             "icon": "user",
-            "slug": "administradores"
+            "slug": "user.index"
             },
           {
             "url": "admin/informacoes-da-loja",

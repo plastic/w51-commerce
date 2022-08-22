@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\DepartamentoController;
 use App\Http\Controllers\Admin\CategoriaController;
-
+use App\Http\Controllers\Admin\NewsletterController;
 
 
 /*
@@ -55,6 +55,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/update{categoria}', [CategoriaController::class, 'update'])->name('categoria.update');
             Route::post('/store', [CategoriaController::class, 'store'])->name('categoria.store');
             Route::delete('/delete', [CategoriaController::class, 'delete'])->name('categoria.delete');
+        });
+
+        Route::group(['prefix' => 'relatorios'], function () {
+            Route::get('/newsletter', [NewsletterController::class, 'index'])->name('relatorios.newsletter');
+            Route::post('/newsletter', [NewsletterController::class, 'search'])->name('newsletter.search');
+            Route::post('/newsletter/active', [NewsletterController::class, 'active'])->name('newsletter.active');
+            Route::post('/newsletter/delete', [NewsletterController::class, 'delete'])->name('newsletter.delete');
+            Route::get('/newsletter/export', [NewsletterController::class, 'export'])->name('newsletter.export');
         });
 
         Route::group(['prefix' => 'administradores'], function () {
