@@ -30,9 +30,7 @@ class CategoriaController extends Controller
     {
 
         $request->validate([
-            'id_departamento' => 'required',
-            'tx_departamento' => 'required',
-            'tx_descricao' => 'required',
+            'tx_categoria' => 'required',
         ]);
 
         $categoria = new Categoria();
