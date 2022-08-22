@@ -25,4 +25,12 @@
     </div>
   </div>
 
+  @if(@isset($btnCreate))
+  <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+    <div class="mb-1 breadcrumb-right d-grid">
+        <a class="btn btn-outline-primary btn-round" href="{{$btnCreate['link']}}">{{$btnCreate['name']}}</a>
+    </div>
+  </div>
+  @endif
+
 </div>

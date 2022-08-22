@@ -13,8 +13,9 @@ class CategoriaController extends Controller
 {
     public function index()
     {
+        $btnCreate = ['name' => 'Novo', 'link' =>  route('categoria.create') ];
         $categorias = Categoria::paginate(20);
-        return view('admin.categoria.index', ['categorias' => $categorias]);
+        return view('admin.categoria.index', ['btnCreate' => $btnCreate, 'categorias' => $categorias]);
     }
 
     public function create()
