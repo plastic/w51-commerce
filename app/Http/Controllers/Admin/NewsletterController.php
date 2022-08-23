@@ -12,8 +12,7 @@ class NewsletterController extends Controller
 {
     public function index(Request $request)
     {
-        //TODO centralizar paginação
-        $newsletter = Newsletter::where('st_ativo','!=', 'EXCLUIDO')->orderBy('dh_cadastro','desc')->paginate(2);
+        $newsletter = Newsletter::where('st_ativo','!=', 'EXCLUIDO')->orderBy('dh_cadastro','desc')->paginate(15);
         return view('admin.relatorios.newsletter.index', ['newsletter' => $newsletter]);
     }
 

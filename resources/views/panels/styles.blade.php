@@ -28,6 +28,7 @@
 
 <!-- laravel style -->
 <link rel="stylesheet" href="{{ asset(mix('css/overrides.css')) }}" />
+<link rel="stylesheet" href="{{ asset(mix('css/base/master.css')) }}" />
 
 <!-- BEGIN: Custom CSS-->
 
