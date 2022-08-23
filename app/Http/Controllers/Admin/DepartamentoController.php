@@ -18,7 +18,7 @@ class DepartamentoController extends Controller
     public function index()
     {
         $btnCreate = ['name' => 'Novo', 'link' =>  route('departamento.create') ];
-        $departamentos = Departamento::paginate(20);
+        $departamentos = Departamento::whereNotIn('st_publicado', ['EXCLUIDO'])->paginate(20);
         return view('admin.departamento.index', ['btnCreate' => $btnCreate,'departamentos' => $departamentos]);
     }
 

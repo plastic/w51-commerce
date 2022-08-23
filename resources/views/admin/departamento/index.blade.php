@@ -81,21 +81,24 @@
                                                 <div class="row">
                                                     <div class="d-flex gap-1 col-actions">
 
-                                                        <form action="{{ route('departamento.show', ['departamento' => $departamento]) }}"
+                                                        <form
+                                                            action="{{ route('departamento.show', ['departamento' => $departamento]) }}"
                                                             method="GET">
                                                             <button type="submit"
                                                                 class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
                                                                 <i data-feather='eye'></i></button>
                                                         </form>
 
-                                                        <form action="{{ route('departamento.edit', ['departamento' => $departamento]) }}"
+                                                        <form
+                                                            action="{{ route('departamento.edit', ['departamento' => $departamento]) }}"
                                                             method="GET">
                                                             <button type="submit"
                                                                 class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
                                                                 <i data-feather='edit'></i></button>
                                                         </form>
 
-                                                        <form action="{{ route('departamento.delete', ['departamento' => $departamento]) }}"
+                                                        <form
+                                                            action="{{ route('departamento.delete', ['departamento' => $departamento]) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('delete')
@@ -112,8 +115,11 @@
                                 </tbody>
                             </table>
                             {{-- PAGINATION --}}
-                            <div class="row justify-content-center mx-0 px-0">
-                                {{ $departamentos->links() }}
+                            <div class="row">
+                                    <div class="d-flex justify-content-end">
+                                        {{ $departamentos->links() }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

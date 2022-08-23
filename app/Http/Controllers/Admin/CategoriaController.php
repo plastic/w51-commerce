@@ -20,14 +20,14 @@ class CategoriaController extends Controller
     public function index()
     {
         $btnCreate = ['name' => 'Novo', 'link' =>  route('categoria.create') ];
-        $categorias = Categoria::paginate(5);
+        $categorias = Categoria::whereNotIn('st_publicado', ['EXCLUIDO'])->paginate(20);
         return view('admin.categoria.index', ['btnCreate' => $btnCreate, 'categorias' => $categorias]);
     }
 
     public function create()
     {
         $breadcrumbs = [['name' => "Criar"]];
-        $departamentos = Departamento::with('categorias')->get();
+        $departamentos = Departamento::whereNotIn('st_publicado', ['EXCLUIDO'])->with('categorias')->get();
 
         return view('admin.categoria.create', ['breadcrumbs' => $breadcrumbs, 'departamentos' => $departamentos]);
     }
