@@ -93,7 +93,7 @@ class NewsletterController extends Controller
                 $row['Email']    = $lead->email;
                 $row['Data de cadastro']  = $lead->dh_cadastro;
                 $row['Data de ativação']  = $lead->dh_validacao_email == '0000-00-00 00:00:00' ? '' : $lead->dh_validacao_email;
-                $row['Sincronizado']  = $lead->sincronizado == 1 ? 'Sim' : 'Não';
+                $row['Sincronizado']  = $lead->sincronizado == 1 ? 'Sim' : mb_convert_encoding('Não', "iso-8859-15");
                 $row['Status']  = $lead->st_ativo;
 
                 fputcsv($file,

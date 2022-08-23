@@ -46,7 +46,8 @@ class DepartamentoController extends Controller
 
         if (isset($request->banner[0]) && !empty($request->banner[0])) {
             $imagevalidator = Validator::make($request->all(), [
-                'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 ', new CheckImage(1440, 500)],
+                // 'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 ', new CheckImage(1440, 500)],
+                'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 '],
             ]);
             if ($imagevalidator->fails()) {
                 return redirect()->back()->with('error', $imagevalidator->messages());
