@@ -18,12 +18,15 @@ class ProductsController extends Controller
 
     public function index()
     {
-
+        $btnCreate = ['name' => 'Novo', 'link' =>  route('produto.create') ];
+        $produtos = [];
+        return view('admin.produtos.index', ['btnCreate' => $btnCreate, 'produtos' => $produtos]);
     }
 
     public function create()
     {
-
+        $breadcrumbs = [['name' => "Criar"]];
+        return view('admin.produtos.create', ['breadcrumbs' => $breadcrumbs]);
     }
 
     public function store(Request $request)

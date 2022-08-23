@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\DepartamentoController;
 use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\NewsletterController;
 
 
@@ -39,6 +40,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/store', [FileController::class, 'store'])->name('fileupload.store');
         });
 
+
+        Route::group(['prefix' => 'produtos'], function () {
+            Route::get('/', [ProductsController::class, 'index'])->name('produto.index');
+            Route::get('/create', [ProductsController::class, 'create'])->name('produto.create');
+            Route::post('/store', [ProductsController::class, 'store'])->name('produto.store');
+            Route::get('/show/{produto}', [ProductsController::class, 'show'])->name('produto.show');
+            Route::get('/edit', [ProductsController::class, 'edit'])->name('produto.edit');
+            Route::get('/update/{produto}', [ProductsController::class, 'update'])->name('produto.update');
+            Route::delete('/delete/{produto}', [ProductsController::class, 'delete'])->name('produto.delete');
+        });
 
         Route::group(['prefix' => 'departamentos'], function () {
             Route::get('/', [DepartamentoController::class, 'index'])->name('departamento.index');
