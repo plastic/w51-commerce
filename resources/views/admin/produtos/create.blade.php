@@ -32,14 +32,11 @@
         </div>
     @endif
 
-    <form  method="POST" action="{{route('produto.store')}}" enctype="multipart/form-data">
+    <form  method="POST" action="{{route('produto.store')}}" enctype="multipart/form-data" id="productForm">
         @csrf
 
-
-
-
             <section class="horizontal-wizard">
-                <div class="bs-stepper horizontal-wizard-example">
+                <div class="bs-stepper horizontal-example">
                   <div class="bs-stepper-header" role="tablist">
                     <div class="step" data-target="#account-details" role="tab" id="account-details-trigger">
                       <button type="button" class="step-trigger">
@@ -73,7 +70,7 @@
 
                             <div class="mb-1 col-12">
                                 <label class="form-label">Nome do produto</label>
-                                <input type="text" class="form-control" name="tx_categoria" placeholder="Nome" required />
+                                <input type="text" class="form-control" name="tx_produto" placeholder="Nome" required />
                             </div>
 
                             <div class="mb-1 col-12">
@@ -203,7 +200,7 @@
                                     <h4 class="card-title">Imagens do produto</h4>
 
                                     <p class="card-text">
-                                      Esse banner sera exibido na página do departamento <code>1440x500 | jpg.png</code>
+                                      Suba aqui as imagens do produto<code>1440x500 | jpg.png</code>
                                     </p>
 
 
@@ -212,25 +209,26 @@
 
                                             </div>
                                               <label class="custom-file-label" for="files">
-                                                <div class="dz-message " id="dz-message">Clique aqui ou arraste o banner.</div>
+                                                <div class="dz-message " id="dz-message">Clique aqui ou arraste as imagens.</div>
                                             </label>
                                             <div class="col-lg-12">
                                               <div class="input-group">
                                                 <div class="custom-file">
-                                                  <input type="file" class="custom-images-input" id="files" name="banner[]"
+                                                  <input type="file" class="custom-images-input" id="files" name="images[]"
                                                   hidden multiple  filesize=1500>
                                                 </div>
                                               </div>
                                             </div>
                                           </div>
 
+                                          <input type="hidden" id="serialized" name="serialized">
 
                               </div>
                               <div class="col-12 mt-2">
                                 <label class="form-check-label mb-50">Vídeo do produto</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i data-feather='youtube'></i></span>
-                                    <input type="text" class="form-control" name="tx_video" placeholder="Ex. https://www.youtube.com/watch?v=000" required />
+                                    <input type="text" class="form-control" name="tx_video" placeholder="Ex. https://www.youtube.com/watch?v=000"  />
                                 </div>
 
                               </div>
@@ -339,14 +337,18 @@
 
                       </form>
                       <div class="d-flex justify-content-between">
-                        <button class="btn btn-outline-secondary btn-prev" disabled>
-                          <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
-                          <span class="align-middle d-sm-inline-block d-none">Detalhes</span>
-                        </button>
-                        <button class="btn btn-primary btn-next">
+
+                        <a class="btn btn-primary btn-next ms-auto">
                           <span class="align-middle d-sm-inline-block d-none">Variações</span>
                           <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
-                        </button>
+                        </a>
+{{--
+                        <button class="btn btn-primary btn-next">
+                            <span class="align-middle d-sm-inline-block d-none">Criar produto</span>
+                            <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
+                          </button> --}}
+
+
                       </div>
                     </div>
                     <div id="personal-info" class="content" role="tabpanel" aria-labelledby="personal-info-trigger">
@@ -386,10 +388,10 @@
                         </div>
                       </form>
                       <div class="d-flex justify-content-between">
-                        <button class="btn btn-primary btn-prev">
+                        <a class="btn btn-primary btn-prev">
                           <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
                           <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                        </button>
+                        </a>
                         <button class="btn btn-primary btn-next">
                           <span class="align-middle d-sm-inline-block d-none">Next</span>
                           <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
@@ -436,20 +438,70 @@
 @endsection
 @section('page-script')
     <!-- Page js files -->
-    <script src="{{ asset(mix('js/scripts/forms/form-file-uploader.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-select2.js')) }}"></script>
-    <script src="{{ asset(mix('js/scripts/forms/form-wizard.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/sortable/html5sortable.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-quill-editor.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-images.js')) }}"></script>
 
 <script>
-    var quill = new Quill('#editor', {
-    modules: {
-        toolbar: '#toolbar'
-    },
-    theme: 'snow'
-    });
+    // var quill = new Quill('#editor', {
+    // modules: {
+    //     toolbar: '#toolbar'
+    // },
+    // theme: 'snow'
+    // });
+
+var wizardExample = document.querySelector('.horizontal-example')
+
+
+$('#productForm').validate({
+      errorClass: 'text-danger',
+      rules: {
+        tx_produto: {
+          required: true,
+        }
+      },
+      messages: {
+        tx_produto: {
+            required: 'Insira o nome do produto',
+        }
+      }
+});
+
+if (typeof wizardExample !== undefined && wizardExample !== null) {
+    var numberedStepper = new Stepper(wizardExample, {
+        linear: true,
+    })
+
+    $(wizardExample)
+        .find('.btn-next, .step')
+        .each(function () {
+        $(this).on('click', function (e) {
+            var isValid = $('#productForm').valid()
+            console.log(isValid);
+            if (isValid) {
+            numberedStepper.next()
+            } else {
+            e.preventDefault()
+            }
+        })
+    })
+    $(wizardExample)
+    .find('.btn-prev')
+    .on('click', function () {
+        numberedStepper.previous()
+    })
+
+    $(wizardExample)
+    .find('.btn-submit')
+    .on('click', function () {
+      var isValid = $('#productForm').valid()
+      if (isValid) {
+        alert('Submitted..!!')
+      }
+    })
+}
+
 </script>
 
 @endsection
