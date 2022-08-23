@@ -40,7 +40,7 @@ class DepartamentoController extends Controller
         $departamento = new Departamento();
         $departamento->tx_departamento = $request->tx_departamento;
         $departamento->tx_descricao = $request->tx_descricao;
-        $departamento->st_menu_principal =  $request->st_menu_principal == 'on' ? true : false;
+        $departamento->st_menu_principal =   
         $departamento->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
         $departamento->dh_cadastro = Carbon::now()->toDateTimeString();
 

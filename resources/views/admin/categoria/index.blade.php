@@ -33,9 +33,18 @@
 
     <div class="card">
         <div class="card-body">
+            <form method="POST" action="" enctype="multipart/form-data">
             <div class="row ">
+                {{-- <div class="col-3">
+                    <select class="form-select form-control form-control-lg" id="basicSelect">
+                        <option>Ordenar por:</option>
+                        <option>Departamento</option>
+                        <option>Possui banner</option>
+                        <option>Status</option>
+                    </select>
+                </div> --}}
                 <div class="col-12">
-                    <form method="POST" action="" enctype="multipart/form-data">
+
                         @csrf
                         <div class="input-group">
                             <button class="btn btn-outline-primary" type="button">
@@ -46,10 +55,10 @@
                                 placeholder="Digite o nome da categoria" aria-label="Amount" />
                             <button class="btn btn-outline-primary" type="submit">Buscar</button>
                         </div>
-                    </form>
-                </div>
 
+                </div>
             </div>
+         </form>
         </div>
     </div>
 
@@ -64,7 +73,9 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th class="bg-primary text-white rounded-start">Id</th>
-                                        <th class="bg-primary text-white">Nome</th>
+                                        <th class="bg-primary text-white">Departamento</th>
+                                        <th class="bg-primary text-white">Categoria</th>
+                                        <th class="bg-primary text-white text-center">Banner</th>
                                         <th class="bg-primary text-white">Status</th>
                                         <th class="bg-primary text-white rounded-end"></th>
                                     </tr>
@@ -73,8 +84,26 @@
                                     @foreach ($categorias as $categoria)
                                         <tr>
                                             <td>{{ $categoria->id_categoria }} </td>
+                                            <td>{{ $categoria->departamento->tx_departamento ?? '' }} </td>
                                             <td>{{ $categoria->tx_categoria }}</td>
-                                            <td>{{ ucfirst(strtolower($categoria->st_publicado)) }}</td>
+                                            <td class="text-center">
+                                                @if($categoria->tx_banner != null)
+                                                <img  src="{{url('imagens/categorias/'.$categoria->tx_banner)}}" width="70" height="30">
+                                                @else
+                                                -
+                                                 @endif
+                                            </td>
+                                            <td>
+                                                @if ($categoria->st_publicado == 'ATIVO')
+                                                <span class="badge rounded-pill badge-light-success" text-capitalized="">
+                                                    {{ ucfirst(strtolower($categoria->st_publicado)) }}</span>
+                                            @elseif($categoria->st_publicado == 'INATIVO')
+                                                <span class="badge rounded-pill badge-light-warning"
+                                                    text-capitalized="">
+                                                    {{ ucfirst(strtolower($categoria->st_publicado)) }}</span>
+                                            @endif
+
+                                            </td>
                                             <td>
                                                 <div class="row">
                                                     <div class="d-flex gap-1 col-actions">

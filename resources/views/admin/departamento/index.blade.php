@@ -65,8 +65,9 @@
                                     <tr>
                                         <th class="bg-primary text-white rounded-start">Id</th>
                                         <th class="bg-primary text-white">Nome</th>
-                                        <th class="bg-primary text-white">Status</th>
-                                        <th class="bg-primary text-white">Menu Principal</th>
+                                        <th class="bg-primary text-white text-center">Menu Principal</th>
+                                        <th class="bg-primary text-white text-center">Banner</th>
+                                        <th class="bg-primary text-white text-center">Status</th>
                                         <th class="bg-primary text-white rounded-end"></th>
                                     </tr>
                                 </thead>
@@ -75,8 +76,44 @@
                                         <tr>
                                             <td>{{ $departamento->id_departamento }}</td>
                                             <td>{{ $departamento->tx_departamento }}</td>
-                                            <td>{{ ucfirst(strtolower($departamento->st_publicado)) }}</td>
-                                            <td></td>
+                                            <td >
+                                                <div class="d-flex justify-content-center">
+                                                @if ($departamento->st_menu_principal == true)
+                                                    <span class="badge rounded-pill badge-light-success"
+                                                        text-capitalized="">sim</span>
+                                                @else
+                                                    <span class="badge rounded-pill badge-light-warning"
+                                                        text-capitalized="">não</span>
+                                                @endif
+                                                </div>
+                                            </td>
+                                            <td  class="text-center">
+                                                @if ($departamento->tx_banner != null)
+                                                    <img src="{{ url('imagens/departamentos/' . $departamento->tx_banner) }}"
+                                                        alt="Avatar" width="70" height="30">
+                                                @else
+                                                    -
+                                                @endif
+
+                                            </td>
+                                            <td>
+                                                <div class="d-flex justify-content-center">
+                                                @if ($departamento->st_publicado == 'ATIVO')
+                                                    <span class="badge rounded-pill badge-light-success"
+                                                        text-capitalized="">
+                                                        {{ ucfirst(strtolower($departamento->st_publicado)) }}</span>
+                                                @elseif($departamento->st_publicado == 'INATIVO')
+                                                    <span class="badge rounded-pill badge-light-warning"
+                                                        text-capitalized="">
+                                                        {{ ucfirst(strtolower($departamento->st_publicado)) }}</span>
+                                                @else
+                                                    <span class="badge rounded-pill badge-light-secondary"
+                                                        text-capitalized="">
+                                                        {{ ucfirst(strtolower($departamento->st_publicado)) }}</span>
+                                                @endif
+                                                </div>
+
+                                            </td>
                                             <td>
                                                 <div class="row">
                                                     <div class="d-flex gap-1 col-actions">
@@ -116,17 +153,17 @@
                             </table>
                             {{-- PAGINATION --}}
                             <div class="row">
-                                    <div class="d-flex justify-content-end">
-                                        {{ $departamentos->links() }}
-                                    </div>
+                                <div class="d-flex justify-content-end">
+                                    {{ $departamentos->links() }}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            <!--/ Basic table -->
         </div>
+        </section>
+        <!--/ Basic table -->
+    </div>
     </div>
 @endsection
 

@@ -20,7 +20,15 @@ class CategoriaController extends Controller
     public function index()
     {
         $btnCreate = ['name' => 'Novo', 'link' =>  route('categoria.create') ];
-        $categorias = Categoria::whereNotIn('st_publicado', ['EXCLUIDO'])->paginate(20);
+
+        $categorias = Categoria::select('co_categoria.*')
+        ->join('co_departamento', 'co_categoria.id_departamento', '=', 'co_departamento.id_departamento')
+        ->whereNotIn('co_categoria.st_publicado', ['EXCLUIDO'])
+        ->whereNotIn('co_departamento.st_publicado', ['EXCLUIDO'])
+        ->orderBy('co_departamento.tx_departamento' , 'asc')
+        ->paginate(20);
+
+
         return view('admin.categoria.index', ['btnCreate' => $btnCreate, 'categorias' => $categorias]);
     }
 
@@ -48,10 +56,10 @@ class CategoriaController extends Controller
         $categoria->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
 
 
-        if (strtok($request->select_dep_cat, 1) == 'd') {
-            $categoria->id_departamento =  ltrim($request->select_dep_cat, 'd');
+        if ($request->select_dep_cat[0] == 'd') {
+            $categoria->id_departamento =  substr($request->select_dep_cat, 1);
         } else {
-            $categoria->id_categoria_pai = ltrim($request->select_dep_cat, 'c');
+            $categoria->id_categoria_pai =  substr($request->select_dep_cat, 1);
         }
 
         if (isset($request->banner[0]) && !empty($request->banner[0])) {
