@@ -34,7 +34,7 @@ class Categoria extends Model
 
     public function children()
     {
-        return $this->hasMany(self::class, 'id_categoria_pai');
+        return $this->hasMany(self::class, 'id_categoria_pai')->whereNotIn('st_publicado', ['EXCLUIDO']);
     }
 
     public function allChildren()
