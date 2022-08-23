@@ -39,11 +39,10 @@ class NewsletterController extends Controller
 
         $lead->save();
 
-        //TODO redirect mantem page
         $routeParams = [];
         if ($request->page)
         {
-            $routeParams[] = $q . 'page=' . $request->page;
+            $routeParams[] =  'page=' . $request->page;
         }
 
         return redirect()->route('relatorios.newsletter',  $routeParams);

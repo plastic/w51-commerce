@@ -102,7 +102,7 @@
                                             <td><a href="mailto:{{ $lead->email }}" class="text-dark">{{ $lead->email }}</a></td>
                                             <td>{{ date('d/m/Y H:i', strtotime($lead->dh_cadastro));}}</td>
                                             <td>
-                                                <form action="{{ route('newsletter.active', ['id' => $lead->id, 'status' => $lead->st_ativo]) }}"
+                                                <form action="{{ route('newsletter.active', ['id' => $lead->id, 'status' => $lead->st_ativo, 'page' => isset($_GET['page']) ? $_GET['page'] : '']) }}"
                                                     method="POST">
                                                     @csrf
                                                     <button type="submit" class="btn">
