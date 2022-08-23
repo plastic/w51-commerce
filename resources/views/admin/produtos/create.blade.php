@@ -439,6 +439,7 @@
     <script src="{{ asset(mix('js/scripts/forms/form-file-uploader.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-select2.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-wizard.js')) }}"></script>
+    <script src="{{ asset(mix('js/scripts/sortable/html5sortable.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-quill-editor.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-images.js')) }}"></script>
 
