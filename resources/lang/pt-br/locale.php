@@ -190,6 +190,7 @@ return [
     "E-commerce" => "E-commerce",
     "Departamentos" => "Departamentos",
     "Categorias" => "Categorias",
+    "Marcas" => "Marcas",
     "Produtos" => "Produtos",
 
     "Marketing" => "Marketing",

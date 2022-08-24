@@ -24,6 +24,12 @@
             "slug": "categoria.index"
           },
           {
+            "url": "admin/marcas",
+            "name": "Marcas",
+            "icon": "circle",
+            "slug": "marca.index"
+          },
+          {
             "url": "admin/produtos",
             "name": "Produtos",
             "icon": "circle",
