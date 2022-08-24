@@ -49,7 +49,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/show/{produto}', [ProductsController::class, 'show'])->name('produto.show');
             Route::get('/edit', [ProductsController::class, 'edit'])->name('produto.edit');
             Route::post('/update/{produto}', [ProductsController::class, 'update'])->name('produto.update');
-            Route::delete('/delete/{produto}', [ProductsController::class, 'delete'])->name('produto.delete');
+            Route::delete('/delete', [ProductsController::class, 'delete'])->name('produto.delete');
             Route::get('/export', [ProductsController::class, 'export'])->name('produtos.export');
         });
 
@@ -71,7 +71,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/edit/{categoria}', [CategoriaController::class, 'edit'])->name('categoria.edit');
             Route::get('/update', [CategoriaController::class, 'update'])->name('categoria.update');
             Route::post('/store', [CategoriaController::class, 'store'])->name('categoria.store');
-            Route::delete('/delete/{categoria}', [CategoriaController::class, 'delete'])->name('categoria.delete');
+            Route::delete('/delete', [CategoriaController::class, 'delete'])->name('categoria.delete');
         });
 
         Route::group(['prefix' => 'marcas'], function () {

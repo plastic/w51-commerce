@@ -101,10 +101,17 @@ class CategoriaController extends Controller
         return view('admin.categoria.edit', ['breadcrumbs' => $breadcrumbs, 'categoria' => $categoria, 'departamentos' => $departamentos]);
     }
 
-    public function delete(Categoria $categoria)
+    public function delete(Request $request)
     {
-        $categoria->st_publicado = 'EXCLUIDO';
-        $categoria->save();
-        return redirect('/admin/categorias')->with('msg-sucess', 'Categoria excluida com sucesso');
+        if (request()->ajax()) {
+            $categoria = Categoria::find($request->get('id'));
+            if ($categoria->children->count() > 0) {
+                return response()->json(['msg' => 'Para deletar esse departamento, ele não deve possuir nenhuma categoria vinculada.']);
+            }
+            $categoria->st_publicado = 'EXCLUIDO';
+            $categoria->save();
+            return response()->json(['msg' => 'Categoria excluida com sucesso']);
+        }
+
     }
 }
