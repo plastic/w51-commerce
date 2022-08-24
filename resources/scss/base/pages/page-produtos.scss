@@ -1,0 +1,13 @@
+.dropzone {
+    min-height: 230px;
+}
+
+.dropzone .dz-message:before{
+    top: 10rem;
+    width: 60px;
+    height: 60px;
+}
+
+@media(max-width:1200px){
+
+}

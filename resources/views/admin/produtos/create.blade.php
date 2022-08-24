@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-file-uploader.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-wizard.css')) }}">
-    {{-- <link rel="stylesheet" href="{{ asset(mix('css/base/pages/page-departamentos.css')) }}"> --}}
+    <link rel="stylesheet" href="{{ asset(mix('css/base/pages/page-produtos.css')) }}">
 @endsection
 
 @section('content')
@@ -123,7 +123,7 @@
                                   </div> --}}
                             </div>
 
-                            <div class="col-md-6 mb-1">
+                            <div class="col-md-6 ">
                                 <label class="form-label" for="select2-basic">Marca</label>
                                 <select class="select2 form-select" id="select2-basic">
                                   <option value="AK">Alaska</option>
@@ -179,7 +179,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6 mb-1">
+                            <div class="col-md-6 ">
 
                             </div>
 
@@ -190,7 +190,7 @@
 
                         <div class="row">
 
-                            <div class="mb-1 col-2">
+                            <div class=" col-2">
                                 <div class="d-flex flex-column">
                                     <label class="form-check-label mb-50">Tipo de produto</label>
                                     <div class="demo-inline-spacing">
@@ -221,7 +221,7 @@
                             </div>
 
 
-                            <div class="mb-1 col-2">
+                            <div class=" col-2">
                                 <div class="d-flex flex-column">
                                     <label class="form-check-label mb-50">Produto com variação</label>
                                     <div class="form-check form-check-success form-switch">
@@ -232,7 +232,7 @@
                             </div>
 
 
-                            <div class="mb-1 col-2">
+                            <div class=" col-2">
                                 <div class="d-flex flex-column">
                                     <label class="form-check-label mb-50">Produto em destaque</label>
                                     <div class="form-check form-check-success form-switch">
@@ -241,7 +241,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-1 col-2">
+                            <div class=" col-2">
                                 <div class="d-flex flex-column">
                                     <label class="form-check-label mb-50">Publicado</label>
                                     <div class="form-check form-check-success form-switch">
@@ -252,7 +252,7 @@
                             </div>
 
                         </div>
-                        <hr class="my-3">
+                        <hr class="my-2">
 
                         <div class="row">
                             <div class="col-12">
@@ -286,7 +286,7 @@
                               </div>
                               <div class="col-12 mt-2">
                                 <label class="form-check-label mb-50">Vídeo do produto</label>
-                                <div class="input-group mb-3">
+                                <div class="input-group">
                                     <span class="input-group-text"><i data-feather='youtube'></i></span>
                                     <input type="text" class="form-control" name="tx_video" placeholder="Ex. https://www.youtube.com/watch?v=000"  />
                                 </div>
@@ -299,28 +299,25 @@
                         <div class="row prices">
                          <h4 class="card-title">Preços</h4>
 
-                          <div class="mb-1  col-md-3">
+                          <div class="  col-md-3">
                             <label class="form-check-label mb-50">Preço de custo</label>
                             <div class="input-group">
                                 <span class="input-group-text">R$</span>
                                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <span class="input-group-text">.00</span>
                               </div>
                           </div>
-                          <div class="mb-1  col-md-3">
+                          <div class="  col-md-3">
                             <label class="form-check-label mb-50">Preço de venda (preço de)</label>
                             <div class="input-group">
                                 <span class="input-group-text">R$</span>
                                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <span class="input-group-text">.00</span>
                               </div>
                           </div>
-                          <div class="mb-1 col-md-3">
+                          <div class=" col-md-3">
                             <label class="form-check-label mb-50">Preço promocional (preço por)</label>
                             <div class="input-group">
                                 <span class="input-group-text">R$</span>
                                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <span class="input-group-text">.00</span>
                               </div>
                           </div>
 
@@ -332,7 +329,7 @@
                         <div class="row stock">
                          <h4 class="card-title">Estoque</h4>
 
-                            <div class="mb-1 col-2">
+                            <div class=" col-2">
                                 <div class="d-flex flex-column">
                                     <label class="form-check-label mb-50">Venda ilimitada</label>
                                     <div class="form-check form-check-success form-switch">
@@ -342,15 +339,15 @@
                                 </div>
                             </div>
 
-                          <div class="mb-1  col-md-2 qnt" >
+                          <div class="  col-md-2 qnt" >
                             <label class="form-check-label mb-50">Quantide</label>
                             <input type="text" class="form-control" name="estoque">
                           </div>
-                          <div class="mb-1  col-md-3 sku">
+                          <div class="  col-md-3 sku">
                             <label class="form-check-label mb-50">SKU (Unidade de manutenção de estoque)</label>
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
                           </div>
-                          <div class="mb-1 col-md-3">
+                          <div class=" col-md-3">
                             <label class="form-check-label mb-50">Código de barras (GTIN, EAN, ISBN, etc.)</label>
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
                           </div>
@@ -363,30 +360,30 @@
                         <div class="row dimensoes">
                          <h4 class="card-title">Peso e dimensões</h4>
 
-                          <div class="mb-1  col-md-2">
+                          <div class="col-md-2">
                             <label class="form-check-label mb-50">Peso</label>
-                            <div class="input-group mb-4">
+                            <div class="input-group">
                                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
                                 <span class="input-group-text">Kg</span>
                               </div>
                           </div>
-                          <div class="mb-1  col-md-2">
+                          <div class="col-md-2">
                             <label class="form-check-label mb-50">Altura</label>
-                            <div class="input-group mb-4">
+                            <div class="input-group">
                                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
                                 <span class="input-group-text">cm</span>
                               </div>
                           </div>
-                          <div class="mb-1 col-md-2">
+                          <div class="col-md-2">
                             <label class="form-check-label mb-50">Largura</label>
-                            <div class="input-group mb-4">
+                            <div class="input-group">
                                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
                                 <span class="input-group-text">cm</span>
                               </div>
                           </div>
-                          <div class="mb-1 col-md-2">
+                          <div class="col-md-2">
                             <label class="form-check-label mb-50">Profundidade</label>
-                            <div class="input-group mb-4">
+                            <div class="input-group">
                                 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
                                 <span class="input-group-text">cm</span>
                               </div>
@@ -398,10 +395,9 @@
                         <hr class="my-2">
 
                         <div class="row">
-                         <h4 class="card-title">Oganização</h4>
+                         <h4 class="card-title">Categoria</h4>
 
-                          <div class="mb-1  col-md-12">
-                            <label class="form-check-label mb-50">Categoria</label>
+                          <div class="  col-md-12">
                             <select class="select2 form-select" id="select2-multiple" multiple>
                                 <optgroup label="Alaskan/Hawaiian Time Zone">
                                   <option value="AK">Alaska</option>
@@ -469,18 +465,49 @@
                         </div>
 
 
+                        <hr class="my-2">
+
+                        <div class="row mb-2">
+                         <h4 class="card-title">SEO</h4>
+
+                          <div class="col-md-6">
+                            <label class="form-check-label mb-50">URL do produto</label>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                          </div>
+                          <div class="col-md-6">
+                            <label class="form-check-label mb-50">Tag Title</label>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                          </div>
+                          <div class="col-12 mt-2">
+                            <label class="form-check-label mb-50">Meta Tag Description</label>
+                            <textarea class="form-control" name="tx_descricao" placeholder="Descrição..." required> </textarea>
+                          </div>
+                          <div class="col-12 mt-2">
+                            <label class="form-check-label mb-50">Incluir no XML de Google</label>
+                                    <div class="form-check form-check-success form-switch">
+                                        <input type="checkbox"  class="form-check-input" id="customSwitch4"
+                                            name="st_publicado" />
+                                    </div>
+                          </div>
+
+                        </div>
+
+
                       </form>
-                      <div class="d-flex justify-content-between">
+
+                      <div class="d-flex justify-content-between mt-3">
+
+                        <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+
 
                         <a class="btn btn-primary btn-next ms-auto" id="variacoes-buttton" style="display:none">
                           <span class="align-middle d-sm-inline-block d-none">Variações</span>
                           <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                         </a>
 
-                        <button class="btn btn-primary btn-next ms-auto" id="product-buttton" >
+                        <button class="btn btn-success btn-next ms-auto" id="product-buttton" >
                             <span class="align-middle d-sm-inline-block d-none">Criar produto</span>
-                            <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
-                          </button>
+                        </button>
 
 
                       </div>
@@ -489,17 +516,17 @@
 
                       <form>
                         <div class="row">
-                          <div class="mb-1 col-md-6">
+                          <div class=" col-md-6">
                             <label class="form-label" for="first-name">First Name</label>
                             <input type="text" name="first-name" id="first-name" class="form-control" placeholder="John" />
                           </div>
-                          <div class="mb-1 col-md-6">
+                          <div class=" col-md-6">
                             <label class="form-label" for="last-name">Last Name</label>
                             <input type="text" name="last-name" id="last-name" class="form-control" placeholder="Doe" />
                           </div>
                         </div>
                         <div class="row">
-                          <div class="mb-1 col-md-6">
+                          <div class=" col-md-6">
                             <label class="form-label" for="country">Country</label>
                             <select class="select2 w-100" name="country" id="country">
                               <option label=" "></option>
@@ -511,7 +538,7 @@
                               <option>Australia</option>
                             </select>
                           </div>
-                          <div class="mb-1 col-md-6">
+                          <div class=" col-md-6">
                             <label class="form-label" for="language">Language</label>
                             <select class="select2 w-100" name="language" id="language" multiple>
                               <option>English</option>
@@ -528,7 +555,6 @@
                         </a>
                         <button class="btn btn-primary btn-submit">
                           <span class="align-middle d-sm-inline-block d-none">Criar</span>
-                          <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                         </button>
                       </div>
                     </div>
@@ -540,18 +566,6 @@
               <!-- /Horizontal Wizard -->
 
 
-    </div>
-
-
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="d-flex justify-content-between">
-                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success data-submit me-1">Enviar</button>
-                </div>
-            </div>
-        </div>
     </div>
 
 

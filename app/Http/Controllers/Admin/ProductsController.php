@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Traits\Upload;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use App\Models\Admin\Departamento;
 use App\Models\Admin\File;
 use App\Http\Controllers\Controller;
 use App\Rules\CheckImage;
@@ -26,7 +26,8 @@ class ProductsController extends Controller
     public function create()
     {
         $breadcrumbs = [['name' => "Criar"]];
-        return view('admin.produtos.create', ['breadcrumbs' => $breadcrumbs]);
+        $departamentos = Departamento::whereNotIn('st_publicado', ['EXCLUIDO'])->with('categorias')->get();
+        return view('admin.produtos.create', ['breadcrumbs' => $breadcrumbs, 'departamentos' => $departamentos]);
     }
 
     public function store(Request $request)
