@@ -113,7 +113,7 @@
                                                 </div>
 
                                             </td>
-                                            <td class="status">
+                                            <td class="actions">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 col-actions">
 
