@@ -47,10 +47,10 @@
                         </span>
                       </button>
                     </div>
-                    <div class="line">
+                    <div class="line" id="personal-info-trigger-arrow" style="display:none">
                       <i data-feather="chevron-right" class="font-medium-2"></i>
                     </div>
-                    <div class="step" data-target="#personal-info" role="tab" id="personal-info-trigger">
+                    <div class="step" data-target="#personal-info" role="tab" id="personal-info-trigger" style="display:none">
                       <button type="button" class="step-trigger">
                         <span class="bs-stepper-box">2</span>
                         <span class="bs-stepper-label">
@@ -123,6 +123,66 @@
                                   </div> --}}
                             </div>
 
+                            <div class="col-md-6 mb-1">
+                                <label class="form-label" for="select2-basic">Marca</label>
+                                <select class="select2 form-select" id="select2-basic">
+                                  <option value="AK">Alaska</option>
+                                  <option value="HI">Hawaii</option>
+                                  <option value="CA">California</option>
+                                  <option value="NV">Nevada</option>
+                                  <option value="OR">Oregon</option>
+                                  <option value="WA">Washington</option>
+                                  <option value="AZ">Arizona</option>
+                                  <option value="CO">Colorado</option>
+                                  <option value="ID">Idaho</option>
+                                  <option value="MT">Montana</option>
+                                  <option value="NE">Nebraska</option>
+                                  <option value="NM">New Mexico</option>
+                                  <option value="ND">North Dakota</option>
+                                  <option value="UT">Utah</option>
+                                  <option value="WY">Wyoming</option>
+                                  <option value="AL">Alabama</option>
+                                  <option value="AR">Arkansas</option>
+                                  <option value="IL">Illinois</option>
+                                  <option value="IA">Iowa</option>
+                                  <option value="KS">Kansas</option>
+                                  <option value="KY">Kentucky</option>
+                                  <option value="LA">Louisiana</option>
+                                  <option value="MN">Minnesota</option>
+                                  <option value="MS">Mississippi</option>
+                                  <option value="MO">Missouri</option>
+                                  <option value="OK">Oklahoma</option>
+                                  <option value="SD">South Dakota</option>
+                                  <option value="TX">Texas</option>
+                                  <option value="TN">Tennessee</option>
+                                  <option value="WI">Wisconsin</option>
+                                  <option value="CT">Connecticut</option>
+                                  <option value="DE">Delaware</option>
+                                  <option value="FL">Florida</option>
+                                  <option value="GA">Georgia</option>
+                                  <option value="IN">Indiana</option>
+                                  <option value="ME">Maine</option>
+                                  <option value="MD">Maryland</option>
+                                  <option value="MA">Massachusetts</option>
+                                  <option value="MI">Michigan</option>
+                                  <option value="NH">New Hampshire</option>
+                                  <option value="NJ">New Jersey</option>
+                                  <option value="NY">New York</option>
+                                  <option value="NC">North Carolina</option>
+                                  <option value="OH">Ohio</option>
+                                  <option value="PA">Pennsylvania</option>
+                                  <option value="RI">Rhode Island</option>
+                                  <option value="SC">South Carolina</option>
+                                  <option value="VT">Vermont</option>
+                                  <option value="VA">Virginia</option>
+                                  <option value="WV">West Virginia</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-1">
+
+                            </div>
+
                         </div>
 
 
@@ -138,9 +198,9 @@
                                             <input
                                               class="form-check-input"
                                               type="radio"
-                                              name="inlineRadioOptions"
+                                              name="product_type"
                                               id="inlineRadio1"
-                                              value="option1"
+                                              value="fisico"
                                               checked
                                             />
                                             <label class="form-check-label" for="inlineRadio1">Físico</label>
@@ -149,9 +209,9 @@
                                             <input
                                               class="form-check-input"
                                               type="radio"
-                                              name="inlineRadioOptions"
+                                              name="product_type"
                                               id="inlineRadio2"
-                                              value="option2"
+                                              value="virtual"
                                             />
                                             <label class="form-check-label" for="inlineRadio2">Virtual</label>
                                         </div>
@@ -165,8 +225,8 @@
                                 <div class="d-flex flex-column">
                                     <label class="form-check-label mb-50">Produto com variação</label>
                                     <div class="form-check form-check-success form-switch">
-                                        <input type="checkbox"  class="form-check-input" id="customSwitch4"
-                                            name="st_publicado" />
+                                        <input type="checkbox"  class="form-check-input" id="tp_variacao"
+                                            name="tp_variacao" />
                                     </div>
                                 </div>
                             </div>
@@ -234,9 +294,9 @@
                               </div>
                         </div>
 
-                        <hr class="my-2">
+                        <hr class="my-2 prices">
 
-                        <div class="row">
+                        <div class="row prices">
                          <h4 class="card-title">Preços</h4>
 
                           <div class="mb-1  col-md-3">
@@ -267,26 +327,26 @@
                         </div>
 
 
-                        <hr class="my-2">
+                        <hr class="my-2 stock">
 
-                        <div class="row">
+                        <div class="row stock">
                          <h4 class="card-title">Estoque</h4>
 
                             <div class="mb-1 col-2">
                                 <div class="d-flex flex-column">
                                     <label class="form-check-label mb-50">Venda ilimitada</label>
                                     <div class="form-check form-check-success form-switch">
-                                        <input type="checkbox"  class="form-check-input" id="customSwitch4"
-                                            name="st_publicado" />
+                                        <input type="checkbox"  class="form-check-input" id="st_estoque"
+                                            name="st_estoque" />
                                     </div>
                                 </div>
                             </div>
 
-                          <div class="mb-1  col-md-2">
+                          <div class="mb-1  col-md-2 qnt" >
                             <label class="form-check-label mb-50">Quantide</label>
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input type="text" class="form-control" name="estoque">
                           </div>
-                          <div class="mb-1  col-md-3">
+                          <div class="mb-1  col-md-3 sku">
                             <label class="form-check-label mb-50">SKU (Unidade de manutenção de estoque)</label>
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
                           </div>
@@ -298,9 +358,9 @@
                         </div>
 
 
-                        <hr class="my-2">
+                        <hr class="my-2 dimensoes">
 
-                        <div class="row">
+                        <div class="row dimensoes">
                          <h4 class="card-title">Peso e dimensões</h4>
 
                           <div class="mb-1  col-md-2">
@@ -335,18 +395,92 @@
                         </div>
 
 
+                        <hr class="my-2">
+
+                        <div class="row">
+                         <h4 class="card-title">Oganização</h4>
+
+                          <div class="mb-1  col-md-12">
+                            <label class="form-check-label mb-50">Categoria</label>
+                            <select class="select2 form-select" id="select2-multiple" multiple>
+                                <optgroup label="Alaskan/Hawaiian Time Zone">
+                                  <option value="AK">Alaska</option>
+                                  <option value="HI">Hawaii</option>
+                                </optgroup>
+                                <optgroup label="Pacific Time Zone">
+                                  <option value="CA">California</option>
+                                  <option value="NV">Nevada</option>
+                                  <option value="OR">Oregon</option>
+                                  <option value="WA">Washington</option>
+                                </optgroup>
+                                <optgroup label="Mountain Time Zone">
+                                  <option value="AZ">Arizona</option>
+                                  <option value="CO" selected>Colorado</option>
+                                  <option value="ID">Idaho</option>
+                                  <option value="MT">Montana</option>
+                                  <option value="NE">Nebraska</option>
+                                  <option value="NM">New Mexico</option>
+                                  <option value="ND">North Dakota</option>
+                                  <option value="UT">Utah</option>
+                                  <option value="WY">Wyoming</option>
+                                </optgroup>
+                                <optgroup label="Central Time Zone">
+                                  <option value="AL">Alabama</option>
+                                  <option value="AR">Arkansas</option>
+                                  <option value="IL">Illinois</option>
+                                  <option value="IA">Iowa</option>
+                                  <option value="KS">Kansas</option>
+                                  <option value="KY">Kentucky</option>
+                                  <option value="LA">Louisiana</option>
+                                  <option value="MN">Minnesota</option>
+                                  <option value="MS">Mississippi</option>
+                                  <option value="MO">Missouri</option>
+                                  <option value="OK">Oklahoma</option>
+                                  <option value="SD">South Dakota</option>
+                                  <option value="TX">Texas</option>
+                                  <option value="TN">Tennessee</option>
+                                  <option value="WI">Wisconsin</option>
+                                </optgroup>
+                                <optgroup label="Eastern Time Zone">
+                                  <option value="CT">Connecticut</option>
+                                  <option value="DE">Delaware</option>
+                                  <option value="FL" selected>Florida</option>
+                                  <option value="GA">Georgia</option>
+                                  <option value="IN">Indiana</option>
+                                  <option value="ME">Maine</option>
+                                  <option value="MD">Maryland</option>
+                                  <option value="MA">Massachusetts</option>
+                                  <option value="MI">Michigan</option>
+                                  <option value="NH">New Hampshire</option>
+                                  <option value="NJ">New Jersey</option>
+                                  <option value="NY">New York</option>
+                                  <option value="NC">North Carolina</option>
+                                  <option value="OH">Ohio</option>
+                                  <option value="PA">Pennsylvania</option>
+                                  <option value="RI">Rhode Island</option>
+                                  <option value="SC">South Carolina</option>
+                                  <option value="VT">Vermont</option>
+                                  <option value="VA">Virginia</option>
+                                  <option value="WV">West Virginia</option>
+                                </optgroup>
+                              </select>
+                          </div>
+
+                        </div>
+
+
                       </form>
                       <div class="d-flex justify-content-between">
 
-                        <a class="btn btn-primary btn-next ms-auto">
+                        <a class="btn btn-primary btn-next ms-auto" id="variacoes-buttton" style="display:none">
                           <span class="align-middle d-sm-inline-block d-none">Variações</span>
                           <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                         </a>
-{{--
-                        <button class="btn btn-primary btn-next">
+
+                        <button class="btn btn-primary btn-next ms-auto" id="product-buttton" >
                             <span class="align-middle d-sm-inline-block d-none">Criar produto</span>
                             <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
-                          </button> --}}
+                          </button>
 
 
                       </div>
@@ -390,10 +524,10 @@
                       <div class="d-flex justify-content-between">
                         <a class="btn btn-primary btn-prev">
                           <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
-                          <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                          <span class="align-middle d-sm-inline-block d-none">Detalhes</span>
                         </a>
-                        <button class="btn btn-primary btn-next">
-                          <span class="align-middle d-sm-inline-block d-none">Next</span>
+                        <button class="btn btn-primary btn-submit">
+                          <span class="align-middle d-sm-inline-block d-none">Criar</span>
                           <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                         </button>
                       </div>
@@ -451,8 +585,46 @@
     // theme: 'snow'
     // });
 
-var wizardExample = document.querySelector('.horizontal-example')
 
+$('#tp_variacao').change(function() {
+
+  if( $(this).is(':checked')){
+    console.log('Com variação')
+    $('#personal-info-trigger').show();
+    $('#personal-info-trigger-arrow').show();
+    $('#variacoes-buttton').show();
+    $('.prices, .stock, .dimensoes').hide();
+    $('#product-buttton').hide();
+  }else{
+    console.log('Sem variação');
+    $('#personal-info-trigger').hide();
+    $('#personal-info-trigger-arrow').hide();
+    $('#variacoes-buttton').hide();
+    $('.prices, .stock, .dimensoes').show();
+    $('#product-buttton').show();
+  }
+});
+
+$('#st_estoque').change(function() {
+
+  if( $(this).is(':checked')){
+    $('.qnt').hide();
+  }else{
+    $('.qnt').show();
+  }
+});
+
+$('input[name=product_type]').change(function() {
+  console.log($(this).val());
+
+  if( $(this).val() == 'fisico'){
+    $('.dimensoes').show();
+  }else{
+    $('.dimensoes').hide();
+  }
+});
+
+var wizardExample = document.querySelector('.horizontal-example')
 
 $('#productForm').validate({
       errorClass: 'text-danger',
@@ -501,6 +673,7 @@ if (typeof wizardExample !== undefined && wizardExample !== null) {
       }
     })
 }
+
 
 </script>
 
