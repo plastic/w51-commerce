@@ -67,13 +67,12 @@
                                         <th class="bg-primary text-white rounded-start">Id</th>
                                         <th class="bg-primary text-white">Marca</th>
                                         <th class="bg-primary text-white">Data de Cadastro</th>
-                                        <th class="bg-primary text-white">Status</th>
-                                        <th class="bg-primary text-white rounded-end"></th>
+                                        <th class="bg-primary text-white rounded-end">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($marcas as $marca)
-                                        <tr>
+                                        <tr class="table-line">
                                             <td>{{ $marca->id_marca }} </td>
                                             <td>{{ $marca->tx_marca }}</td>
                                             <td>{{date('d/m/Y H:i', strtotime($marca->dh_cadastro))}}</td>
@@ -88,7 +87,7 @@
                                             @endif
 
                                             </td>
-                                            <td>
+                                            <td class="actions">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 col-actions">
 

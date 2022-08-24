@@ -32,7 +32,7 @@ class ProductsController extends Controller
 
     public function store(Request $request)
     {
-
+        dd($request);
         $dataimages = array();
         if ($request->hasfile('images') && !empty($request->hasfile('images'))) {
 

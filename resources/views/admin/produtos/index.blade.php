@@ -101,7 +101,7 @@
                                         <td class="text-center">R$ 20,00</td>
                                         <td class="text-center">10</td>
 
-                                        <td class="status"><div class="row ">
+                                        <td class="actions"><div class="row ">
                                             <div class="d-flex gap-1 col-actions">
 
                                                 <form action="{{ route('produto.create', ['produto' => '']) }}"
@@ -153,7 +153,7 @@
                                         <td class="text-center">R$ 55,27</td>
                                         <td class="text-center">1000</td>
 
-                                        <td class="status"><div class="row ">
+                                        <td class="actions"><div class="row ">
                                             <div class="d-flex gap-1 col-actions">
 
                                                 <form action="{{ route('produto.create', ['produto' => '']) }}"

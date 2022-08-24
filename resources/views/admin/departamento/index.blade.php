@@ -74,13 +74,12 @@
                                         <th class="bg-primary text-white">Nome</th>
                                         <th class="bg-primary text-white text-center">Menu Principal</th>
                                         <th class="bg-primary text-white text-center">Banner</th>
-                                        <th class="bg-primary text-white text-center">Status</th>
-                                        <th class="bg-primary text-white rounded-end"></th>
+                                        <th class="bg-primary text-white text-center rounded-end">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($departamentos as $departamento)
-                                        <tr>
+                                        <tr class="table-line">
                                             <td>{{ $departamento->id_departamento }}</td>
                                             <td>{{ $departamento->tx_departamento }}</td>
                                             <td>
@@ -121,7 +120,7 @@
                                                 </div>
 
                                             </td>
-                                            <td>
+                                            <td class="actions">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 col-actions">
                                                         <div>

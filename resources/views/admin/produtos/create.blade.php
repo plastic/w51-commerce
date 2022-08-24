@@ -76,11 +76,12 @@
 
                             <div class="mb-1 col-12 mb-5 pb-3">
                                 <label class="form-label">Descrição</label>
-                                <div id="editor">
+                                <div id="editor" >
                                     <p>Hello World!</p>
                                     <p>Some initial <strong>bold</strong> text</p>
                                     <p><br></p>
                                 </div>
+                                <textarea name="tx_descricao" style="display:none" id="hiddenTextArea"></textarea>
 
                             </div>
 
@@ -441,7 +442,7 @@
                           </div>
                           <div class="col-12 mt-2">
                             <label class="form-check-label mb-50">Meta Tag Description</label>
-                            <textarea class="form-control" name="tx_descricao" placeholder="Descrição..." required> </textarea>
+                            <textarea class="form-control" name="tx_meta_description" placeholder="Descrição..." required> </textarea>
                           </div>
                           <div class="col-12 mt-2">
                             <label class="form-check-label mb-50">Incluir no XML de Google</label>
@@ -580,6 +581,12 @@
     },
     theme: 'snow'
     });
+
+    quill.on('text-change', function(delta, oldDelta, source) {
+            console.log(quill.container.firstChild.innerHTML)
+            $('#hiddenTextArea').val(quill.container.firstChild.innerHTML);
+    });
+
 
 
 $('#tp_variacao').change(function() {
