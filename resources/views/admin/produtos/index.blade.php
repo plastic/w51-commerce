@@ -82,10 +82,10 @@
                                     <tr class="table-line">
                                         <td>449174971459</td>
                                         <td><div class="product-image">
-                                            <img src="http://localhost:8000/imagens/departamentos/1660930518-image.jpg" alt="Avatar" width="70" height="70">
+                                            <img src="https://pixinvent.com/demo/vuexy-bootstrap-laravel-admin-template/demo-1/images/pages/eCommerce/3.png" alt="Avatar" width="70" height="70">
 
                                         </div></td>
-                                        <td>Mochila Loading</td>
+                                        <td>Apple iMac 27-inch</td>
                                         <td>
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <i data-feather='package' style="margin-right:0.3em"></i> Físico
@@ -134,10 +134,10 @@
                                     <tr class="table-line">
                                         <td>45252626626</td>
                                         <td><div class="product-image">
-                                            <img src="http://localhost:8000/imagens/departamentos/1660930518-image.jpg" alt="Avatar" width="70" height="70">
+                                            <img src="https://pixinvent.com/demo/vuexy-bootstrap-laravel-admin-template/demo-1/images/pages/eCommerce/1.png" alt="Avatar" width="70" height="70">
 
                                         </div></td>
-                                        <td>Mochila Virtual com nome bem grande e divertido</td>
+                                        <td>Apple Watch Series 5 com nome bem grande e divertido</td>
                                         <td>
                                             <div class="d-flex align-items-center justify-content-center">
                                                 <i data-feather='monitor' style="margin-right:0.3em"></i> Virtual
