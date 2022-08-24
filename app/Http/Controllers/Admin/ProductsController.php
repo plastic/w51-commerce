@@ -20,7 +20,8 @@ class ProductsController extends Controller
     {
         $btnCreate = ['name' => 'Novo', 'link' =>  route('produto.create') ];
         $produtos = [];
-        return view('admin.produtos.index', ['btnCreate' => $btnCreate, 'produtos' => $produtos]);
+        $departamentos = Departamento::whereNotIn('st_publicado', ['EXCLUIDO'])->with('categorias')->get();
+        return view('admin.produtos.index', ['btnCreate' => $btnCreate, 'produtos' => $produtos, 'departamentos' => $departamentos]);
     }
 
     public function create()
@@ -84,5 +85,12 @@ class ProductsController extends Controller
 
         dd($dataimages, $newdataimages);
 
+    }
+
+
+    public function export()
+    {
+
+        return response()->stream($callback, 200, $headers);
     }
 }
