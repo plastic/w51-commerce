@@ -50,6 +50,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/edit', [ProductsController::class, 'edit'])->name('produto.edit');
             Route::post('/update/{produto}', [ProductsController::class, 'update'])->name('produto.update');
             Route::delete('/delete/{produto}', [ProductsController::class, 'delete'])->name('produto.delete');
+            Route::get('/export', [ProductsController::class, 'export'])->name('produtos.export');
         });
 
         Route::group(['prefix' => 'departamentos'], function () {

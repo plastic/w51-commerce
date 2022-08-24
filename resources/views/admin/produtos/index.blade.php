@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
 @endsection
 
 @section('page-style')
@@ -39,7 +40,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row ">
-                <div class="col-12">
+                <div class="col-9">
                     <form method="POST" action="" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group">
@@ -51,10 +52,104 @@
                                 placeholder="Digite o nome do produtto" aria-label="Amount" />
                             <button class="btn btn-outline-primary" type="submit">Buscar</button>
                         </div>
+
                     </form>
                 </div>
 
+                <div class="col-3 d-flex justify-content-end">
+                    <a class="btn btn-outline-primary waves-effect p-1 h-100" data-bs-toggle="modal"
+                    data-bs-target="#modals-slide-in"><i data-feather='filter'></i> Filtos</a>
+
+                    <div class="d-flex justify-content-end">
+                        <a class="nav-link p-0 ms-2 h-100" href="{{route('produtos.export', ['search' => isset($search) ? $search : ''] ) }}">
+                            <div class="btn-export h-100">
+                                <button class="btn btn-primary ag-grid-export-btn d-flex align-items-center h-100">
+                                    <i data-feather='pie-chart' class="font-medium-3 me-50"></i>
+                                    <span class="fw-bold">Exportar</span>
+                                </button>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal modal-slide-in fade" id="modals-slide-in">
+        <div class="modal-dialog sidebar-lg">
+            <form class="add-new-record modal-content pt-0" method="POST" action="{{ route('user.store') }}"
+                enctype="multipart/form-data">
+                @csrf
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title" id="exampleModalLabel">Filtros</h5>
+                </div>
+                <div class="modal-body flex-grow-1">
+                    <div class="mb-1">
+                        <label class="form-label">Ordernar por</label>
+                        <select class="form-select" name="order">
+                            <option value="date" selected>Data de criação</option>
+                            <option value="alpha">Ordem alfabética</option>
+                            <option value="featureds">Destaques</option>
+                            <option value="topSellers">Mais vendidos</option>
+                            <option value="stock">Estoque</option>
+                          </select>
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Categoria</label>
+                          <select class="select2 form-select" id="select2-multiple" multiple data-placeholder="Selecione">
+                            @foreach ($departamentos as $departamento)
+                            @if(count($departamento->categorias) > 0)
+                            <optgroup label="{{$departamento->tx_departamento }}">
+                                @foreach ($departamento->categorias as $categoria)
+                                    <option value="{{$categoria->id_categoria}}">{{$categoria->tx_categoria }}</option>
+                                @endforeach
+                            </optgroup>
+                            @endif
+                            @endforeach
+
+                          </select>
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Marcas</label>
+                        <select class="select2 form-select" name="status" multiple  data-placeholder="Selecione">
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Status do produto</label>
+                        <select class="form-select" name="status">
+                            <option selected>Todos</option>
+                            <option value="actives">Ativos</option>
+                            <option value="inactives">Inativos</option>
+                            <option value="stockout">Indisponíveis</option>
+                          </select>
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Produto com variação</label>
+                        <select class="form-select" name="variation">
+                            <option selected>Selecionar</option>
+                            <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                          </select>
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Produto em destaque</label>
+                        <select class="form-select" name="featured">
+                            <option selected>Selecionar</option>
+                            <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                          </select>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary data-submit me-1">Aplicar filtros</button>
+                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -241,4 +336,22 @@
     <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.bootstrap5.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap5.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
+@endsection
+
+@section('page-script')
+{{-- <script src="{{ asset(mix('js/scripts/forms/form-select2.js')) }}"></script> --}}
+<script>
+    $('.select2').select2({
+    minimumResultsForSearch: -1,
+    dropdownAutoWidth: false,
+    multiple: true,
+    width: '100%',
+    height: '10px',
+    placeholder: "Selecione",
+    allowClear: true
+    });
+    $('.select2-search__field').css('width', '100%');
+</script>
+
 @endsection
