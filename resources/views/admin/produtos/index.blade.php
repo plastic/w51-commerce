@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
 @endsection
 
+@section('page-style')
+    <!-- Page css files -->
+    <link rel="stylesheet" href="{{ asset(mix('css/base/pages/page-produtos.css')) }}">
+@endsection
+
 @section('content')
 
 @if (session()->has('msg-sucess'))
@@ -63,13 +68,40 @@
                             <table class="datatables-basic table">
                                 <thead class="bg-primary">
                                     <tr>
-                                        <th class="bg-primary text-white rounded-start">Id</th>
-                                        <th class="bg-primary text-white">Nome</th>
-                                        <th class="bg-primary text-white">Status</th>
-                                        <th class="bg-primary text-white rounded-end"></th>
+                                        <th class="bg-primary text-white rounded-start">SKU</th>
+                                        <th class="bg-primary text-white"></th>
+                                        <th class="bg-primary text-white">Produto</th>
+                                        <th class="bg-primary text-white text-center">Tipo</th>
+                                        <th class="bg-primary text-white text-center">Com variante</th>
+                                        <th class="bg-primary text-white text-center">Preço de</th>
+                                        <th class="bg-primary text-white text-center">Preço por</th>
+                                        <th class="bg-primary text-white text-center rounded-end">Estoque</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td>449174971459</td>
+                                        <td class="text-center image">
+                                            <img src="http://localhost:8000/imagens/departamentos/1660930518-image.jpg" alt="Avatar" width="70" height="70">
+
+                                        </td>
+                                        <td>Mochila Loading</td>
+                                        <td class="text-center">
+                                            <div class="d-flex align-items-center">
+                                                <i data-feather='box'></i> Físico
+                                            </div>
+
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="avatar avatar-status bg-light-success"><span class="avatar-content" title="Sim">
+                                                <i data-feather='check-circle'></i>
+                                            </span></div>
+                                        </td>
+                                        <td class="text-center">R$ 30,00</td>
+                                        <td class="text-center">R$ 20,00</td>
+                                        <td class="text-center">10</td>
+                                    </tr>
+
                                     {{-- @foreach ($categorias as $categoria)
                                         <tr>
                                             <td>{{ $categoria->id_categoria }} </td>
