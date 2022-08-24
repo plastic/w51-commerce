@@ -7,8 +7,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Admin\Departamento;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\File;
 use App\Rules\CheckImage;
+use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Support\Facades\Validator;
+
 
 class DepartamentoController extends Controller
 {
@@ -91,8 +94,26 @@ class DepartamentoController extends Controller
         $departamento->st_menu_principal = $request->st_menu_principal == 'on' ? true : false;
         $departamento->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
 
+        if (isset($request->banner[0]) && !empty($request->banner[0])) {
+            $imagevalidator = Validator::make($request->all(), [
+                // 'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 ', new CheckImage(1440, 500)],
+                'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 '],
+            ]);
+            if ($imagevalidator->fails()) {
+                return redirect()->back()->with('error', $imagevalidator->messages());
+            } else {
 
-        $departamento->save();
+                $image = $this->upload($request->banner[0], 'departamentos', 'image');
+                if (!$image) {
+                    return response()->json("Ocorreu um erro ao enviar o arquivo", 400);
+                }
+                //delete old image
+               FacadesFile::delete(public_path("imagens/departamentos/{$departamento->tx_banner}"));
+                $departamento->tx_banner = $image;
+            }
+        }
+
+        $departamento->update();
 
         return redirect('/admin/departamentos')->with('msg-sucess', 'Departamento atualizado com sucesso');
     }

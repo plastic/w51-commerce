@@ -74,20 +74,29 @@
                               Esse banner sera exibido na página do departamento <code>1440x500 | jpg.png</code>
                             </p>
 
+
                                <div id="actions" class="dropzone dropzone-area">
                                     <div  id="allImagesWrapper" class="col-lg-12 d-flex actions">
 
+                                            <span class="card-newthumb dz-preview dz-processing dz-image-preview dz-error dz-complete" data-uploadname="eles.jpg">
+                                                <div class="dz-image">
+                                                    <img src="{{ url('imagens/departamentos/'.$departamento->tx_banner)}}">
+                                                </div>
+                                                <div class="dz-details">
+                                                    <div class="dz-size"><span><strong>{{floor(filesize( 'imagens/departamentos/'.$departamento->tx_banner ) / 1024)}}</strong> KB</span></div>
+                                                    <div class="dz-filename"><span>{{ $departamento->tx_banner}}</span></div>
+                                                </div>
+                                                <a href="#" class="btn btn-outline-danger btn-sm justCreatedCard w-100" onclick="removeOne(event)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
+                                            </span>
                                     </div>
                                       <label class="custom-file-label" for="files">
-                                        <div class="dz-message" id="dz-message">Clique aqui ou arraste o banner.</div>
+                                        <div class="dz-message filled" id="dz-message">Clique aqui ou arraste o banner.</div>
                                     </label>
                                     <div class="col-lg-12">
                                       <div class="input-group">
                                         <div class="custom-file">
                                           <input type="file" class="custom-images-input" id="files" name="banner[]"
-                                          hidden width=1440 height=500 filesize=1500>
-
-                                           {{-- <div class="dz-message">Drop files here or click to upload.</div> --}}
+                                          hidden width=1440 height=500 filesize=1500 value="{{$departamento->tx_banner}}">
                                         </div>
                                       </div>
                                     </div>
