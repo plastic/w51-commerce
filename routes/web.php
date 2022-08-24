@@ -48,7 +48,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/store', [ProductsController::class, 'store'])->name('produto.store');
             Route::get('/show/{produto}', [ProductsController::class, 'show'])->name('produto.show');
             Route::get('/edit', [ProductsController::class, 'edit'])->name('produto.edit');
-            Route::get('/update/{produto}', [ProductsController::class, 'update'])->name('produto.update');
+            Route::post('/update/{produto}', [ProductsController::class, 'update'])->name('produto.update');
             Route::delete('/delete/{produto}', [ProductsController::class, 'delete'])->name('produto.delete');
         });
 
@@ -57,9 +57,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/create', [DepartamentoController::class, 'create'])->name('departamento.create');
             Route::post('/store', [DepartamentoController::class, 'store'])->name('departamento.store');
             Route::get('/show/{departamento}', [DepartamentoController::class, 'show'])->name('departamento.show');
-            Route::get('/edit', [DepartamentoController::class, 'edit'])->name('departamento.edit');
-            Route::get('/update/{departamento}', [DepartamentoController::class, 'update'])->name('departamento.update');
-            Route::delete('/delete/{departamento}', [DepartamentoController::class, 'delete'])->name('departamento.delete');
+            Route::get('/edit/{departamento}', [DepartamentoController::class, 'edit'])->name('departamento.edit');
+            Route::post('/update/{departamento}', [DepartamentoController::class, 'update'])->name('departamento.update');
+            Route::delete('/delete', [DepartamentoController::class, 'delete'])->name('departamento.delete');
         });
 
         Route::group(['prefix' => 'categorias'], function () {

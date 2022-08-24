@@ -44,7 +44,6 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
 
-
         $request->validate([
             'select_dep_cat' => 'required',
             'tx_categoria' => 'required',
