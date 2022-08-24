@@ -108,7 +108,7 @@ class DepartamentoController extends Controller
                     return response()->json("Ocorreu um erro ao enviar o arquivo", 400);
                 }
                 //delete old image
-               FacadesFile::delete(public_path("imagens/departamentos/{$departamento->tx_banner}"));
+                FacadesFile::delete(public_path("imagens/departamentos/{$departamento->tx_banner}"));
                 $departamento->tx_banner = $image;
             }
         }

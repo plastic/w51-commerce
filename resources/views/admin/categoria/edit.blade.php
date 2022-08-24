@@ -16,7 +16,7 @@
 
 @section('content')
     <!-- Kick start -->
-    <form  method="POST" action="{{route('categoria.update')}}" enctype="multipart/form-data">
+    <form  method="POST" action="{{route('categoria.update' , ['categoria' => $categoria])}}" enctype="multipart/form-data">
         @csrf
     <div class="card">
         <div class="card-body">

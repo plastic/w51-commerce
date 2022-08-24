@@ -10,6 +10,7 @@ use App\Models\Admin\Departamento;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Rules\CheckImage;
+use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Support\Facades\Validator;
 
 class CategoriaController extends Controller
@@ -19,15 +20,15 @@ class CategoriaController extends Controller
 
     public function index()
     {
-        $btnCreate = ['name' => 'Novo', 'link' =>  route('categoria.create') ];
+        $btnCreate = ['name' => 'Novo', 'link' =>  route('categoria.create')];
 
         $categorias = Categoria::select('co_categoria.*')
-        ->join('co_departamento', 'co_categoria.id_departamento', '=', 'co_departamento.id_departamento')
-        ->whereNotIn('co_categoria.st_publicado', ['EXCLUIDO'])
-        ->whereNotIn('co_departamento.st_publicado', ['EXCLUIDO'])
-        ->orderBy('co_departamento.tx_departamento' , 'asc')
-        ->orderBy('co_categoria.tx_categoria' , 'asc')
-        ->paginate(20);
+            ->join('co_departamento', 'co_categoria.id_departamento', '=', 'co_departamento.id_departamento')
+            ->whereNotIn('co_categoria.st_publicado', ['EXCLUIDO'])
+            ->whereNotIn('co_departamento.st_publicado', ['EXCLUIDO'])
+            ->orderBy('co_departamento.tx_departamento', 'asc')
+            ->orderBy('co_categoria.tx_categoria', 'asc')
+            ->paginate(20);
 
 
         return view('admin.categoria.index', ['btnCreate' => $btnCreate, 'categorias' => $categorias]);
@@ -83,7 +84,7 @@ class CategoriaController extends Controller
         $categoria->save();
 
 
-        return redirect('/admin/categorias')->with('msg-sucess', 'Cadastro feito com sucesso');
+        return redirect('/admin/categorias')->with('msg-sucess', 'Categoria cadastrada com sucesso');
     }
 
     public function show(Categoria $categoria)
@@ -101,6 +102,46 @@ class CategoriaController extends Controller
         return view('admin.categoria.edit', ['breadcrumbs' => $breadcrumbs, 'categoria' => $categoria, 'departamentos' => $departamentos]);
     }
 
+    public function update(Request $request, Categoria $categoria)
+    {
+        $request->validate([
+            'select_dep_cat' => 'required',
+            'tx_categoria' => 'required',
+        ]);
+
+        $categoria->tx_categoria = $request->tx_categoria;
+        $categoria->tx_descricao = $request->tx_descricao;
+        $categoria->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
+
+
+        if ($request->select_dep_cat[0] == 'd') {
+            $categoria->id_departamento =  substr($request->select_dep_cat, 1);
+        } else {
+            $categoria->id_categoria_pai =  substr($request->select_dep_cat, 1);
+        }
+
+        if (isset($request->banner[0]) && !empty($request->banner[0])) {
+            $imagevalidator = Validator::make($request->all(), [
+                // 'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 ', new CheckImage(1440, 500)],
+                'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 '],
+            ]);
+            if ($imagevalidator->fails()) {
+                return redirect()->back()->with('error', $imagevalidator->messages());
+            } else {
+                $image = $this->upload($request->banner[0], 'categorias', 'image');
+                if (!$image) {
+                    return response()->json("Ocorreu um erro ao enviar o arquivo", 400);
+                }
+                FacadesFile::delete(public_path("imagens/categorias/{$categoria->tx_banner}"));
+                $categoria->tx_banner = $image;
+            }
+        }
+
+        $categoria->save();
+
+        return redirect('/admin/categorias')->with('msg-sucess', 'Categoria atualizada com sucesso');
+    }
+
     public function delete(Request $request)
     {
         if (request()->ajax()) {
@@ -112,6 +153,5 @@ class CategoriaController extends Controller
             $categoria->save();
             return response()->json(['msg' => 'Categoria excluida com sucesso']);
         }
-
     }
 }
