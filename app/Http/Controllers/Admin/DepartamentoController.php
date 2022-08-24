@@ -17,9 +17,9 @@ class DepartamentoController extends Controller
 
     public function index()
     {
-        $btnCreate = ['name' => 'Novo', 'link' =>  route('departamento.create') ];
-        $departamentos = Departamento::whereNotIn('st_publicado', ['EXCLUIDO'])->orderBy('tx_departamento' , 'asc') ->paginate(20);
-        return view('admin.departamento.index', ['btnCreate' => $btnCreate,'departamentos' => $departamentos]);
+        $btnCreate = ['name' => 'Novo', 'link' =>  route('departamento.create')];
+        $departamentos = Departamento::whereNotIn('st_publicado', ['EXCLUIDO'])->orderBy('tx_departamento', 'asc')->paginate(20);
+        return view('admin.departamento.index', ['btnCreate' => $btnCreate, 'departamentos' => $departamentos]);
     }
 
     public function create()
@@ -40,7 +40,7 @@ class DepartamentoController extends Controller
         $departamento = new Departamento();
         $departamento->tx_departamento = $request->tx_departamento;
         $departamento->tx_descricao = $request->tx_descricao;
-        $departamento->st_menu_principal =
+        $departamento->st_menu_principal = $request->st_menu_principal == 'on' ? true : false;
         $departamento->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
         $departamento->dh_cadastro = Carbon::now()->toDateTimeString();
 
@@ -71,11 +71,42 @@ class DepartamentoController extends Controller
         return view('admin.departamento.show', ['departamento' => $departamento, 'breadcrumbs' => $breadcrumbs]);
     }
 
-    public function delete(Departamento $departamento)
+    public function edit(Departamento $departamento)
     {
-        $departamento->st_publicado = 'EXCLUIDO';
-        $departamento->save();
-        return view('admin.departamento.index')->with('msg-sucess', 'Departamento excluido com sucesso');;
+        $breadcrumbs = [['name' => "Editar"]];
+        return view('admin.departamento.edit', ['breadcrumbs' => $breadcrumbs,  'departamento' => $departamento]);
     }
 
+    public function update(Request $request, Departamento $departamento)
+    {
+
+        $request->validate([
+
+            'tx_departamento' => 'required',
+            'tx_descricao' => 'required',
+        ]);
+
+        $departamento->tx_departamento = $request->tx_departamento;
+        $departamento->tx_descricao = $request->tx_descricao;
+        $departamento->st_menu_principal = $request->st_menu_principal == 'on' ? true : false;
+        $departamento->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
+
+
+        $departamento->save();
+
+        return redirect('/admin/departamentos')->with('msg-sucess', 'Departamento atualizado com sucesso');
+    }
+
+    public function delete(Request $request)
+    {
+        if (request()->ajax()) {
+            $departamento = Departamento::find($request->get('id'));
+            if ($departamento->categorias->count() > 0) {
+                return response()->json(['msg' => 'Para deletar esse departamento, ele não deve possuir nenhuma categoria vinculada.']);
+            }
+            $departamento->st_publicado = 'EXCLUIDO';
+            $departamento->save();
+            return response()->json(['msg' => 'Departamento excluido com sucesso']);
+        }
+    }
 }

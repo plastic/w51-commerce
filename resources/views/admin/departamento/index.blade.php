@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
+
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/animate/animate.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
+@endsection
+
+@section('page-style')
+    <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-sweet-alerts.css')) }}">
 @endsection
 
 @section('content')
@@ -75,18 +82,18 @@
                                         <tr class="table-line">
                                             <td>{{ $departamento->id_departamento }}</td>
                                             <td>{{ $departamento->tx_departamento }}</td>
-                                            <td >
+                                            <td>
                                                 <div class="d-flex justify-content-center">
-                                                @if ($departamento->st_menu_principal == true)
-                                                    <span class="badge rounded-pill badge-light-success"
-                                                        text-capitalized="">sim</span>
-                                                @else
-                                                    <span class="badge rounded-pill badge-light-warning"
-                                                        text-capitalized="">não</span>
-                                                @endif
+                                                    @if ($departamento->st_menu_principal == true)
+                                                        <span class="badge rounded-pill badge-light-success"
+                                                            text-capitalized="">sim</span>
+                                                    @else
+                                                        <span class="badge rounded-pill badge-light-warning"
+                                                            text-capitalized="">não</span>
+                                                    @endif
                                                 </div>
                                             </td>
-                                            <td  class="text-center">
+                                            <td class="text-center">
                                                 @if ($departamento->tx_banner != null)
                                                     <img src="{{ url('imagens/departamentos/' . $departamento->tx_banner) }}"
                                                         alt="Avatar" width="70" height="30">
@@ -97,54 +104,53 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex justify-content-center">
-                                                @if ($departamento->st_publicado == 'ATIVO')
-                                                    <span class="badge rounded-pill badge-light-success"
-                                                        text-capitalized="">
-                                                        {{ ucfirst(strtolower($departamento->st_publicado)) }}</span>
-                                                @elseif($departamento->st_publicado == 'INATIVO')
-                                                    <span class="badge rounded-pill badge-light-warning"
-                                                        text-capitalized="">
-                                                        {{ ucfirst(strtolower($departamento->st_publicado)) }}</span>
-                                                @else
-                                                    <span class="badge rounded-pill badge-light-secondary"
-                                                        text-capitalized="">
-                                                        {{ ucfirst(strtolower($departamento->st_publicado)) }}</span>
-                                                @endif
+                                                    @if ($departamento->st_publicado == 'ATIVO')
+                                                        <span class="badge rounded-pill badge-light-success"
+                                                            text-capitalized="">
+                                                            {{ ucfirst(strtolower($departamento->st_publicado)) }}</span>
+                                                    @elseif($departamento->st_publicado == 'INATIVO')
+                                                        <span class="badge rounded-pill badge-light-warning"
+                                                            text-capitalized="">
+                                                            {{ ucfirst(strtolower($departamento->st_publicado)) }}</span>
+                                                    @else
+                                                        <span class="badge rounded-pill badge-light-secondary"
+                                                            text-capitalized="">
+                                                            {{ ucfirst(strtolower($departamento->st_publicado)) }}</span>
+                                                    @endif
                                                 </div>
 
                                             </td>
                                             <td class="actions">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 col-actions">
+                                                        <div>
+                                                            <form
+                                                                action="{{ route('departamento.show', ['departamento' => $departamento]) }}"
+                                                                method="GET">
+                                                                <button type="submit"
+                                                                    class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
+                                                                    <i data-feather='eye'></i></button>
+                                                            </form>
+                                                        </div>
+                                                        <div>
+                                                            <form
+                                                                action="{{ route('departamento.edit', ['departamento' => $departamento]) }}"
+                                                                method="GET">
+                                                                <button type="submit"
+                                                                    class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
+                                                                    <i data-feather='edit'></i></button>
+                                                            </form>
+                                                        </div>
 
-                                                        <form
-                                                            action="{{ route('departamento.show', ['departamento' => $departamento]) }}"
-                                                            method="GET">
-                                                            <button type="submit"
-                                                                class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
-                                                                <i data-feather='eye'></i></button>
-                                                        </form>
-
-                                                        <form
-                                                            action="{{ route('departamento.edit', ['departamento' => $departamento]) }}"
-                                                            method="GET">
-                                                            <button type="submit"
-                                                                class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
-                                                                <i data-feather='edit'></i></button>
-                                                        </form>
-
-                                                        <form
-                                                            action="{{ route('departamento.delete', ['departamento' => $departamento]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit"
+                                                        <div>
+                                                            <button
+                                                                onclick="deleteDepartamento({{ $departamento->id_departamento }} , {{ $departamento->categorias->count() }})"
                                                                 class="btn btn-icon rounded-circle btn-outline-primary waves-effect"><i
-                                                                    data-feather='trash-2'></i></button>
-                                                        </form>
+                                                                    data-feather='trash-2'></i>
+                                                            </button>
+                                                        </div>
 
                                                     </div>
-                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -172,4 +178,61 @@
     <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.bootstrap5.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap5.min.js')) }}"></script>
+
+    <!-- sweet alert -->
+    <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/extensions/polyfill.min.js')) }}"></script>
 @endsection
+
+
+<script type="text/javascript">
+    function deleteDepartamento(id, categorias) {
+
+        if (categorias > 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops... ',
+                text: 'Para deletar esse departamento, ele não deve possuir nenhuma categoria vinculada.',
+                footer: '<a href="{{route('categoria.index')}}"><i data-feather="external-link"></i>ir para Categorias</a>'
+            })
+            return;
+        }
+
+        Swal.fire({
+            title: 'Deseja realmente excluir?',
+            text: "Você não poderá reverter isso!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, deletar!',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-outline-danger ms-1'
+            },
+            buttonsStyling: false
+        }).then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    url: "{{ route('departamento.delete') }}",
+                    method: 'delete',
+                    data: {
+                        id: id,
+                        _token: $("meta[name='csrf-token']").attr("content"),
+                    },
+                    success: function() {
+                        document.location.reload(true);
+                    }
+                })
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire({
+                    title: 'Cancelado',
+                    text: 'Exclusão não realizada :)',
+                    icon: 'error',
+                    customClass: {
+                        confirmButton: 'btn btn-success'
+                    }
+                })
+            }
+        })
+    }
+</script>

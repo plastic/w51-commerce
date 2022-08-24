@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="mb-1 col-12">
                     <label class="form-label">Nome</label>
-                    <input type="text" class="form-control" name="tx_categoria" placeholder="Nome" value="{{$categoria->tx_categoria}}" required />
+                    <input type="text" class="form-control" name="tx_categoria" value="{{$categoria->tx_categoria}}" required />
                 </div>
                 <div class="col-md-12 mb-1">
                     <label class="form-label" >Departamento ou Categoria</label>
