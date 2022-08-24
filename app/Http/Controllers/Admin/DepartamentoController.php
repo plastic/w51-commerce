@@ -18,7 +18,7 @@ class DepartamentoController extends Controller
     public function index()
     {
         $btnCreate = ['name' => 'Novo', 'link' =>  route('departamento.create') ];
-        $departamentos = Departamento::whereNotIn('st_publicado', ['EXCLUIDO'])->paginate(20);
+        $departamentos = Departamento::whereNotIn('st_publicado', ['EXCLUIDO'])->orderBy('tx_departamento' , 'asc') ->paginate(20);
         return view('admin.departamento.index', ['btnCreate' => $btnCreate,'departamentos' => $departamentos]);
     }
 
@@ -40,7 +40,7 @@ class DepartamentoController extends Controller
         $departamento = new Departamento();
         $departamento->tx_departamento = $request->tx_departamento;
         $departamento->tx_descricao = $request->tx_descricao;
-        $departamento->st_menu_principal =   
+        $departamento->st_menu_principal =
         $departamento->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
         $departamento->dh_cadastro = Carbon::now()->toDateTimeString();
 

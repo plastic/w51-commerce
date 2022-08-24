@@ -26,6 +26,7 @@ class CategoriaController extends Controller
         ->whereNotIn('co_categoria.st_publicado', ['EXCLUIDO'])
         ->whereNotIn('co_departamento.st_publicado', ['EXCLUIDO'])
         ->orderBy('co_departamento.tx_departamento' , 'asc')
+        ->orderBy('co_categoria.tx_categoria' , 'asc')
         ->paginate(20);
 
 

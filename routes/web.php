@@ -8,9 +8,10 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\DepartamentoController;
 use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\MarcaController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\NewsletterController;
-
+use App\Models\Admin\Marca;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +71,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/update', [CategoriaController::class, 'update'])->name('categoria.update');
             Route::post('/store', [CategoriaController::class, 'store'])->name('categoria.store');
             Route::delete('/delete/{categoria}', [CategoriaController::class, 'delete'])->name('categoria.delete');
+        });
+
+        Route::group(['prefix' => 'marcas'], function () {
+            Route::get('/', [MarcaController::class, 'index'])->name('marca.index');
+            Route::get('/create', [MarcaController::class, 'create'])->name('marca.create');
         });
 
         Route::group(['prefix' => 'relatorios'], function () {
