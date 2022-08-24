@@ -84,11 +84,11 @@
                                         <th class="bg-primary text-white">Nome</th>
                                         <th class="bg-primary text-white">E-mail</th>
                                         <th class="bg-primary text-white">Data de Cadastro</th>
-                                        <th class="bg-primary text-white">Status</th>
-                                        <th class="bg-primary text-white">Optin
+                                        <th class="bg-primary text-white text-center">Status</th>
+                                        <th class="bg-primary text-white text-center">Optin
                                             <a data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="O usuário recebeu o e-mail e ativou o cadastro"><i data-feather='alert-circle' ></i></a>
                                         </th>
-                                        <th class="bg-primary text-white rounded-end">Sync
+                                        <th class="bg-primary text-white rounded-end text-center">Sync
                                             <a data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Registro sincronziado com o sistema"><i data-feather='alert-circle' ></i></a>
                                         </th>
                                     </tr>
@@ -101,11 +101,11 @@
                                             <td>{{ $lead->name }}</td>
                                             <td><a href="mailto:{{ $lead->email }}" class="text-dark">{{ $lead->email }}</a></td>
                                             <td>{{ date('d/m/Y H:i', strtotime($lead->dh_cadastro));}}</td>
-                                            <td>
+                                            <td class="text-center">
                                                 <form action="{{ route('newsletter.active', ['id' => $lead->id, 'status' => $lead->st_ativo, 'page' => isset($_GET['page']) ? $_GET['page'] : '']) }}"
                                                     method="POST">
                                                     @csrf
-                                                    <button type="submit" class="btn">
+                                                    <button type="submit" class="btn" title="Clique para mudar o status">
                                                 @if( $lead->st_ativo == 'ATIVO')
                                                     <span class="badge rounded-pill badge-light-success" text-capitalized=""> {{ ucfirst(strtolower($lead->st_ativo)) }}</span>
                                                 @elseif( $lead->st_ativo == 'INATIVO')

@@ -76,13 +76,12 @@
                                         <th class="bg-primary text-white">Departamento</th>
                                         <th class="bg-primary text-white">Categoria</th>
                                         <th class="bg-primary text-white text-center">Banner</th>
-                                        <th class="bg-primary text-white">Status</th>
-                                        <th class="bg-primary text-white rounded-end"></th>
+                                        <th class="bg-primary text-white rounded-end">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($categorias as $categoria)
-                                        <tr>
+                                        <tr class="table-line">
                                             <td>{{ $categoria->id_categoria }} </td>
                                             <td>{{ $categoria->departamento->tx_departamento ?? '' }} </td>
                                             <td>{{ $categoria->tx_categoria }}</td>
@@ -104,7 +103,7 @@
                                             @endif
 
                                             </td>
-                                            <td>
+                                            <td class="status">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 col-actions">
 
