@@ -61,7 +61,7 @@
     <div class="row">
         <div class="col-12">
             <!-- Basic table -->
-            <section id="basic-datatable">
+            <section id="basic-datatable-produtos">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -79,16 +79,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr class="table-line">
                                         <td>449174971459</td>
-                                        <td class="text-center image">
+                                        <td><div class="product-image">
                                             <img src="http://localhost:8000/imagens/departamentos/1660930518-image.jpg" alt="Avatar" width="70" height="70">
 
-                                        </td>
+                                        </div></td>
                                         <td>Mochila Loading</td>
-                                        <td class="text-center">
-                                            <div class="d-flex align-items-center">
-                                                <i data-feather='box'></i> Físico
+                                        <td>
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <i data-feather='package' style="margin-right:0.3em"></i> Físico
                                             </div>
 
                                         </td>
@@ -100,6 +100,87 @@
                                         <td class="text-center">R$ 30,00</td>
                                         <td class="text-center">R$ 20,00</td>
                                         <td class="text-center">10</td>
+
+                                        <td class="status"><div class="row ">
+                                            <div class="d-flex gap-1 col-actions">
+
+                                                <form action="{{ route('produto.create', ['produto' => '']) }}"
+                                                    method="GET">
+                                                    <button type="submit"
+                                                        class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
+                                                        <i data-feather='eye'></i></button>
+                                                </form>
+
+                                                <form action="{{ route('produto.create', ['produto' => '']) }}"
+                                                    method="GET">
+                                                    <button type="submit"
+                                                        class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
+                                                        <i data-feather='edit'></i></button>
+                                                </form>
+
+                                                <form action="{{ route('produto.create', ['produto' => '']) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit"
+                                                        class="btn btn-icon rounded-circle btn-outline-primary waves-effect"><i
+                                                            data-feather='trash-2'></i></button>
+                                                </form>
+
+                                            </div>
+                                        </div></td>
+                                    </tr>
+
+                                    <tr class="table-line">
+                                        <td>45252626626</td>
+                                        <td><div class="product-image">
+                                            <img src="http://localhost:8000/imagens/departamentos/1660930518-image.jpg" alt="Avatar" width="70" height="70">
+
+                                        </div></td>
+                                        <td>Mochila Virtual com nome bem grande e divertido</td>
+                                        <td>
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <i data-feather='monitor' style="margin-right:0.3em"></i> Virtual
+                                            </div>
+
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="avatar avatar-status bg-light-secondary"><span class="avatar-content" title="Não">
+                                                <i data-feather='circle'></i>
+                                            </span></div>
+                                        </td>
+                                        <td class="text-center">R$ 70,00</td>
+                                        <td class="text-center">R$ 55,27</td>
+                                        <td class="text-center">1000</td>
+
+                                        <td class="status"><div class="row ">
+                                            <div class="d-flex gap-1 col-actions">
+
+                                                <form action="{{ route('produto.create', ['produto' => '']) }}"
+                                                    method="GET">
+                                                    <button type="submit"
+                                                        class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
+                                                        <i data-feather='eye'></i></button>
+                                                </form>
+
+                                                <form action="{{ route('produto.create', ['produto' => '']) }}"
+                                                    method="GET">
+                                                    <button type="submit"
+                                                        class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
+                                                        <i data-feather='edit'></i></button>
+                                                </form>
+
+                                                <form action="{{ route('produto.create', ['produto' => '']) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit"
+                                                        class="btn btn-icon rounded-circle btn-outline-primary waves-effect"><i
+                                                            data-feather='trash-2'></i></button>
+                                                </form>
+
+                                            </div>
+                                        </div></td>
                                     </tr>
 
                                     {{-- @foreach ($categorias as $categoria)
