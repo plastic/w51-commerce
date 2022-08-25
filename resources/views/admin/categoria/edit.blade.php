@@ -28,7 +28,7 @@
                 <div class="col-md-12 mb-1">
                     <label class="form-label" >Departamento ou Categoria</label>
                     <select class="select2 form-select" id="select-dep-cat" name="select_dep_cat" required>
-                        <option value=" {{$categoria->departamento == null ? 'c'.$categoria->parent->id_categoria : 'd'.$categoria->departamento->id_departamento}}">{{$categoria->departamento == null ? $categoria->parent->tx_categoria : $categoria->departamento->tx_departamento }}</option>
+                        <option value=" {{$categoria->id_categoria_pai == null ? 'd'.$categoria->departamento->id_departamento : 'c'.$categoria->parent->id_categoria}}">{{$categoria->id_categoria_pai == null ? $categoria->departamento->tx_departamento : $categoria->parent->tx_categoria}}</option>
                     </select>
                 </div>
                 <div class="mb-1 col-12">

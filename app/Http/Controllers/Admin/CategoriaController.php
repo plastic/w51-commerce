@@ -59,8 +59,10 @@ class CategoriaController extends Controller
 
         if ($request->select_dep_cat[0] == 'd') {
             $categoria->id_departamento =  substr($request->select_dep_cat, 1);
+            $categoria->id_categoria_pai = null;
         } else {
             $categoria->id_categoria_pai =  substr($request->select_dep_cat, 1);
+            $categoria->id_departamento =  Categoria::where('id_categoria', $categoria->id_categoria_pai)->value('id_departamento');
         }
 
         if (isset($request->banner[0]) && !empty($request->banner[0])) {
@@ -116,8 +118,10 @@ class CategoriaController extends Controller
 
         if ($request->select_dep_cat[0] == 'd') {
             $categoria->id_departamento =  substr($request->select_dep_cat, 1);
+            $categoria->id_categoria_pai = null;
         } else {
             $categoria->id_categoria_pai =  substr($request->select_dep_cat, 1);
+            $categoria->id_departamento =  Categoria::where('id_categoria', $categoria->id_categoria_pai)->value('id_departamento');
         }
 
         if (isset($request->banner[0]) && !empty($request->banner[0])) {
