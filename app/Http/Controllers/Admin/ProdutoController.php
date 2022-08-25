@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Rules\CheckImage;
 use Illuminate\Support\Facades\Validator;
 
-class ProductsController extends Controller
+class ProdutoController extends Controller
 {
 
     use Upload;
@@ -21,19 +21,19 @@ class ProductsController extends Controller
         $btnCreate = ['name' => 'Novo', 'link' =>  route('produto.create') ];
         $produtos = [];
         $departamentos = Departamento::whereNotIn('st_publicado', ['EXCLUIDO'])->with('categorias')->get();
-        return view('admin.produtos.index', ['btnCreate' => $btnCreate, 'produtos' => $produtos, 'departamentos' => $departamentos]);
+        return view('admin.produto.index', ['btnCreate' => $btnCreate, 'produtos' => $produtos, 'departamentos' => $departamentos]);
     }
 
     public function create()
     {
         $breadcrumbs = [['name' => "Criar"]];
         $departamentos = Departamento::whereNotIn('st_publicado', ['EXCLUIDO'])->with('categorias')->get();
-        return view('admin.produtos.create', ['breadcrumbs' => $breadcrumbs, 'departamentos' => $departamentos]);
+        return view('admin.produto.create', ['breadcrumbs' => $breadcrumbs, 'departamentos' => $departamentos]);
     }
 
     public function store(Request $request)
     {
-        dd($request);
+        dd($request->all());
         $dataimages = array();
         if ($request->hasfile('images') && !empty($request->hasfile('images'))) {
 

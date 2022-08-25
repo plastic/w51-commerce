@@ -25,15 +25,15 @@ use App\Models\Admin\Marca;
 |
 */
 
-Route::get('/', [StaterkitController::class, 'home'])->name('home');
-Route::get('home', [StaterkitController::class, 'home'])->name('home');
 
-// Route Layout Exemples
-Route::get('layouts/collapsed-menu', [StaterkitController::class, 'collapsed_menu'])->name('collapsed-menu');
-Route::get('layouts/full', [StaterkitController::class, 'layout_full'])->name('layout-full');
-Route::get('layouts/without-menu', [StaterkitController::class, 'without_menu'])->name('without-menu');
-Route::get('layouts/empty', [StaterkitController::class, 'layout_empty'])->name('layout-empty');
-Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name('layout-blank');
+Route::get('/', function () {
+    return view('/content/home');
+})->name('home');
+
+Route::get('/home', function () {
+    return view('/content/home');
+})->name('home');
+
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('admin')->group(function () {
@@ -42,16 +42,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/store', [FileController::class, 'store'])->name('fileupload.store');
         });
 
-
         Route::group(['prefix' => 'produtos'], function () {
-            Route::get('/', [ProductsController::class, 'index'])->name('produto.index');
-            Route::get('/create', [ProductsController::class, 'create'])->name('produto.create');
-            Route::post('/store', [ProductsController::class, 'store'])->name('produto.store');
-            Route::get('/show/{produto}', [ProductsController::class, 'show'])->name('produto.show');
-            Route::get('/edit', [ProductsController::class, 'edit'])->name('produto.edit');
-            Route::post('/update/{produto}', [ProductsController::class, 'update'])->name('produto.update');
-            Route::delete('/delete/{produto}', [ProductsController::class, 'delete'])->name('produto.delete');
-            Route::get('/export', [ProductsController::class, 'export'])->name('produtos.export');
+            Route::get('/', [ProdutoController::class, 'index'])->name('produto.index');
+            Route::get('/create', [ProdutoController::class, 'create'])->name('produto.create');
+            Route::post('/store', [ProdutoController::class, 'store'])->name('produto.store');
+            Route::get('/show/{produto}', [ProdutoController::class, 'show'])->name('produto.show');
+            Route::get('/edit', [ProdutoController::class, 'edit'])->name('produto.edit');
+            Route::post('/update/{produto}', [ProdutoController::class, 'update'])->name('produto.update');
+            Route::delete('/delete', [ProdutoController::class, 'delete'])->name('produto.delete');
+            Route::get('/export', [ProdutoController::class, 'export'])->name('produtos.export');
         });
 
         Route::group(['prefix' => 'departamentos'], function () {
@@ -66,13 +65,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::group(['prefix' => 'categorias'], function () {
             Route::get('/', [CategoriaController::class, 'index'])->name('categoria.index');
-            Route::get('/teste', [CategoriaController::class, 'montaArvoreMenu'])->name('categoria.teste');
-            Route::get('/show/{categoria}', [CategoriaController::class, 'show'])->name('categoria.show');
             Route::get('/create', [CategoriaController::class, 'create'])->name('categoria.create');
-            Route::get('/edit/{categoria}', [CategoriaController::class, 'edit'])->name('categoria.edit');
-            Route::get('/update', [CategoriaController::class, 'update'])->name('categoria.update');
             Route::post('/store', [CategoriaController::class, 'store'])->name('categoria.store');
-            Route::delete('/delete/{categoria}', [CategoriaController::class, 'delete'])->name('categoria.delete');
+            Route::get('/show/{categoria}', [CategoriaController::class, 'show'])->name('categoria.show');
+            Route::get('/edit/{categoria}', [CategoriaController::class, 'edit'])->name('categoria.edit');
+            Route::post('/update/{categoria}', [CategoriaController::class, 'update'])->name('categoria.update');
+            Route::delete('/delete', [CategoriaController::class, 'delete'])->name('categoria.delete');
         });
 
         Route::group(['prefix' => 'marcas'], function () {
@@ -116,7 +114,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/update/{user}', [UserController::class, 'update'])->name('user.update');
             Route::delete('/delete/{user}', [UserController::class, 'destroy'])->name('user.delete');
         });
-
-
     });
 });

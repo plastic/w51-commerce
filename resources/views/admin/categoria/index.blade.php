@@ -7,18 +7,25 @@
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
+
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/animate/animate.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
+@endsection
+
+@section('page-style')
+    <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-sweet-alerts.css')) }}">
 @endsection
 
 @section('content')
 
-@if (session()->has('msg-sucess'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <div class="alert-body">
-        {{ session()->get('msg-sucess') }}
-    </div>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
+    @if (session()->has('msg-sucess'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="alert-body">
+                {{ session()->get('msg-sucess') }}
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
     @if ($errors->any())
         <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
@@ -34,8 +41,8 @@
     <div class="card">
         <div class="card-body">
             <form method="POST" action="" enctype="multipart/form-data">
-            <div class="row ">
-                {{-- <div class="col-3">
+                <div class="row ">
+                    {{-- <div class="col-3">
                     <select class="form-select form-control form-control-lg" id="basicSelect">
                         <option>Ordenar por:</option>
                         <option>Departamento</option>
@@ -43,7 +50,7 @@
                         <option>Status</option>
                     </select>
                 </div> --}}
-                <div class="col-12">
+                    <div class="col-12">
 
                         @csrf
                         <div class="input-group">
@@ -56,9 +63,9 @@
                             <button class="btn btn-outline-primary" type="submit">Buscar</button>
                         </div>
 
+                    </div>
                 </div>
-            </div>
-         </form>
+            </form>
         </div>
     </div>
 
@@ -86,49 +93,53 @@
                                             <td>{{ $categoria->departamento->tx_departamento ?? '' }} </td>
                                             <td>{{ $categoria->tx_categoria }}</td>
                                             <td class="text-center">
-                                                @if($categoria->tx_banner != null)
-                                                <img  src="{{url('imagens/categorias/'.$categoria->tx_banner)}}" width="70" height="30">
+                                                @if ($categoria->tx_banner != null)
+                                                    <img src="{{ url('imagens/categorias/' . $categoria->tx_banner) }}"
+                                                        width="70" height="30">
                                                 @else
-                                                -
-                                                 @endif
+                                                    -
+                                                @endif
                                             </td>
                                             <td>
                                                 @if ($categoria->st_publicado == 'ATIVO')
-                                                <span class="badge rounded-pill badge-light-success" text-capitalized="">
-                                                    {{ ucfirst(strtolower($categoria->st_publicado)) }}</span>
-                                            @elseif($categoria->st_publicado == 'INATIVO')
-                                                <span class="badge rounded-pill badge-light-warning"
-                                                    text-capitalized="">
-                                                    {{ ucfirst(strtolower($categoria->st_publicado)) }}</span>
-                                            @endif
+                                                    <span class="badge rounded-pill badge-light-success"
+                                                        text-capitalized="">
+                                                        {{ ucfirst(strtolower($categoria->st_publicado)) }}</span>
+                                                @elseif($categoria->st_publicado == 'INATIVO')
+                                                    <span class="badge rounded-pill badge-light-warning"
+                                                        text-capitalized="">
+                                                        {{ ucfirst(strtolower($categoria->st_publicado)) }}</span>
+                                                @endif
 
                                             </td>
                                             <td class="actions">
                                                 <div class="row">
-                                                    <div class="d-flex gap-1 col-actions">
-
-                                                        <form action="{{ route('categoria.show', ['categoria' => $categoria]) }}"
-                                                            method="GET">
-                                                            <button type="submit"
-                                                                class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
-                                                                <i data-feather='eye'></i></button>
-                                                        </form>
-
-                                                        <form action="{{ route('categoria.edit', ['categoria' => $categoria]) }}"
-                                                            method="GET">
-                                                            <button type="submit"
-                                                                class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
-                                                                <i data-feather='edit'></i></button>
-                                                        </form>
-
-                                                        <form action="{{ route('categoria.delete', ['categoria' => $categoria]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit"
+                                                    <div class="d-flex  gap-1 col-actions">
+                                                        <div>
+                                                            <form
+                                                                action="{{ route('categoria.show', ['categoria' => $categoria]) }}"
+                                                                method="GET">
+                                                                <button type="submit"
+                                                                    class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
+                                                                    <i data-feather='eye'></i></button>
+                                                            </form>
+                                                        </div>
+                                                        <div>
+                                                            <form
+                                                                action="{{ route('categoria.edit', ['categoria' => $categoria]) }}"
+                                                                method="GET">
+                                                                <button type="submit"
+                                                                    class="btn btn-icon rounded-circle btn-outline-primary waves-effect">
+                                                                    <i data-feather='edit'></i></button>
+                                                            </form>
+                                                        </div>
+                                                        <div>
+                                                            <button
+                                                                onclick="deleteCategoria({{ $categoria->id_categoria }} , {{ $categoria->children->count() }})"
                                                                 class="btn btn-icon rounded-circle btn-outline-primary waves-effect"><i
-                                                                    data-feather='trash-2'></i></button>
-                                                        </form>
+                                                                    data-feather='trash-2'></i>
+                                                            </button>
+                                                        </div>
 
                                                     </div>
                                                 </div>
@@ -156,4 +167,60 @@
     <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.bootstrap5.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap5.min.js')) }}"></script>
+
+    <!-- sweet alert -->
+    <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/extensions/polyfill.min.js')) }}"></script>
 @endsection
+
+
+<script type="text/javascript">
+    function deleteCategoria(id, child_categorias) {
+
+        if (child_categorias > 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops... ',
+                text: 'Para deletar essa categoria, ela não deve possuir nenhuma subcategoria.',
+            })
+            return;
+        }
+
+        Swal.fire({
+            title: 'Deseja realmente excluir?',
+            text: "Você não poderá reverter isso!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sim, deletar!',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-outline-danger ms-1'
+            },
+            buttonsStyling: false
+        }).then(function(result) {
+            if (result.value) {
+                $.ajax({
+                    url: "{{ route('categoria.delete') }}",
+                    method: 'delete',
+                    data: {
+                        id: id,
+                        _token: $("meta[name='csrf-token']").attr("content"),
+                    },
+                    success: function() {
+                        document.location.reload(true);
+                    }
+                })
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire({
+                    title: 'Cancelado',
+                    text: 'Exclusão não realizada :)',
+                    icon: 'error',
+                    customClass: {
+                        confirmButton: 'btn btn-success'
+                    }
+                })
+            }
+        })
+    }
+</script>
