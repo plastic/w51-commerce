@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\DepartamentoController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\MarcaController;
-use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\ProdutoController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Models\Admin\Marca;
 
@@ -24,15 +24,15 @@ use App\Models\Admin\Marca;
 |
 */
 
-Route::get('/', [StaterkitController::class, 'home'])->name('home');
-Route::get('home', [StaterkitController::class, 'home'])->name('home');
 
-// Route Layout Exemples
-Route::get('layouts/collapsed-menu', [StaterkitController::class, 'collapsed_menu'])->name('collapsed-menu');
-Route::get('layouts/full', [StaterkitController::class, 'layout_full'])->name('layout-full');
-Route::get('layouts/without-menu', [StaterkitController::class, 'without_menu'])->name('without-menu');
-Route::get('layouts/empty', [StaterkitController::class, 'layout_empty'])->name('layout-empty');
-Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->name('layout-blank');
+Route::get('/', function () {
+    return view('/content/home');
+})->name('home');
+
+Route::get('/home', function () {
+    return view('/content/home');
+})->name('home');
+
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('admin')->group(function () {
@@ -41,16 +41,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/store', [FileController::class, 'store'])->name('fileupload.store');
         });
 
-
         Route::group(['prefix' => 'produtos'], function () {
-            Route::get('/', [ProductsController::class, 'index'])->name('produto.index');
-            Route::get('/create', [ProductsController::class, 'create'])->name('produto.create');
-            Route::post('/store', [ProductsController::class, 'store'])->name('produto.store');
-            Route::get('/show/{produto}', [ProductsController::class, 'show'])->name('produto.show');
-            Route::get('/edit', [ProductsController::class, 'edit'])->name('produto.edit');
-            Route::post('/update/{produto}', [ProductsController::class, 'update'])->name('produto.update');
-            Route::delete('/delete', [ProductsController::class, 'delete'])->name('produto.delete');
-            Route::get('/export', [ProductsController::class, 'export'])->name('produtos.export');
+            Route::get('/', [ProdutoController::class, 'index'])->name('produto.index');
+            Route::get('/create', [ProdutoController::class, 'create'])->name('produto.create');
+            Route::post('/store', [ProdutoController::class, 'store'])->name('produto.store');
+            Route::get('/show/{produto}', [ProdutoController::class, 'show'])->name('produto.show');
+            Route::get('/edit', [ProdutoController::class, 'edit'])->name('produto.edit');
+            Route::post('/update/{produto}', [ProdutoController::class, 'update'])->name('produto.update');
+            Route::delete('/delete', [ProdutoController::class, 'delete'])->name('produto.delete');
+            Route::get('/export', [ProdutoController::class, 'export'])->name('produtos.export');
         });
 
         Route::group(['prefix' => 'departamentos'], function () {
@@ -95,7 +94,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/update/{user}', [UserController::class, 'update'])->name('user.update');
             Route::delete('/delete/{user}', [UserController::class, 'destroy'])->name('user.delete');
         });
-
-
     });
 });

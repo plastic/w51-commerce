@@ -71,15 +71,13 @@
 
                             <div class="mb-1 col-12">
                                 <label class="form-label">Nome do produto</label>
-                                <input type="text" class="form-control" name="tx_produto" placeholder="Nome" required />
+                                <input type="text" class="form-control" name="tx_produto" placeholder="Nome" maxlength="250" required />
                             </div>
 
                             <div class="mb-1 col-12 mb-5 pb-3">
                                 <label class="form-label">Descrição</label>
                                 <div id="editor" >
-                                    <p>Hello World!</p>
-                                    <p>Some initial <strong>bold</strong> text</p>
-                                    <p><br></p>
+
                                 </div>
                                 <textarea name="tx_descricao" style="display:none" id="hiddenTextArea"></textarea>
 
@@ -87,7 +85,7 @@
 
                             <div class="col-md-6 ">
                                 <label class="form-label" for="select2-basic">Marca</label>
-                                <select class="select2 form-select" id="select2-basic" data-placeholder="Selecione">
+                                <select class="select2 form-select"  name="id_marca" id="select2-basic" data-placeholder="Selecione">
                                   <option value="AK">Alaska</option>
                                   <option value="HI">Hawaii</option>
                                   <option value="CA">California</option>
@@ -160,9 +158,9 @@
                                             <input
                                               class="form-check-input"
                                               type="radio"
-                                              name="product_type"
+                                              name="tp_produto"
                                               id="inlineRadio1"
-                                              value="fisico"
+                                              value="FISICO"
                                               checked
                                             />
                                             <label class="form-check-label" for="inlineRadio1">Físico</label>
@@ -171,9 +169,9 @@
                                             <input
                                               class="form-check-input"
                                               type="radio"
-                                              name="product_type"
+                                              name="tp_produto"
                                               id="inlineRadio2"
-                                              value="virtual"
+                                              value="VIRTUAL"
                                             />
                                             <label class="form-check-label" for="inlineRadio2">Virtual</label>
                                         </div>
@@ -199,7 +197,7 @@
                                     <label class="form-check-label mb-50">Produto em destaque</label>
                                     <div class="form-check form-check-success form-switch">
                                         <input type="checkbox"  class="form-check-input" id="customSwitch4"
-                                            name="st_publicado" />
+                                            name="destaque" />
                                     </div>
                                 </div>
                             </div>
@@ -250,7 +248,7 @@
                                 <label class="form-check-label mb-50">Vídeo do produto</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i data-feather='youtube'></i></span>
-                                    <input type="text" class="form-control" name="tx_video" placeholder="Ex. https://www.youtube.com/watch?v=000"  />
+                                    <input type="text" class="form-control" name="tx_url_video" placeholder="Ex. https://www.youtube.com/watch?v=000"  />
                                 </div>
 
                               </div>
@@ -265,21 +263,21 @@
                             <label class="form-check-label mb-50">Preço de custo</label>
                             <div class="input-group">
                                 <span class="input-group-text">R$</span>
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="text" class="form-control" name="vl_preco_custo">
                               </div>
                           </div>
                           <div class="  col-md-3">
                             <label class="form-check-label mb-50">Preço de venda (preço de)</label>
                             <div class="input-group">
                                 <span class="input-group-text">R$</span>
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="text" class="form-control" name="vl_preco_de">
                               </div>
                           </div>
                           <div class=" col-md-3">
                             <label class="form-check-label mb-50">Preço promocional (preço por)</label>
                             <div class="input-group">
                                 <span class="input-group-text">R$</span>
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="text" class="form-control" name="vl_preco_por">
                               </div>
                           </div>
 
@@ -302,16 +300,16 @@
                             </div>
 
                           <div class="  col-md-2 qnt" >
-                            <label class="form-check-label mb-50">Quantide</label>
-                            <input type="text" class="form-control" name="estoque">
+                            <label class="form-check-label mb-50">Quantidade</label>
+                            <input type="text" class="form-control" name="nr_quantidade">
                           </div>
                           <div class="  col-md-3 sku">
                             <label class="form-check-label mb-50">SKU (Unidade de manutenção de estoque)</label>
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input type="text" class="form-control" name="tx_sku">
                           </div>
                           <div class=" col-md-3">
                             <label class="form-check-label mb-50">Código de barras (GTIN, EAN, ISBN, etc.)</label>
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input type="text" class="form-control" name="tx_isbn_ean">
                           </div>
 
                         </div>
@@ -325,28 +323,28 @@
                           <div class="col-md-2">
                             <label class="form-check-label mb-50">Peso</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="text" class="form-control" name="nr_peso">
                                 <span class="input-group-text">Kg</span>
                               </div>
                           </div>
                           <div class="col-md-2">
                             <label class="form-check-label mb-50">Altura</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="text" class="form-control" name="nr_altura">
                                 <span class="input-group-text">cm</span>
                               </div>
                           </div>
                           <div class="col-md-2">
                             <label class="form-check-label mb-50">Largura</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="text" class="form-control" name="nr_largura">
                                 <span class="input-group-text">cm</span>
                               </div>
                           </div>
                           <div class="col-md-2">
                             <label class="form-check-label mb-50">Profundidade</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="text" class="form-control" name="nr_profundidade">
                                 <span class="input-group-text">cm</span>
                               </div>
                           </div>
@@ -384,11 +382,11 @@
 
                           <div class="col-md-6">
                             <label class="form-check-label mb-50">URL do produto</label>
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input type="text" class="form-control" name="tx_url">
                           </div>
                           <div class="col-md-6">
-                            <label class="form-check-label mb-50">Tag Title</label>
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <label class="form-check-label mb-50">Title</label>
+                            <input type="text" class="form-control"  name="tx_title">
                           </div>
                           <div class="col-12 mt-2">
                             <label class="form-check-label mb-50">Meta Tag Description</label>
@@ -398,7 +396,7 @@
                             <label class="form-check-label mb-50">Incluir no XML de Google</label>
                                     <div class="form-check form-check-success form-switch">
                                         <input type="checkbox"  class="form-check-input" id="customSwitch4"
-                                            name="st_publicado" />
+                                            name="tp_google_xml" />
                                     </div>
                           </div>
 
