@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\FileController;
 use App\Http\Controllers\Admin\DepartamentoController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\MarcaController;
-use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\ProdutoController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Models\Admin\Marca;
