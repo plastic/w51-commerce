@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\DepartamentoController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\MarcaController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Models\Admin\Marca;
 
@@ -78,6 +79,25 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('/', [MarcaController::class, 'index'])->name('marca.index');
             Route::get('/create', [MarcaController::class, 'create'])->name('marca.create');
         });
+
+        Route::group(['prefix' => 'blog'], function () {
+            Route::get('/', [BlogController::class, 'index'])->name('blog.index');
+            Route::post('/', [BlogController::class, 'search'])->name('blog.search');
+            Route::get('/show/{post}', [BlogController::class, 'show'])->name('blog.post.show');
+            Route::get('/create', [BlogController::class, 'create'])->name('blog.post.create');
+            Route::get('/edit/{post}', [BlogController::class, 'edit'])->name('blog.post.edit');
+            Route::post('/update/{post}', [BlogController::class, 'update'])->name('blog.post.update');
+            Route::post('/store', [BlogController::class, 'store'])->name('blog.post.store');
+            Route::delete('/delete/{post}', [BlogController::class, 'delete'])->name('blog.post.delete');
+            Route::get('/export', [BlogController::class, 'export'])->name('blog.export');
+
+            Route::get('/categorias', [BlogController::class, 'categorias'])->name('blog.categorias.index');
+            Route::post('/categorias', [BlogController::class, 'catsearch'])->name('blog.categorias.search');
+            Route::post('/categorias/update', [BlogController::class, 'catupdate'])->name('blog.categoria.update');
+            Route::post('/categorias/store', [BlogController::class, 'catstore'])->name('blog.categoria.store');
+            Route::delete('/categorias/delete/{categoria}', [BlogController::class, 'catdelete'])->name('blog.categoria.delete');
+        });
+
 
         Route::group(['prefix' => 'relatorios'], function () {
             Route::get('/newsletter', [NewsletterController::class, 'index'])->name('relatorios.newsletter');

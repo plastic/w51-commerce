@@ -131,7 +131,7 @@
             "slug": "categorias"
           },
           {
-            "url": "admin/post",
+            "url": "admin/blog",
             "name": "Post",
             "icon": "circle",
             "slug": "post"
