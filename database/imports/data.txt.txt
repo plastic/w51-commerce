@@ -1,0 +1,5 @@
+# id_blog_categoria, tx_blog_categoria, tx_blog_categoria_slug, st_publicado, dh_cadastro
+'1', 'Jovem Aprendiz', 'jovem-aprendiz', 'ATIVO', NULL
+'2', 'Vivências Profissionais', 'vivencias-profissionais', 'ATIVO', NULL
+'3', 'Categoria', NULL, 'EXCLUIDO', '2022-08-25 15:23:42'
+'4', 'Tecnologia', 'tecnologia', 'ATIVO', '2022-08-26 18:36:42'
