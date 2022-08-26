@@ -9,7 +9,7 @@ trait Upload
     public function upload($file, $directory, $type = 'image')
     {
         $image = $file;
-        $name = time() . '-' . $type . '.' . $image->getClientOriginalExtension();
+        $name = $type . '-' .  time() . '.' . $image->getClientOriginalExtension();
         $filePath = public_path('imagens/'.$directory.'/');
 
         try {
