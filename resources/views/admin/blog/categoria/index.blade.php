@@ -133,7 +133,6 @@
                                     <tr>
                                         <th class="bg-primary text-white rounded-start">Id</th>
                                         <th class="bg-primary text-white">Categoria</th>
-                                        <th class="bg-primary text-white">Posts</th>
                                         <th class="bg-primary text-white">Data de Cadastro</th>
                                         <th class="bg-primary text-white rounded-end">Status</th>
                                     </tr>
@@ -143,7 +142,6 @@
                                         <tr class="table-line">
                                             <td>{{ $categoria->id_blog_categoria }} </td>
                                             <td>{{ $categoria->tx_blog_categoria }}</td>
-                                            <td>20</td>
                                             <td>{{ date('d/m/Y H:i', strtotime($categoria->dh_cadastro))}}</td>
                                             <td>
                                                 @if ($categoria->st_publicado == 'ATIVO')

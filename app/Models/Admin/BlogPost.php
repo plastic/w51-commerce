@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BlogPost extends Model
 {
-    protected $table = 'ib_blog_post';
+    protected $table = 'co_blog_post';
 
     public $timestamps = false;
 
@@ -25,10 +25,10 @@ class BlogPost extends Model
 
     public function categoria()
     {
-        return $this->hasOne(BlogCategoria::class, 'id_blog_categoria', 'fk_id_categoria');
+        return $this->hasOne(BlogCategoria::class, 'id_blog_categoria', 'id_categoria');
     }
-    public function autor()
-    {
-        return $this->hasOne(BlogAutor::class, 'id_blog_autor', 'fk_id_autor');
-    }
+    // public function autor()
+    // {
+    //     return $this->hasOne(BlogAutor::class, 'id_blog_autor', 'fk_id_autor');
+    // }
 }

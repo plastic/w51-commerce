@@ -20,7 +20,7 @@ class BlogController extends Controller {
     {
         $btnCreate = ['name' => 'Novo', 'link' =>  route('blog.post.create') ];
 
-        $posts = BlogPost::with('categoria','autor')->paginate(15);
+        $posts = BlogPost::whereNotIn('st_publicado', ['EXCLUIDO'])->with('categoria')->paginate(15);
         return view('admin.blog.post.index', ['posts' => $posts, 'btnCreate' => $btnCreate]);
     }
     public function search(Request $request)
@@ -28,10 +28,11 @@ class BlogController extends Controller {
         $btnCreate = ['name' => 'Novo', 'link' =>  route('blog.post.create') ];
 
         $posts = BlogPost::where('tx_titulo', 'LIKE', '%' . $request->search . '%')
+        ->whereNotIn('st_publicado', ['EXCLUIDO'])
         ->orWhereHas('categoria', function ($query) use ($request) {
             $query->where('tx_blog_categoria', 'LIKE', '%'. $request->search .'%');
         })
-        ->with('categoria','autor')
+        ->with('categoria')
         ->paginate(15);
 
         return view('admin.blog.post.index', ['posts' => $posts, 'btnCreate' => $btnCreate, 'search' => $request->search]);
@@ -40,14 +41,14 @@ class BlogController extends Controller {
     public function create()
     {
         $breadcrumbs = [['name' => "Criar"]];
-        $categorias = BlogCategoria::whereNotIn('st_publicado', ['EXCLUIDO'])->get();
+        $categorias = BlogCategoria::whereNotIn('st_publicado', ['EXCLUIDO'])->orderBy('tx_blog_categoria')->get();
 
         return view('admin.blog.post.create', ['breadcrumbs' => $breadcrumbs, 'categorias' => $categorias]);
     }
     public function edit(BlogPost $post)
     {
         $breadcrumbs = [['name' => "Editar"]];
-        $categorias = BlogCategoria::whereNotIn('st_publicado', ['EXCLUIDO'])->get();
+        $categorias = BlogCategoria::whereNotIn('st_publicado', ['EXCLUIDO'])->orderBy('tx_blog_categoria')->get();
 
         return view('admin.blog.post.edit', ['breadcrumbs' => $breadcrumbs, 'post' => $post,'categorias' => $categorias]);
     }
@@ -69,23 +70,28 @@ class BlogController extends Controller {
 
         $post = new BlogPost();
 
+        if($request->tx_conteudo && $request->file('postImages')){
+            $request->tx_conteudo = $this->handleQuillImages($request->tx_conteudo,$request->file('postImages'),'blog/content');
+        }
+
         $post->tx_titulo = $request->tx_titulo;
         $post->tx_slug = Str::slug($request->tx_titulo, '-');
         $post->tx_conteudo = $request->tx_conteudo;
+        $post->tx_resumo = $request->tx_resumo ;
         $post->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
 
-        $post->fk_id_categoria =  $request->select_categoria;
-        $post->fk_id_autor =  1;
+        $post->id_categoria =  $request->select_categoria;
+
 
         if (isset($request->tx_imagem) && !empty($request->tx_imagem)) {
             $imagevalidator = Validator::make($request->all(), [
-                // 'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 ', new CheckImage(1440, 500)],
-                'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 '],
+                // 'tx_imagem' => ['mimes:jpg,jpeg,png', 'max:1024 ', new CheckImage(1440, 500)],
+                'tx_imagem' => ['mimes:jpg,jpeg,png', 'max:1024 '],
             ]);
             if ($imagevalidator->fails()) {
                 return redirect()->back()->with('error', $imagevalidator->messages());
             } else {
-                $image = $this->upload($request->tx_imagem, 'blog', 'image');
+                $image = $this->upload($request->tx_imagem, 'blog', $post->tx_slug);
                 if (!$image) {
                     return response()->json("Ocorreu um erro ao enviar o arquivo", 400);
                 }
@@ -109,23 +115,27 @@ class BlogController extends Controller {
             'tx_conteudo' => 'required',
         ]);
 
+        if($request->tx_conteudo && $request->file('postImages')){
+            $request->tx_conteudo = $this->handleQuillImages($request->tx_conteudo,$request->file('postImages'),'blog/content');
+        }
+
         $post->tx_titulo = $request->tx_titulo;
         $post->tx_slug = Str::slug($request->tx_titulo, '-');
         $post->tx_conteudo = $request->tx_conteudo;
+        $post->tx_resumo = $request->tx_resumo ;
         $post->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
 
-        $post->fk_id_categoria =  $request->select_categoria;
-        $post->fk_id_autor =  1;
+        $post->id_categoria =  $request->select_categoria;
 
         if (isset($request->tx_imagem) && !empty($request->tx_imagem)) {
             $imagevalidator = Validator::make($request->all(), [
-                // 'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 ', new CheckImage(1440, 500)],
-                'banner.0' => ['mimes:jpg,jpeg,png', 'max:1024 '],
+                // 'tx_imagem' => ['mimes:jpg,jpeg,png', 'max:1024 ', new CheckImage(1440, 500)],
+                'tx_imagem' => ['mimes:jpg,jpeg,png', 'max:1024 '],
             ]);
             if ($imagevalidator->fails()) {
                 return redirect()->back()->with('error', $imagevalidator->messages());
             } else {
-                $image = $this->upload($request->tx_imagem, 'blog', 'image');
+                $image = $this->upload($request->tx_imagem, 'blog', $post->tx_slug);
                 if (!$image) {
                     return response()->json("Ocorreu um erro ao enviar o arquivo", 400);
                 }
@@ -142,7 +152,9 @@ class BlogController extends Controller {
 
     public function delete(BlogPost $post)
     {
-       $post->delete();
+        $post->st_publicado = 'EXCLUIDO';
+        $post->dh_atualizado = Carbon::now()->toDateTimeString();
+        $post->save();
        return redirect('/admin/blog')->with('msg-sucess', 'Post excluido com sucesso');
     }
 
@@ -152,7 +164,7 @@ class BlogController extends Controller {
     {
         // $btnCreate = ['name' => 'Novo', 'link' =>  route('blog.categoria.create') ];
 
-        $categorias = BlogCategoria::whereNotIn('st_publicado', ['EXCLUIDO'])->paginate(20);
+        $categorias = BlogCategoria::whereNotIn('st_publicado', ['EXCLUIDO'])->orderBy('tx_blog_categoria')->paginate(20);
 
         return view('admin.blog.categoria.index', ['categorias' => $categorias]);
     }
@@ -203,6 +215,7 @@ class BlogController extends Controller {
         $btnCreate = ['name' => 'Novo', 'link' =>  route('blog.post.create') ];
 
         $categorias = BlogCategoria::where('tx_blog_categoria', 'LIKE', '%' . $request->search . '%')
+        ->orderBy('tx_blog_categoria')
         ->whereNotIn('st_publicado', ['EXCLUIDO'])
         ->paginate(15);
 
@@ -213,15 +226,16 @@ class BlogController extends Controller {
     public function export(Request $request)
     {
         $fileName = 'blog-'.str_replace(' ', '_', now()).'.csv';
-        $posts = BlogPost::with('categoria','autor')->get();
+        $posts = BlogPost::whereNotIn('st_publicado', ['EXCLUIDO'])->with('categoria')->get();
 
         $search = $request->search;
         if($search){
             $posts = BlogPost::where('tx_titulo', 'LIKE', '%' . $request->search . '%')
+            ->whereNotIn('st_publicado', ['EXCLUIDO'])
             ->orWhereHas('categoria', function ($query) use ($request) {
                 $query->where('tx_blog_categoria', 'LIKE', '%'. $request->search .'%');
             })
-            ->with('categoria','autor')
+            ->with('categoria')
             ->get();
         }
 
@@ -233,7 +247,7 @@ class BlogController extends Controller {
             "Expires"             => "0"
         );
 
-        $columns = array( 'ID', mb_convert_encoding('Título', "iso-8859-15"), mb_convert_encoding('Conteúdo', "iso-8859-15"), 'Categoria', 'Autor', 'Imagem','Data de cadastro', mb_convert_encoding('Data de atualização', "iso-8859-15"),'Status');
+        $columns = array( 'ID', mb_convert_encoding('Título', "iso-8859-15"), mb_convert_encoding('Conteúdo', "iso-8859-15"), 'Categoria', 'Imagem','Data de cadastro', mb_convert_encoding('Data de atualização', "iso-8859-15"),'Status');
 
         $callback = function() use($posts, $columns) {
             $file = fopen('php://output', 'w');
@@ -244,7 +258,6 @@ class BlogController extends Controller {
                 $row['Título']    = mb_convert_encoding($post->tx_titulo, "iso-8859-15") ;
                 $row['Conteúdo']    = mb_convert_encoding($post->tx_conteudo, "iso-8859-15");
                 $row['Categoria']    = mb_convert_encoding($post->categoria->tx_blog_categoria, "iso-8859-15");
-                $row['Autor']    = mb_convert_encoding($post->autor->tx_nome, "iso-8859-15");
                 $row['Imagem']    = $post->tx_imagem;
                 $row['Data de cadastro']  = $post->dh_cadastro;
                 $row['Data de atualização']  = $post->dh_atualizado == '0000-00-00 00:00:00' ? '' : $post->dh_atualizado;
@@ -256,7 +269,6 @@ class BlogController extends Controller {
                     $row['Título'],
                     $row['Conteúdo'],
                     $row['Categoria'],
-                    $row['Autor'],
                     $row['Imagem'],
                     $row['Data de cadastro'],
                     $row['Data de atualização'],
@@ -269,4 +281,5 @@ class BlogController extends Controller {
 
         return response()->stream($callback, 200, $headers);
     }
+
 }

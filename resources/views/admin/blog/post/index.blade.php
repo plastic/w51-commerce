@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Blog')
+@section('title', 'Posts')
 
 @section('vendor-style')
     {{-- vendor css files --}}
@@ -35,7 +35,7 @@
         <div class="card-body">
             <div class="row align-items-center">
 
-                <div class="col-md-9 col-12">
+                <div class="col-12">
                     <form method="POST" action="{{ route('blog.search') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group">
@@ -48,20 +48,6 @@
                             <button class="btn btn-outline-primary" type="submit">Buscar</button>
                         </div>
                     </form>
-                </div>
-
-                <div class=" col-md-3">
-                    <div class="d-flex justify-content-end">
-                        <a class="nav-link" href="{{route('blog.export', ['search' => isset($search) ? $search : ''] ) }}">
-                            <div class="btn-export">
-                                <button class="btn btn-primary ag-grid-export-btn d-flex align-items-center">
-                                    <i data-feather='pie-chart' class="font-medium-3 me-50"></i>
-                                    <span class="fw-bold">Exportar</span>
-                                </button>
-                            </div>
-                        </a>
-
-                    </div>
                 </div>
 
 
@@ -83,7 +69,6 @@
                                         <th class="bg-primary"></th>
                                         <th class="bg-primary text-white">Título</th>
                                         <th class="bg-primary text-white">Categoria</th>
-                                        <th class="bg-primary text-white">Autor</th>
                                         <th class="bg-primary text-white">Data de Cadastro</th>
                                         <th class="bg-primary text-white text-center">Status</th>
 
@@ -102,7 +87,7 @@
                                             </td>
                                             <td>{{ $post->tx_titulo }}</td>
                                             <td>{{ $post->categoria->tx_blog_categoria }}</td>
-                                            <td>{{ $post->autor->tx_nome }}</td>
+
                                             <td>{{ date('d/m/Y H:i', strtotime($post->dh_cadastro))}}</td>
 
 
