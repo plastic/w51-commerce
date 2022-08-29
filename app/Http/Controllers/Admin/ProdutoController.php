@@ -46,9 +46,9 @@ class ProdutoController extends Controller
         $produto->id_marca = $request->id_marca;
         $produto->tp_produto = $request->tp_produto;
         $produto->tx_produto = $request->tx_produto;
-        $produto->tx_slug =  $this->generateSlug($request->tx_produto);
+        // $produto->tx_slug =  $this->generateSlug('tx_slug',$request->tx_produto);
 
-        $produto->tx_url = $this->generateSlug($request->tx_url);
+        $produto->tx_url = $this->generateSlug('tx_url',$request->tx_url);
         $produto->tx_title = $request->tx_title;
         $produto->tx_meta_description = $request->tx_meta_description;
         $produto->tx_descricao = $request->tx_descricao;
@@ -126,12 +126,15 @@ class ProdutoController extends Controller
 
 
         $produtoVariante->save();
+
+        $produto->id_produto_variante = $produtoVariante->id_produto_variante;
+        $produto->save();
     }
 
-    private function generateSlug($name)
+    private function generateSlug($column , $texto)
     {
-        if (Produto::where('tx_slug', '=', $slug = Str::slug($name))->exists()) {
-            $max = Produto::where('tx_slug', $name)->latest('id_produto')->skip(1)->value('tx_slug');
+        if (Produto::where($column, '=', $slug = Str::slug($texto))->exists()) {
+            $max = Produto::where($column, $texto)->latest('id_produto')->skip(1)->value($column);
             if (isset($max[-1]) && is_numeric($max[-1])) {
                 return preg_replace_callback('/(\d+)$/', function ($mathces) {
                     return $mathces[1] + 1;

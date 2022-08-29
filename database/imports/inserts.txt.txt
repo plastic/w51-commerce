@@ -10,34 +10,39 @@ ENGINE=InnoDB
 AUTO_INCREMENT=2
 ;
 
-CREATE TABLE co_produto (
-    id_produto INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-    id_marca INT(11) UNSIGNED NULL DEFAULT NULL,
-    tp_produto ENUM('FISICO','VIRTUAL') NOT NULL COLLATE 'utf8_general_ci',
-    tx_slug VARCHAR(250) NOT NULL COLLATE 'utf8_general_ci',
-    tx_produto VARCHAR(120) NOT NULL COLLATE 'utf8_general_ci',
-    tx_url VARCHAR(250) NOT NULL COLLATE 'utf8mb4_general_ci',
-    tx_title VARCHAR(250) NOT NULL COLLATE 'utf8mb4_general_ci',
-    tx_meta_description VARCHAR(256) NOT NULL DEFAULT '' COLLATE 'utf8mb4_general_ci',
-    tx_descricao TEXT NOT NULL COLLATE 'utf8_general_ci',
-    tx_url_video VARCHAR(120) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
-    tp_venda ENUM('ILIMITADA','ESTOQUE') NOT NULL COLLATE 'utf8_general_ci',
-    tp_produto_variante ENUM('SIM','NAO') NOT NULL COLLATE 'utf8_general_ci',
-    nr_total_variantes INT(3) NOT NULL DEFAULT '0',
-    tp_destaque ENUM('SIM','NAO') NOT NULL COLLATE 'utf8_general_ci',
-    tp_google_xml ENUM('SIM','NAO') NOT NULL COLLATE 'utf8_general_ci',
-    tp_correio_envio ENUM('SIM','NAO') NOT NULL DEFAULT 'SIM' COLLATE 'utf8_general_ci',
-    st_publicado ENUM('ATIVO','INATIVO','EXCLUIDO') NOT NULL DEFAULT 'ATIVO' COLLATE 'utf8_general_ci',
-    dh_cadastro DATETIME NOT NULL,
-    PRIMARY KEY (id_produto) USING BTREE,
-    UNIQUE INDEX tx_url (tx_url) USING BTREE,
-    INDEX pk_marca_id_marca (id_marca) USING BTREE,
-    CONSTRAINT pk_marca_id_marca FOREIGN KEY (id_marca) REFERENCES w51_commerce.co_marca (id_marca) ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE `co_produto` (
+	`id_produto` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`id_marca` INT(11) UNSIGNED NULL DEFAULT NULL,
+	`id_produto_variante` INT(11) UNSIGNED NULL DEFAULT NULL,
+	`tp_produto` ENUM('FISICO','VIRTUAL') NOT NULL COLLATE 'utf8_general_ci',
+	`tx_produto` VARCHAR(120) NOT NULL COLLATE 'utf8_general_ci',
+	`tx_url` VARCHAR(250) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`tx_title` VARCHAR(250) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`tx_meta_description` VARCHAR(256) NOT NULL DEFAULT '' COLLATE 'utf8mb4_general_ci',
+	`tx_descricao` TEXT NOT NULL COLLATE 'utf8_general_ci',
+	`tx_url_video` VARCHAR(120) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
+	`tp_venda` ENUM('ILIMITADA','ESTOQUE') NOT NULL COLLATE 'utf8_general_ci',
+	`tp_produto_variante` ENUM('SIM','NAO') NOT NULL COLLATE 'utf8_general_ci',
+	`nr_total_variantes` INT(3) NOT NULL DEFAULT '0',
+	`tp_destaque` ENUM('SIM','NAO') NOT NULL COLLATE 'utf8_general_ci',
+	`tp_google_xml` ENUM('SIM','NAO') NOT NULL COLLATE 'utf8_general_ci',
+	`tp_correio_envio` ENUM('SIM','NAO') NOT NULL DEFAULT 'SIM' COLLATE 'utf8_general_ci',
+	`st_publicado` ENUM('ATIVO','INATIVO','EXCLUIDO','RASCUNHO') NOT NULL DEFAULT 'ATIVO' COLLATE 'utf8_general_ci',
+	`dh_cadastro` DATETIME NOT NULL,
+	PRIMARY KEY (`id_produto`) USING BTREE,
+	UNIQUE INDEX `tx_url` (`tx_url`) USING BTREE,
+	INDEX `pk_marca_id_marca` (`id_marca`) USING BTREE,
+	INDEX `pk_produto_id_produto_variante` (`id_produto_variante`) USING BTREE,
+	CONSTRAINT `pk_marca_id_marca` FOREIGN KEY (`id_marca`) REFERENCES `w51_commerce`.`co_marca` (`id_marca`) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT `pk_produto_id_produto_variante` FOREIGN KEY (`id_produto_variante`) REFERENCES `w51_commerce`.`co_produto_variante` (`id_produto_variante`) ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=52
+AUTO_INCREMENT=74
 ;
+
+
+
 CREATE TABLE co_produto_categoria (
     id_produto INT(11) UNSIGNED NOT NULL,
     id_categoria INT(11) UNSIGNED NOT NULL,
