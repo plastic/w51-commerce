@@ -605,7 +605,7 @@
 
                                                         </label>
                                                         <input class="uploadImage" type="file" name="foto"
-                                                            onchange="PreviewImage(this, $(this).attr('name'));">
+                                                            onchange="PreviewImage(this);">
                                                     </div>
 
                                                 </td>
@@ -1024,17 +1024,14 @@
             label.siblings('input').click();
         }
 
-        function PreviewImage(input, este) {
-            console.log(input);
-            console.log(este);
+        function PreviewImage(input) {
+
             var oFReader = new FileReader();
             oFReader.readAsDataURL(input.files[0]);
 
             oFReader.onload = function(oFReader) {
                 console.log(input.parentElement.querySelector('.uploadPreview'));
                 input.parentElement.querySelector('.uploadPreview').src = oFReader.target.result;
-                //input.parent.find('.uploadImage').attr('src', oFReader.target.result)
-                // document.getElementById($this).src = oFREvent.target.result;
             };
         }
     </script>
