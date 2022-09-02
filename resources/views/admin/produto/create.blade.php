@@ -598,14 +598,14 @@
                                                     </div> --}}
 
                                                     <div class="image-upload">
-                                                        <label for="uploadImage">
+                                                        <label onclick="clickInput($(this));">
 
                                                             <img src="https://i.pinimg.com/originals/54/38/19/543819d33dfcfe997f6c92171179e4cd.png"
                                                                 class="uploadPreview" style="width: 45px; height: 45px;">
 
                                                         </label>
-                                                        <input id="uploadImage" type="file" name="foto"
-                                                            onchange="PreviewImage(this);">
+                                                        <input class="uploadImage" type="file" name="foto"
+                                                            onchange="PreviewImage(this, $(this).attr('name'));">
                                                     </div>
 
                                                 </td>
@@ -1020,15 +1020,20 @@
         //     };
         // };
 
+        function clickInput(label){
+            label.siblings('input').click();
+        }
 
-        function PreviewImage(input) {
-
-
+        function PreviewImage(input, este) {
+            console.log(input);
+            console.log(este);
             var oFReader = new FileReader();
             oFReader.readAsDataURL(input.files[0]);
 
             oFReader.onload = function(oFReader) {
-                input.parent.find('.uploadImage').attr('src', oFReader.target.result)
+                console.log(input.parentElement.querySelector('.uploadPreview'));
+                input.parentElement.querySelector('.uploadPreview').src = oFReader.target.result;
+                //input.parent.find('.uploadImage').attr('src', oFReader.target.result)
                 // document.getElementById($this).src = oFREvent.target.result;
             };
         }
