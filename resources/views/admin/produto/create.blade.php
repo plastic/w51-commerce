@@ -548,7 +548,7 @@
                                     <table>
                                         <thead class="text-center">
                                             <tr>
-                                                <th class="bg-primary text-white rounded-start p-1 w-330px">Imagem</th>
+                                                <th class="bg-primary text-white rounded-start p-1 w-330px column-image-upload">Imagem</th>
                                                 <th class="bg-primary text-white p-1 w-230px">Nome</th>
 
 
@@ -577,7 +577,7 @@
                                         <tbody data-repeater-list="invoice">
 
                                             <tr data-repeater-item>
-                                                <td>
+                                                <td class="column-image-upload">
 
                                                     {{-- <div class="image-upload">
                                                         <label for="uploadImage">
@@ -998,9 +998,11 @@
 
             if ($(this).is(':checked')) {
                 $('#uploadImageProduto').hide();
+                $('.linha .column-image-upload').show();
 
             } else {
                 $('#uploadImageProduto').show();
+                $('.linha .column-image-upload').hide();
             }
         });
     </script>
