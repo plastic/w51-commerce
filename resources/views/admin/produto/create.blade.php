@@ -232,23 +232,27 @@
                                     Suba aqui as imagens do produto<code>1440x500 | jpg.png</code>
                                 </p>
 
-                                <div id="actions" class="dropzone dropzone-area">
-                                    <div id="allImagesWrapper" class="col-lg-12 d-flex actions">
 
-                                    </div>
-                                    <label class="custom-file-label" for="files">
-                                        <div class="dz-message " id="dz-message">Clique aqui ou arraste as imagens.
+                                <div id="produtcimages">
+                                    <div id="actions" class="dropzone dropzone-area">
+                                        <div id="allImagesWrapper" class="col-lg-12 d-flex actions">
+
                                         </div>
-                                    </label>
-                                    <div class="col-lg-12">
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-images-input" id="files"
-                                                    name="images[]" hidden multiple limit=4 filesize=1500>
+                                        <label class="custom-file-label" for="files">
+                                            <div class="dz-message " id="dz-message">Clique aqui ou arraste as imagens.
+                                            </div>
+                                        </label>
+                                        <div class="col-lg-12">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-images-input" id="files"
+                                                        name="images[]" hidden multiple limit=4 filesize=1500>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <input type="hidden" id="serialized" name="serialized">
 
@@ -466,23 +470,10 @@
                                     Suba aqui as imagens do produto<code>1440x500 | jpg.png</code>
                                 </p>
 
-                                <div id="actions" class="dropzone dropzone-area">
-                                    <div id="allImagesWrapper" class="col-lg-12 d-flex actions">
+                                <div id="variationimages">
 
-                                    </div>
-                                    <label class="custom-file-label" for="files">
-                                        <div class="dz-message " id="dz-message">Clique aqui ou arraste as imagens.
-                                        </div>
-                                    </label>
-                                    <div class="col-lg-12">
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-images-input" id="files"
-                                                    name="images[]" hidden multiple limit=4 filesize=1500>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
+
 
                                 <input type="hidden" id="serialized" name="serialized">
 
@@ -704,6 +695,10 @@
                                 <button type="reset" class="btn btn-outline-secondary"
                                     data-bs-dismiss="modal">Cancelar</button>
 
+                                <a class="btn btn-primary btn-prev">
+                                    <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
+                                    <span class="align-middle d-sm-inline-block d-none">Detalhes</span>
+                                </a>
 
                                 <a class="btn btn-primary btn-next ms-auto" id="variacoes-buttton" style="display:none">
                                     <span class="align-middle d-sm-inline-block d-none">Variações</span>
@@ -821,6 +816,7 @@
                 $('#variacoes-buttton').show();
                 $('.prices, .stock, .dimensoes').hide();
                 $('#product-buttton').hide();
+                $('#produtcimages #actions').appendTo('#variationimages');
             } else {
                 $('#personal-info-trigger').hide();
                 $('#personal-info-trigger-arrow').hide();
@@ -828,6 +824,7 @@
                 $('#variacoes-buttton').hide();
                 $('.prices, .stock, .dimensoes').show();
                 $('#product-buttton').show();
+                $('#variationimages #actions').appendTo('#produtcimages');
             }
         });
 
