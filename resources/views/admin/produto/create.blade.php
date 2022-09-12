@@ -57,6 +57,10 @@
         width: 100%;
     }
 
+    .linha td {
+        padding-right: 8px !important;
+    }
+
 
     /* width */
     .linha::-webkit-scrollbar {
@@ -144,15 +148,15 @@
 
                             <div class="mb-1 col-12">
                                 <label class="form-label">Nome do produto</label>
-                                <input type="text" class="form-control" name="tx_produto" placeholder="Nome"
-                                    maxlength="250" value="{{ old('tx_produto') }}" />
+                                <input type="text" class="form-control" name="tx_produto" id="tx_descricao"
+                                    placeholder="Nome" maxlength="250" value="{{ old('tx_produto') }}" />
                             </div>
 
                             <div class="mb-1 col-12 mb-5 pb-3">
                                 <label class="form-label">Descrição</label>
                                 <div id="editor">
                                 </div>
-                                <textarea name="tx_descricao" style="display:none" id="hiddenTextArea">{{ old('tx_produto') }}</textarea>
+                                <textarea name="tx_descricao" style="display:none" id="hiddenTextArea">{{ old('tx_descricao') }}</textarea>
                             </div>
 
                             <div class="col-md-6 ">
@@ -334,42 +338,43 @@
 
                         <hr class="my-2 dimensoes">
 
-                        <div class="row dimensoes">
+                        <div class="dimensoes" id="peso-dimensoes-1">
                             <h4 class="card-title">Peso e dimensões</h4>
+                            <div class="row" id="peso-dimensoes">
 
-                            <div class="col-md-2">
-                                <label class="form-check-label mb-50">Peso</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="nr_peso"
-                                        value="{{ old('nr_peso') }}">
-                                    <span class="input-group-text">Kg</span>
+                                <div class="col-md-2">
+                                    <label class="form-check-label mb-50">Peso</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="nr_peso"
+                                            value="{{ old('nr_peso') }}">
+                                        <span class="input-group-text">Kg</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-check-label mb-50">Altura</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="nr_altura"
+                                            value="{{ old('nr_altura') }}">
+                                        <span class="input-group-text">cm</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-check-label mb-50">Largura</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="nr_largura"
+                                            value="{{ old('nr_largura') }}">
+                                        <span class="input-group-text">cm</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-check-label mb-50">Profundidade</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="nr_profundidade"
+                                            value="{{ old('nr_profundidade') }}">
+                                        <span class="input-group-text">cm</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <label class="form-check-label mb-50">Altura</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="nr_altura"
-                                        value="{{ old('nr_altura') }}">
-                                    <span class="input-group-text">cm</span>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-check-label mb-50">Largura</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="nr_largura"
-                                        value="{{ old('nr_largura') }}">
-                                    <span class="input-group-text">cm</span>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-check-label mb-50">Profundidade</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="nr_profundidade"
-                                        value="{{ old('nr_profundidade') }}">
-                                    <span class="input-group-text">cm</span>
-                                </div>
-                            </div>
-
                         </div>
 
                         <hr class="my-2">
@@ -417,8 +422,8 @@
 
                         <div class="d-flex justify-content-between mt-3">
 
-                            <button type="reset" class="btn btn-outline-secondary"
-                                data-bs-dismiss="modal">Cancelar</button>
+                            {{-- <button type="reset" class="btn btn-outline-secondary"
+                                data-bs-dismiss="modal">Cancelar</button> --}}
 
 
                             <a class="btn btn-primary btn-next ms-auto" id="variacoes-buttton" style="display:none">
@@ -460,12 +465,12 @@
                                         <h4 class="card-title">Cada variação possui foto diferente?</h4>
                                     </div>
                                     <div class="form-check form-check-success form-switch ms-1">
-                                        <input type="checkbox" class="form-check-input" id="checkUploadImage" />
+                                        <input type="checkbox" checked class="form-check-input" id="checkUploadImage" />
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-12" id="uploadImageProduto">
+                            <div class="col-12" id="uploadImageProduto" style="display: none">
                                 <p class="card-text">
                                     Suba aqui as imagens do produto<code>1440x500 | jpg.png</code>
                                 </p>
@@ -492,47 +497,15 @@
                                             dimenções?</h4>
                                     </div>
                                     <div class="form-check form-check-success form-switch ms-1">
-                                        <input type="checkbox" checked class="form-check-input" id="peso-dimencoes-check"
-                                            name="peso_dimencoes_check" />
+                                        <input type="checkbox" checked class="form-check-input" id="peso-dimensoes-check"
+                                            name="peso_dimensoes_check" />
                                     </div>
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="row mt-1" id="peso-dimencoes-2" style="display:none">
-                            <div class="col-md-2">
-                                <label class="form-check-label mb-50">Peso</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="nr_peso"
-                                        value="{{ old('nr_peso') }}">
-                                    <span class="input-group-text">Kg</span>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-check-label mb-50">Altura</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="nr_altura"
-                                        value="{{ old('nr_altura') }}">
-                                    <span class="input-group-text">cm</span>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-check-label mb-50">Largura</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="nr_largura"
-                                        value="{{ old('nr_largura') }}">
-                                    <span class="input-group-text">cm</span>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-check-label mb-50">Profundidade</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="nr_profundidade"
-                                        value="{{ old('nr_profundidade') }}">
-                                    <span class="input-group-text">cm</span>
-                                </div>
-                            </div>
+                        <div id="peso-dimensoes-2">
 
                         </div>
                         <hr class="my-2">
@@ -542,15 +515,17 @@
                             </div>
                         </div>
 
-                        <div action="#" class="row invoice-repeater">
+                        <div action="#" class="row variante-repeater">
                             <div class="col-12">
                                 <div class="linha">
                                     <table>
                                         <thead class="text-center">
                                             <tr>
-                                                <th class="bg-primary text-white rounded-start p-1 w-330px column-image-upload">Imagem</th>
+                                                <th class="bg-primary text-white rounded-start p-1 column-image-upload">
+                                                    Principal</th>
+                                                <th class="bg-primary text-white p-1 column-image-upload">Status</th>
+                                                <th class="bg-primary text-white p-1 column-image-upload"> Imagem</th>
                                                 <th class="bg-primary text-white p-1 w-230px">Nome</th>
-
 
                                                 <th class="bg-primary text-white atributos-header p-1 w-230px">Cor</th>
                                                 <th class="bg-primary text-white atributos-header p-1 w-230px">Tamanho</th>
@@ -574,25 +549,26 @@
                                                 <th class="bg-primary text-white rounded-end"></th>
                                             </tr>
                                         </thead>
-                                        <tbody data-repeater-list="invoice">
+                                        <tbody data-repeater-list="variante">
 
                                             <tr data-repeater-item>
+                                                <td class="d-flex justify-content-center mt-1">
+                                                    <input class="form-check-input" checked type="radio"
+                                                        name="principal" onclick="clickRadio($(this));" />
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-success form-switch ms-1">
+                                                        <input type="checkbox" checked class="form-check-input"
+                                                            name="status" />
+                                                    </div>
+                                                </td>
+
                                                 <td class="column-image-upload">
-
-                                                    {{-- <div class="image-upload">
-                                                        <label for="uploadImage">
-                                                            <img src="https://i.pinimg.com/originals/54/38/19/543819d33dfcfe997f6c92171179e4cd.png"
-                                                                id="uploadPreview" style="width: 45px; height: 45px;">
-                                                        </label>
-                                                        <input id="uploadImage" type="file" name="foto"
-                                                            onchange="PreviewImage();">
-                                                    </div> --}}
-
-                                                    <div class="image-upload">
+                                                    <div class="image-upload text-center">
                                                         <label onclick="clickInput($(this));">
 
-                                                            <img src="https://i.pinimg.com/originals/54/38/19/543819d33dfcfe997f6c92171179e4cd.png"
-                                                                class="uploadPreview" style="width: 45px; height: 45px;">
+                                                            <img src="{{ asset('imagens/upload-image.png') }}"
+                                                                class="uploadPreview" style="width: 40px; height: 40px;">
 
                                                         </label>
                                                         <input class="uploadImage" type="file" name="foto"
@@ -617,23 +593,22 @@
                                                     </select>
                                                 </td>
 
-
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm w-87px"
-                                                        name="preco_custo" />
+                                                        name="preco_custo" id="number-validate" />
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm w-87px"
-                                                        name="preco_de" />
+                                                        name="preco_de" id="number-validate" />
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm w-87px"
-                                                        name="preco_por" />
+                                                        name="preco_por" id="number-validate" />
                                                 </td>
 
                                                 <td>
                                                     <input type="text" class="form-control form-control-sm"
-                                                        name="quantidade" />
+                                                        name="quantidade" id="number-validate" />
                                                 </td>
 
                                                 <td>
@@ -682,7 +657,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-12 mt-3 ">
+                            <div class="d-flex justify-content-center mt-2">
                                 <button type="button" class="btn btn-icon btn-primary" id="addNewRow"
                                     data-repeater-create>
                                     <i data-feather="plus" class="me-25"></i>
@@ -744,6 +719,51 @@
     <script src="{{ asset(mix('js/scripts/forms/form-select2.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/sortable/html5sortable.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-images.js')) }}"></script>
+    {{-- <script src="{{ asset(mix('js/scripts/pages/page-admin-produto-validate.js')) }}"></script> --}}
+
+    <script>
+        $('#productForm').validate({
+            errorClass: 'text-danger',
+            rules: {
+                tx_produto: {
+                    required: true,
+                },
+                vl_preco_custo: {
+                    number: true
+                },
+                vl_preco_de: {
+                    number: true
+                },
+                vl_preco_por: {
+                    number: true
+                },
+                nr_peso: {
+                    number: true
+                },
+                nr_altura: {
+                    number: true
+                },
+                nr_largura: {
+                    number: true
+                },
+                nr_profundidade: {
+                    number: true
+                },
+                'categorias[]': {
+                    required: true,
+                    minlength: 1
+                },
+            },
+            messages: {
+                tx_produto: {
+                    required: 'Insira o nome do produto',
+                },
+                'categorias[]': {
+                    required: 'Selecione pelo menos uma categoria',
+                }
+            }
+        });
+    </script>
 
     <script>
         var toolbarOptions = [
@@ -800,31 +820,31 @@
         });
 
         quill.on('text-change', function(delta, oldDelta, source) {
-            console.log(quill.container.firstChild.innerHTML)
+            // console.log(quill.container.firstChild.innerHTML)
             $('#hiddenTextArea').val(quill.container.firstChild.innerHTML);
         });
-
-        $('.select2-search__field').css('width', '100%');
 
         $('#tp_variacao').change(function() {
 
             if ($(this).is(':checked')) {
-                console.log('Com variação')
                 $('#personal-info-trigger').show();
                 $('#personal-info-trigger-arrow').show();
-                $('#peso-dimencoes-2').show();
                 $('#variacoes-buttton').show();
                 $('.prices, .stock, .dimensoes').hide();
                 $('#product-buttton').hide();
+
                 $('#produtcimages #actions').appendTo('#variationimages');
+                $('#peso-dimensoes-1 #peso-dimensoes').appendTo('#peso-dimensoes-2');
             } else {
                 $('#personal-info-trigger').hide();
                 $('#personal-info-trigger-arrow').hide();
-                $('#peso-dimencoes-2').hide();
+
                 $('#variacoes-buttton').hide();
                 $('.prices, .stock, .dimensoes').show();
                 $('#product-buttton').show();
+
                 $('#variationimages #actions').appendTo('#produtcimages');
+                $('#peso-dimensoes-2 #peso-dimensoes').appendTo('#peso-dimensoes-1');
             }
         });
 
@@ -839,7 +859,6 @@
         });
 
         $('input[name=product_type]').change(function() {
-            console.log($(this).val());
 
             if ($(this).val() == 'fisico') {
                 $('.dimensoes').show();
@@ -852,19 +871,7 @@
 
         var wizardExample = document.querySelector('.horizontal-example')
 
-        // $('#productForm').validate({
-        //     errorClass: 'text-danger',
-        //     rules: {
-        //         tx_produto: {
-        //             required: true,
-        //         }
-        //     },
-        //     messages: {
-        //         tx_produto: {
-        //             required: 'Insira o nome do produto',
-        //         }
-        //     }
-        // });
+
 
         if (typeof wizardExample !== undefined && wizardExample !== null) {
             var numberedStepper = new Stepper(wizardExample, {
@@ -876,7 +883,7 @@
                 .each(function() {
                     $(this).on('click', function(e) {
                         var isValid = $('#productForm').valid()
-                        console.log(isValid);
+                        // console.log(isValid);
                         if (isValid) {
                             numberedStepper.next()
                         } else {
@@ -901,13 +908,10 @@
         }
     </script>
 
-
-    <script type="text/javascript">
-        $(document).ready(function() {
+    <script>
+        $(function() {
 
             var json = <?php echo json_encode($departamentos); ?>;
-
-            console.log(json);
 
             $.each(json, function(i, departamento) {
                 $(".select-dep-cat").append('<option disabled>' + departamento.tx_departamento +
@@ -923,7 +927,7 @@
                 $.each(categoria, function(i, categoria, ) {
                     espacos = ' &nbsp; &nbsp;'.repeat(level);
 
-                    $(".select-dep-cat").append('<option value="' + categoria.id_categoria + '">' +
+                    $(".select-dep-cat").append('<option value=" ' + categoria.id_categoria + ' ">' +
                         espacos + categoria.tx_categoria + '</option>');
 
                     if (categoria.all_children.length != 0) {
@@ -932,17 +936,16 @@
                         level = 1;
                     }
                 });
-
             }
 
         });
     </script>
 
+    //Repeater
     <script>
-        $('.invoice-repeater, .repeater-default').repeater({
+        $('.variante-repeater').repeater({
             show: function() {
                 $(this).slideDown();
-
 
             },
             hide: function(deleteElement) {
@@ -955,18 +958,17 @@
 
     <script>
         $('#addNewRow').click(function() {
-            var checkBoxes = $("#peso-dimencoes-check");
-            // checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+            $(".variante-repeater input:checkbox:last").prop('checked', true);
+            var checkBoxes = $("#peso-dimensoes-check");
             if (checkBoxes.is(':checked')) {
-                $('#peso-dimencoes-2').show();
+                // $('#peso-dimensoes-2').show();
                 $('.atributos-header').hide();
                 $('.atributos-input').hide();
                 $('.dimensoes-header').hide();
                 $('.dimensoes-input').hide();
 
             } else {
-                $('#peso-dimencoes-2').hide();
-
+                // $('#peso-dimensoes-2').hide();
                 $('.atributos-header').show();
                 $('.atributos-input').show();
                 $('.dimensoes-header').show();
@@ -975,10 +977,9 @@
         });
 
 
-        $('#peso-dimencoes-check').change(function() {
-
+        $('#peso-dimensoes-check').change(function() {
             if ($(this).is(':checked')) {
-                $('#peso-dimencoes-2').show();
+                $('#peso-dimensoes-2').show();
 
                 $('.atributos-header').hide();
                 $('.atributos-input').hide();
@@ -986,7 +987,7 @@
                 $('.dimensoes-input').hide();
 
             } else {
-                $('#peso-dimencoes-2').hide();
+                $('#peso-dimensoes-2').hide();
 
                 $('.atributos-header').show();
                 $('.atributos-input').show();
@@ -1007,19 +1008,9 @@
         });
     </script>
 
+    //upload and preview imagem in variante
     <script>
-        // PREVIEW FOTO
-        // function PreviewImage() {
-
-        //     var oFReader = new FileReader();
-        //     oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
-
-        //     oFReader.onload = function(oFREvent) {
-        //         document.getElementById("uploadPreview").src = oFREvent.target.result;
-        //     };
-        // };
-
-        function clickInput(label){
+        function clickInput(label) {
             label.siblings('input').click();
         }
 
@@ -1029,10 +1020,40 @@
             oFReader.readAsDataURL(input.files[0]);
 
             oFReader.onload = function(oFReader) {
-                console.log(input.parentElement.querySelector('.uploadPreview'));
+                // console.log(input.parentElement.querySelector('.uploadPreview'));
                 input.parentElement.querySelector('.uploadPreview').src = oFReader.target.result;
             };
         }
+    </script>
+
+    <script>
+        function clickRadio(radio) {
+            $(".variante-repeater input:radio").prop('checked', false);
+            radio.prop('checked', true);
+        }
+    </script>
+
+    // generate slug name in url
+    <script>
+        $("input[name=tx_produto]").keyup(function() {
+            var str = $(this).val();
+            str = str.replace(/^\s+|\s+$/g, ''); // trim
+            str = str.toLowerCase();
+
+            // remove accents, swap ñ for n, etc
+            var from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+            var to = "aaaaaeeeeeiiiiooooouuuunc------";
+            for (var i = 0, l = from.length; i < l; i++) {
+                str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+            }
+
+            str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+                .replace(/\s+/g, '-') // collapse whitespace and replace by -
+                .replace(/-+/g, '-'); // collapse dashes
+
+            $("input[name=tx_url]").val(str);
+
+        })
     </script>
 
 

@@ -46,9 +46,8 @@ class ProdutoController extends Controller
         $produto->id_marca = $request->id_marca;
         $produto->tp_produto = $request->tp_produto;
         $produto->tx_produto = $request->tx_produto;
-        // $produto->tx_slug =  $this->generateSlug('tx_slug',$request->tx_produto);
 
-        $produto->tx_url = 'sfdsdfs-sdf454-sdf';
+        $produto->tx_url = $this->generateSlug('tx_url', $request->tx_url);
         $produto->tx_title = $request->tx_title;
         $produto->tx_meta_description = $request->tx_meta_description;
         $produto->tx_descricao = $request->tx_descricao;
@@ -59,7 +58,7 @@ class ProdutoController extends Controller
         $produto->tp_google_xml = $request->tp_google_xml == 'on' ? 'SIM' : 'NAO';
         $produto->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
         $produto->dh_cadastro = Carbon::now()->toDateTimeString();
-        $produto->save();
+        // $produto->save();
         // $produto->categorias()->sync($request->categorias);
 
         // $produtoVariante = new ProdutoVariante();
@@ -76,9 +75,10 @@ class ProdutoController extends Controller
         // $produtoVariante->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
         // $produtoVariante->dh_cadastro = Carbon::now()->toDateTimeString();
 
-        foreach ($request->invoice as $variante) {
+        foreach ($request->variante as $variante) {
             $produtoVariante = new ProdutoVariante();
             $produtoVariante->id_produto = $produto->id_produto;
+            $produtoVariante->st_status = $produto->status == 'on' ? 'ATIVO' : 'INATIVO';
             $produtoVariante->vl_preco_custo = $variante['preco_custo'];
             $produtoVariante->vl_preco_de = $variante['preco_de'];
             $produtoVariante->vl_preco_por = $variante['preco_por'];
@@ -89,6 +89,16 @@ class ProdutoController extends Controller
             $produtoVariante->nr_altura = $variante['altura'] == null ? $request->nr_altura : $variante['altura'];
             $produtoVariante->nr_altura = $variante['largura'] == null ? $request->largura : $variante['largura'];
             $produtoVariante->nr_profundidade = $variante['profundidade'] == null ? $request->profundidade : $variante['profundidade'];
+
+            if($variante->file('foto')){
+                $file= $variante->file('foto');
+                $filename= date('YmdHi').$file->getClientOriginalName();
+                $file-> move(public_path('public/Image'), $filename);
+                $produtoVariante->tx_thumb = $filename;
+                $produtoVariante->tx_imagem_ = $filename;
+            }
+
+
             $produtoVariante->st_publicado = $request->st_publicado == 'on' ? 'ATIVO' : 'INATIVO';
             $produtoVariante->dh_cadastro = Carbon::now()->toDateTimeString();
             // $produtoVariante->save();
