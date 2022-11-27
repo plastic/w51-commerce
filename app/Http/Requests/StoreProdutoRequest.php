@@ -26,7 +26,7 @@ class StoreProdutoRequest extends FormRequest
         if($this->input('tp_produto_variante') != 'on'){
             return [
                 'tx_produto' => 'required|max:255',
-                'categoria[]' => 'required',
+                'categorias[]' => 'required',
                 'vl_preco_custo' => 'numeric|nullable',
                 'vl_preco_de' => 'required|numeric',
                 'vl_preco_por' => 'numeric|nullable',

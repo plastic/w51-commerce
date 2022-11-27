@@ -15,6 +15,7 @@ use App\Models\Admin\Departamento;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreProdutoRequest;
+use App\Models\Admin\Variante;
 use BaconQrCode\Renderer\Path\Path;
 
 class ProdutoController extends Controller
@@ -35,12 +36,13 @@ class ProdutoController extends Controller
         $breadcrumbs = [['name' => "Criar"]];
         $departamentos = Departamento::whereNotIn('st_publicado', ['EXCLUIDO'])->with('categorias')->get();
         $marcas = Marca::all();
+        $varitantes = Variante::all();
         return view('admin.produto.create', ['breadcrumbs' => $breadcrumbs, 'departamentos' => $departamentos, 'marcas' => $marcas]);
     }
 
     public function store(StoreProdutoRequest $request)
     {
-
+        
         $produto = new Produto();
 
         $produto->id_marca = $request->id_marca;
